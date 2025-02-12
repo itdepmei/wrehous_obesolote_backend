@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap');
+
+body,
+p,
+a,
+li,
+td,
+th,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+span,
+div,
+button,
+label,
+input,
+strong,
+textarea {
+  font-family: "Cairo", Avenir, Helvetica, Arial, sans-serif !important;
+  font-style: normal;
+  font-optical-sizing: auto
+}
+@media print {
+    @page {
+      size: A4;
+      margin: 20mm;
+    }
+}
+.container {
+    width: 170mm; /* A4 width minus 20mm margins on each side */
+    max-width: 170mm;
+    padding: 0;
+    margin: auto;
+     background-color: #eee;
+  }
+.displayLoGO{
+    display:flex ;
+
+}
+  .logo-circle {
+    display: flex;
+    justify-content:center;
+    align-items:last baseline;
+    gap: 5px;
+  }
+  .circleLogo {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+  }
+  .yellow {
+    background-color: #FFC107;
+  }
+  .purple {
+    background-color: #6A1B9A;
+    border-bottom-right-radius: 1px;
+  }
+  .light-purple {
+    background-color: #7F6AD2;
+    border-bottom-right-radius: 1px;
+  }
+  .light-yellow {
+    background-color: #FFEB3B;
+    border-bottom-right-radius: 1px;
+    border-bottom-left-radius: 1px;
+  }
+  td,
+  th {
+    border: 1px solid #dddddd;
+    padding: 8px;
+    direction: rtl;
+  }
+  tr:nth-child(even) {
+    background-color: #dddddd;
+  }
+
+ 
