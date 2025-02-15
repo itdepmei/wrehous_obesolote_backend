@@ -87,10 +87,11 @@ const getDataRoleIdAndPermission = async (req, res) => {
   let connection;
   try {
     // console.log(req.params.id);
+    const user_id = req.user._id;
     const pool = await connect();
     connection = await pool.getConnection();
     const [rows] = await connection.execute(getDataPermissionUserIdDataQuery, [
-      req.params.id,
+      user_id,
     ]);
     // console.log(rows);
 

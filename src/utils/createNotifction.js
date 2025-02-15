@@ -33,9 +33,7 @@ async function insertNotification(
   } catch (error) {
     console.error("Error inserting notification:", error.message);
     throw error; // Rethrow error for handling by calling function
-  } finally {
-    if (connection) connection.release(); // Use release() instead of end()
-  }
+  } 
 }
 // Function to get notifications by entity ID
 const fetchNotifications = async (entityId, category_id) => {

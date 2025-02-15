@@ -16,6 +16,21 @@ const validateInput = (body) => {
       throw new Error("رقم الهاتف يجب أن يكون 11 رقم");
     }
   };
+  /**
+   * Validate and sanitize the input data for user registration.
+   * @param {Object} data - The input data to validate and sanitize.
+   * @param {string} data.name - The user's name.
+   * @param {string} data.phone - The user's phone number.
+   * @param {number} data.ministries_id - The ministries id.
+   * @param {number} data.entities_id - The entities id.
+   * @param {number} data.address_id - The address id.
+   * @param {number} data.roleId - The role id.
+   * @param {string} [data.password] - The user's password.
+   * @param {string} data.email - The user's email.
+   * @param {number} data.dataId - The user's id.
+   * @returns {Object} - The sanitized data.
+   * @throws {Error} - If any of the required fields are missing.
+   */
   const validateInputEdit = (data) => {
     const {
       name,

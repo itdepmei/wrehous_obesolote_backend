@@ -96,7 +96,7 @@ const storeDataRegister = async (req, res) => {
 
       if (response.affectedRows > 0) {
         const logInfo = `تم إدراج المنتج ${trimmedName} من قبل المستخدم ${userAuth}`;
-        await createLogEntry(connection, 1, user_id, entity_id, logInfo); // Assuming createLogEntry is an async function
+        await createLogEntry(connection, 1, user_id, entity_id, logInfo,2); // Assuming createLogEntry is an async function
         return res.status(201).json({ message: "تم أضافة المادة بنجاح" });
       } else {
         return res.status(500).json({ message: "لم يتم إضافة المادة" });
@@ -321,7 +321,7 @@ const StorDataEdit = async (req, res) => {
 
       if (response.affectedRows > 0) {
         const logInfo = `تم تحديث المنتج "${trimmedName}" من قبل المستخدم "${userAuth}"، }`;
-        await createLogEntry(connection, 1, user_id, storeData_id, logInfo);
+        await createLogEntry(connection, 1, user_id, storeData_id, logInfo,2);
         return res.status(201).json({ message: "تم تحديث المادة بنجاح" });
       } else {
         return res
@@ -476,7 +476,8 @@ const handelQuintityNotifction = async () => {
           12, // Log type ID (adjust as needed)
           item.user_id,
           item.entity_id,
-          logInfo
+          logInfo,
+          2
         );
 
         // Trigger a Pusher event to notify clients

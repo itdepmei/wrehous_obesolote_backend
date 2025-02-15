@@ -122,7 +122,7 @@ const getUserByEmail = async (connection, email) => {
       [userId, refreshToken]
     );
     if (currentSession.length === 0) {
-      throw new Error("No active session found");
+      return null;
     }
     return currentSession;
   };

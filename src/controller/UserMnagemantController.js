@@ -1,11 +1,10 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const { connect } = require("../Config/db");
+const { connect, getConnection } = require("../Config/db");
 const {
   deleteItem,
   getInformation,
 } = require("../query/userMangeController-db");
-const { getDataRoleAndPermissionQuery } = require("../query/RoleQuery");
 const generateToken = require("../utils/genrateToken");
 const createLogEntry = require("../utils/createLog");
 const {
@@ -45,11 +44,7 @@ const {
 } = require("../validation/userValidtion");
 const { getPagination } = require("../utils/pagination");
 const { verifyToken } = require("../middleware/auth");
-const getConnection = async () => {
-  const pool = await connect();
-  const connection = await pool.getConnection();
-  return connection;
-};
+
 const registerUser = async (req, res) => {
   const {
     password,
@@ -144,6 +139,19 @@ const login = async (req, res) => {
       req
     );
     await logUserAction(connection, user.id, req);
+    
+    const getUserByIdQuery = `
+      SELECT * FROM user_id_application__permission_id
+      WHERE user_id = ?`;
+    
+    // Set query timeout to 5 seconds
+    const [applicationpermissionResponse] = await Promise.race([
+      connection.execute(getUserByIdQuery, [user.id]),
+      new Promise((_, reject) => 
+        setTimeout(() => reject(new Error('Query timeout')), 5000)
+      )
+    ]);
+
     const userResponse = await getUserDataById(connection, user.id);
     await connection.commit();
     setSecureCookies(res, accessToken, refreshToken, refreshTokenExp);
@@ -153,6 +161,7 @@ const login = async (req, res) => {
       accessToken: `Bearer ${accessToken}`,
       refreshToken,
       message: "Login successful",
+      applicationpermissionResponse
     });
   } catch (error) {
     if (connection && connection.connection._closing !== true) await connection.rollback();
@@ -389,35 +398,39 @@ const getDataUserManageBIdEntityWithoutLimit = async (req, res) => {
   }
 };
 const getUserById = async (req, res) => {
-  const user_id = req.user._id;
+  console.log("Fetching user data...");
+  const user_id = req.user?._id;
   if (!user_id) {
-    res.status(400).json({ message: "User ID is required" });
-    return;
+    return res.status(400).json({ message: "User ID is required" });
   }
+  let connection;
   try {
-    const connection = await getConnection();
+    connection = await getConnection();
     const getUserByIdQuery = `
       SELECT 
-        users_management.id AS user_id, 
-        users_management.user_name,
-        users_management.phone_number, 
-        users_management.email,
-        users_management.create_At,
-        entities.id AS entity_id, 
-        entities.Entities_name, 
-        ministries.id AS minister_id,
-        governorate.governorate_name, 
-        governorate.id AS address_id,
-        ministries.ministries
-      FROM users_management
-      LEFT JOIN entities ON users_management.entities_id = entities.id
-      LEFT JOIN ministries ON users_management.ministres_id = ministries.id
-      LEFT JOIN governorate ON users_management.address_id = governorate.id
-      WHERE users_management.id = ?`;
+        u.id AS user_id, 
+        u.user_name,
+        u.phone_number, 
+        u.email,
+        u.create_At,
+        e.id AS entity_id, 
+        e.Entities_name, 
+        m.id AS minister_id,
+        g.governorate_name, 
+        g.id AS address_id,
+        m.ministries
+      FROM users_management u
+      LEFT JOIN entities e ON u.entities_id = e.id
+      LEFT JOIN ministries m ON u.ministres_id = m.id
+      LEFT JOIN governorate g ON u.address_id = g.id
+      WHERE u.id = ?`;
+    
     const [userData] = await connection.execute(getUserByIdQuery, [user_id]);
-    if (userData.length === 0) {
+
+    if (!userData.length) {
       return res.status(404).json({ message: "User not found" });
     }
+
     res.status(200).json({
       message: "User data retrieved successfully",
       response: userData[0],
@@ -425,32 +438,13 @@ const getUserById = async (req, res) => {
   } catch (error) {
     console.error("Error fetching user data:", error);
     res.status(500).json({ message: "Internal server error" });
+  } finally {
+    if (connection) await connection.end(); // Ensure connection is closed
+    console.log("User data fetch process completed.");
   }
 };
-const getApplicationPermissionById = async (req, res) => {
-  const user_id = req.user._id;
-  if (!user_id) {
-    res.status(400).json({ message: "User ID is required" });
-    return;
-  }
-  try {
-    const connection = await getConnection();
-    const getUserByIdQuery = `
-      SELECT  * FROM user_id_application__permission_id
-      WHERE user_id = ?`;
-    const [userData] = await connection.execute(getUserByIdQuery, [user_id]);
-    if (userData.length === 0) {
-      return res.status(404).json({ message: "User not found" });
-    }
-    res.status(200).json({
-      message: "User data retrieved successfully",
-      response: userData,
-    });
-  } catch (error) {
-    console.error("Error fetching user data:", error);
-    res.status(500).json({ message: "Internal server error" });
-  }
-};
+
+
 // edit information by company
 const userManagementEdit = async (req, res) => {
   try {
@@ -622,7 +616,7 @@ const deleteById = async (req, res) => {
         const userIsDeletingInfo = userIsDeleting[0];
         const logInfo = ` تم حذف المستخدم  (${userIsDeletingInfo.user_name} من قبل ${userInfo?.user_name}`;
         // Insert log entry
-        createLogEntry(connection, 2, user._id, user.entity_id, logInfo);
+        createLogEntry(connection, 2, user._id, user.entity_id, logInfo ,1);
         return res.status(200).json({ message: "تم الحذف بنجاح" });
       } else {
         return res.status(404).json({ message: "Item not found" });
@@ -790,6 +784,5 @@ module.exports = {
   refreshToken,
   logout,
   getDataUserManageBIdEntityWithoutLimit,
-  getApplicationPermissionById,
   // scheduleSessionUpdates
 };

@@ -8,6 +8,9 @@ const dbConfig = {
   password: process.env.PASSWORD,
   database: process.env.DATABASE,
   connectionLimit: Number(process.env.CONNECTIONLIMIT), // Convert to number
+  waitForConnections: true,
+  // connectionLimit: 10,
+  // queueLimit: 0
 };
 // Create a connection pool
 let pool;
@@ -35,7 +38,7 @@ async function mainCoection() {
     const [rows] = await connection.query("SELECT 1");
     console.log(rows);
   } catch (error) {
-    Logger.error("Error connecting to the database:", error)
+    Logger.error("Error connecting to the database:", error);
     console.log("Error connecting to the database:", error);
   } finally {
     if (connection) {

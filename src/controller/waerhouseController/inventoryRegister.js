@@ -3,10 +3,8 @@ const pusher = require("../../utils/pusherINfo"); // Ensure pusher is configured
 const createLogEntry = require("../../utils/createLog");
 const { insertNotification } = require("../../utils/createNotifction");
 const { logger } = require("../../middleware/errorHandel");
-const { log } = require("winston");
 const {
-  updateIncomingBalance,
-  updateOutgoingBalance,
+
   insertInventory,
   updateStoreBalance,
   updateMaterialBalance,
@@ -321,7 +319,7 @@ const inventoryEdit = async (req, res) => {
       const dataUser = await getUserDataById(connection, user_id);
       // Log the action
       const logInfo = `تم تحديث المخزون  رقم الكتاب  ${trimmedDocumentNumber} بواسطة المستخدم ${dataUser.usr_name}`;
-      await createLogEntry(connection, 1, user_id, inventory_id, logInfo);
+      await createLogEntry(connection, 1, user_id, inventory_id, logInfo,2);
 
       return res.status(200).json({ message: "تم تحديث المادة بنجاح" });
     } catch (error) {
@@ -496,7 +494,8 @@ const handleInventoryNotifications = async () => {
           12, // Log type ID (adjust as needed)
           item.user_id,
           item.entity_id,
-          logInfo
+          logInfo,
+          2
         );
 
         // Trigger a Pusher event to notify clients

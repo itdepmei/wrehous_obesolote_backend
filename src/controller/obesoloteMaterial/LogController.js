@@ -13,7 +13,7 @@ const getLog = async (req, res) => {
     const offset = (page - 1) * limit;
     // Fetch total count of logs
     const [totalRows] = await connection.execute(
-      "SELECT COUNT(*) AS count FROM log_information"
+      "SELECT COUNT(*) AS count FROM log_information WHERE category_id = 1"
     );
     const totalItems = totalRows[0].count;
     const totalPages = Math.ceil(totalItems / limit);
@@ -38,6 +38,7 @@ const getLog = async (req, res) => {
       LEFT JOIN users_management ON stagnant_materials.user_id = users_management.id
       LEFT JOIN ministries ON stagnant_materials.ministry_id = ministries.id
       LEFT JOIN entities ON stagnant_materials.entities_id = entities.id
+      WHERE log_information.category_id = 1
       ORDER BY log_information.id DESC
       LIMIT ${limit} OFFSET ${offset};
 
@@ -88,7 +89,7 @@ const getLogByEntityId = async (req, res) => {
     }
     const offset = (pageNumber - 1) * limitNumber;
     // Fetch total count of logs for pagination
-    const totalCountQuery = `SELECT COUNT(*) AS count FROM log_information WHERE log_information.entities_id = ?`;
+    const totalCountQuery = `SELECT COUNT(*) AS count FROM log_information WHERE log_information.entities_id = ? AND log_information.category_id = 1`;
     const [totalRows] = await connection.execute(totalCountQuery, [entityId]);
     const totalItems = totalRows[0].count;
     const totalPages = Math.ceil(totalItems / limitNumber);
@@ -120,7 +121,7 @@ const getLogByEntityId = async (req, res) => {
       LEFT JOIN users_management ON stagnant_materials.user_id = users_management.id
       LEFT JOIN ministries ON stagnant_materials.ministry_id = ministries.id
       LEFT JOIN entities ON stagnant_materials.entities_id = entities.id
-      WHERE log_information.entities_id = ?
+      WHERE log_information.entities_id = ? AND log_information.category_id = 1
       ORDER BY log_information.id DESC
       LIMIT ${limitNumber} OFFSET ${offset};
     `;

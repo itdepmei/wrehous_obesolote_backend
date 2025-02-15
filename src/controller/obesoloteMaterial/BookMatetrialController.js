@@ -1,4 +1,3 @@
-const { connect } = require("../../Config/db");
 const { editQuantity } = require("../../utils/function");
 const pusher = require("../../utils/pusherINfo");
 const {
@@ -6,12 +5,13 @@ const {
   getUserByIdQuery2,
   getDataUsersQuery,
 } = require("../../query/userMangeController-db");
-const {insertNotification} = require("../../utils/createNotifction");
+const { insertNotification } = require("../../utils/createNotifction");
 const moment = require("moment");
 const { getDataBookQuery } = require("../../query/bookedQuery");
 const createLogEntry = require("../../utils/createLog");
 const path = require("path");
 const ProcessorFile = require("../../utils/DeleteFile");
+const { getConnection, connect, mainCoection } = require("../../Config/db");
 const bookRegister = async (req, res) => {
   const {
     material_id,
@@ -103,7 +103,7 @@ const bookRegister = async (req, res) => {
       message: `تم إرسال طلب حجز من قبل ${userAuth.user_name} من ${userAuth.Entities_name}`,
       entity_id: approveSendRequestBoolean ? entityForNotification : null,
       user_id: approveSendRequestBoolean ? null : user.user_id,
-      category_id:2
+      category_id: 2,
     };
     // Insert notification
     await insertNotification(
@@ -121,7 +121,7 @@ const bookRegister = async (req, res) => {
     return res.status(201).json({
       message: "تم الحجز بنجاح",
       dataId: insertResult.insertId,
-      category_id:2
+      category_id: 2,
     });
   } catch (error) {
     console.error("Internal server error:", error);
@@ -185,15 +185,14 @@ const UploadBookForEntityBuy = async (req, res) => {
 
     // Log the action
     const text = `Official document uploaded by ${userAuth.user_name} from ${userAuth.Entities_name}`;
-    const insertLogQuery =
-      "INSERT INTO log_information (master_id, user_id, entities_id, text) VALUES (?, ?, ?, ?)";
-    await connection.execute(insertLogQuery, [
+    await createLogEntry(
+      connection,
       8,
       userAuth.user_id,
       userAuth.entity_id,
       text,
-    ]);
-
+      1
+    );
     // Send notification
     const notificationMessage = `${userAuth.user_name} from ${userAuth.Entities_name} has uploaded an official document`;
     await insertNotification(
@@ -211,7 +210,7 @@ const UploadBookForEntityBuy = async (req, res) => {
       name: "send_official_document",
       message: `Official document uploaded by ${userAuth.user_name} from ${userAuth.Entities_name}`,
       entity_id: dataBooked.entity_id,
-      category_id:2
+      category_id: 2,
     };
     pusher.trigger("poll", "vote", eventData);
 
@@ -473,15 +472,15 @@ const deleteBookById = async (req, res) => {
         "delete",
         `Product-Overview/${bookedMaterial.material_id}`,
         req.user.entity_id,
-        null
-        ,2
+        null,
+        2
       );
       // Trigger Pusher event
       const eventData = {
         name: "delete_request_material",
         message: `تم ألغاء حجز المادة `,
         user_id: bookedMaterial.user_id,
-        category_id:2
+        category_id: 2,
       };
       pusher.trigger("poll", "vote", eventData);
       const deleteBookingQuery = "DELETE FROM booking_materials WHERE id = ?";
@@ -727,19 +726,14 @@ const stagnantMaterialsEditBooked = async (req, res) => {
 
     // Insert log entry
     const logText = `تم شراء المادة ${dataMaterial.name_material} الخاصة بال ${dataMaterial.Entities_name} من قبل ${entityInfo.Entities_name}`;
-    const insertLogQuery = `
-      INSERT INTO log_information (master_id, user_id, entities_id, text)
-      VALUES (?, ?, ?, ?)
-    `;
-    const [insertLogResult] = await connection.execute(insertLogQuery, [
+    createLogEntry(
+      connection,
       5,
       userInfo.id,
       userInfo.entities_id,
       logText,
-    ]);
-    if (insertLogResult.affectedRows === 0) {
-      throw new Error("Failed to insert log.");
-    }
+      1
+    );
     // Delete the booking
     const deleteBookingQuery = `DELETE FROM booking_materials WHERE id = ?`;
     const [deleteBookingResult] = await connection.execute(deleteBookingQuery, [
@@ -954,11 +948,16 @@ const getDataStagnantMaterialsBookedPByEntityBookedOrBuyTheMaterial = async (
   }
 };
 const ApproveBooked = async (req, res) => {
-  const pool = await connect(); // Get a database connection pool
-  const connection = await pool.getConnection(); // Acquire a connection from the pool
+  let connection; // Acquire a connection from the pool
   const user_id = req.user._id; // Get the user ID from the request
   const { dataId } = req.body;
+  console.log("🔹 Connecting to Database...");
   try {
+    const pool = await connect();
+    connection = await pool.getConnection();
+    console.log("🔹 Starting Transaction...");
+mainCoection();
+
     await connection.beginTransaction(); // Start a transaction
     // Update booking status to approved (set `booked` to true)
     const getDataRemoveQuery = "SELECT * FROM remove_book";
@@ -1004,17 +1003,15 @@ const ApproveBooked = async (req, res) => {
           const user = userData[0];
           // Create log entry
           const logText = `تم الموافقة على الطلب من قبل ${user.user_name} التابع الى ${user.Entities_name} لل المستخدم ${userInformationForEntityBuy?.user_name} التابع الى ${userInformationForEntityBuy?.Entities_name}`;
-          const insertLogQuery = `
-            INSERT INTO log_information (master_id, user_id, entities_id, text)
-            VALUES (?, ?, ?, ?)`;
-          await connection.execute(insertLogQuery, [
-            6,
+          await createLogEntry(
+            connection,
+            2,
             user_id,
             user.entity_id,
             logText,
-          ]);
+            1
+          );
           // Update notification to mark as read
-
           // Trigger Pusher event
           const message = `تم الموافقة على رفع المادة `;
           await insertNotification(
@@ -1024,14 +1021,14 @@ const ApproveBooked = async (req, res) => {
             (type = "success"),
             (url = `Product-Overview/${material_id}`),
             userInformationForEntityBuy.entity_id,
-            null
-            , 2
+            null,
+            2
           );
           const eventData = {
             name: "approve_Book",
             message: logText,
             user_id: userInformationForEntityBuy.user_id,
-            category_id:2
+            category_id: 2,
           };
           pusher.trigger("poll", "vote", eventData);
         }
@@ -1044,8 +1041,15 @@ const ApproveBooked = async (req, res) => {
     res.status(200).json({ message: "تم الموافقة على الطلب", approveResponse });
   } catch (error) {
     // Roll back the transaction in case of an error
-    await connection.rollback();
-    console.error("Error during transaction:", error);
+    if (connection) {
+      try {
+        console.log("🔹 Rolling back transaction...");
+        await connection.rollback();
+        console.log("✅ Transaction rolled back successfully!");
+      } catch (rollbackError) {
+        console.log("❌ Error during rollback:", rollbackError);
+      }
+    }
     res
       .status(500)
       .json({ message: "Database query error", error: error.message });
@@ -1114,7 +1118,7 @@ const Contacted = async (req, res) => {
         name: "approve_Book",
         message: `تم الوافقة على أرسال كتاب  من قبل ${currentUser.Entities_name}`,
         user_id: userBookingInfo.user_id,
-        category_id:2
+        category_id: 2,
       };
       pusher.trigger("poll", "vote", eventData);
       await connection.commit(); // Commit the transaction
@@ -1228,7 +1232,7 @@ const approvedAdminSendRequestBook = async (req, res) => {
         name: "send_request_book_to_admin",
         message: `تم إرسال طلب حجز من قبل ${userRoleUserData.user_name} من ${userRoleUserData.Entities_name}`,
         user_id: dataToSendEntity.user_id,
-        category_id:2
+        category_id: 2,
       };
       // Trigger event using your Pusher client, e.g., pusher.trigger(...)
       // Trigger Pusher event for the entity
@@ -1244,15 +1248,15 @@ const approvedAdminSendRequestBook = async (req, res) => {
         "info",
         `Product-Overview/${bookedMaterial.material_id}`,
         bookedMaterial.entity_Buy_id,
-        null
-,2
+        null,
+        2
       );
       // Construct the event data for the user
       const eventDataUser = {
         name: "approve_send_request_book",
         message: `تم الموافقة على أرسال طلب الحجز من ${dataAuth.user_name}`,
         user_id: bookedMaterial.user_id,
-        category_id:2
+        category_id: 2,
       };
       // Trigger Pusher event for the user
       pusher.trigger("poll", "vote", eventDataUser);
@@ -1263,7 +1267,8 @@ const approvedAdminSendRequestBook = async (req, res) => {
         10, // master_id
         user_id, // user_id
         req.user.entity_id, // entities_id
-        text
+        text,
+        1
       );
       await connection.commit();
       return res.status(200).json({ message: "تم الموافقة بنجاح" });
@@ -1350,7 +1355,7 @@ const approvedAdminToUploadBook = async (req, res) => {
         name: "approve_upload_book",
         message: `تم الموافقة على رفع الكتاب الرسمي لأكمال حجز المادة`,
         user_id: bookedMaterial.user_id,
-        category_id:2
+        category_id: 2,
       };
       pusher.trigger("poll", "vote", eventData);
       const text = `تم الموافقة على رفع كتاب المادة  ${dataAuth.user_name} التابع الى ${dataAuth.Entities_name}`;
@@ -1359,7 +1364,8 @@ const approvedAdminToUploadBook = async (req, res) => {
         11, // master_id
         user_id, // user_id
         req.user.entity_id, // entities_id
-        text // userName
+        text,
+        1
       );
       await connection.commit(); // Commit the transaction
       // Respond with success message

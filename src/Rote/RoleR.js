@@ -21,8 +21,7 @@ router.get(
   Auth,
   getDataRoleIdAndPermissionIduseGrouID
 );
-router.get("/getDataRoleIdAndPermission/:id", Auth, getDataRoleIdAndPermission);
-
+router.get("/getDataRoleIdAndPermission", Auth, getDataRoleIdAndPermission);
 router.post("/setPermissionAndRole", Auth, setPermissionAndRole);
 
 module.exports = router;

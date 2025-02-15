@@ -13,7 +13,6 @@ const {
   logout,
   refreshToken,
   getDataUserManageBIdEntityWithoutLimit,
-  getApplicationPermissionById,
 } = require("../controller/UserMnagemantController.js");
 const authorization = require("../middleware/Authorization.js");
 const {Auth} = require("../middleware/auth.js");
@@ -30,6 +29,7 @@ router.get(
   authorization,
   getDataUserManageByIdEntities
 );
+
 router.post("/userEdit", Auth, userEdit);
 router.post("/ActiveAccount", Auth, ActiveAccount);
 router.get("/getDataUserSearch", Auth, getDataUserSearch);
@@ -39,10 +39,5 @@ router.get(
   "/getDataUserManageBIdEntityWithoutLimit/:id",
   // Auth,
   getDataUserManageBIdEntityWithoutLimit
-);
-router.get(
-  "/getApplicationPermissionById/:id",
-  // Auth,
-  getApplicationPermissionById
 );
 module.exports = router;

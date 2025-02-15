@@ -42,7 +42,7 @@ const LabRegister = async (req, res) => {
       if (response.affectedRows > 0) {
         const insertId = response.insertId;
         const logInfo = `تم إنشاء مستودع جديد "${name}" بواسطة المستخدم ${req.user._id}`;
-        await createLogEntry(connection, 1, user_id, entity_id, logInfo);
+        await createLogEntry(connection, 1, user_id, entity_id, logInfo,2);
         return res.status(201).json({
           message: "تم إضافة المصنع بنجاح",
           factoryId: insertId,
@@ -208,7 +208,7 @@ const laboratoriesEdit = async (req, res) => {
 
       if (response.affectedRows > 0) {
         const logInfo = `تم تحديث بيانات المعمل "${name}" بواسطة المستخدم ${req.user._id}`;
-        await createLogEntry(connection, 3, req.user._id, null, logInfo);
+        await createLogEntry(connection, 3, req.user._id, null, logInfo,2);
         return res.status(200).json({
           message: "تم تحديث بيانات المعمل بنجاح",
         });

@@ -14,7 +14,7 @@ const {
 } = require("../../query/userMangeController-db");
 const { formatDate } = require("../../utils/function");
 const pusher = require("../../utils/pusherINfo");
-const {insertNotification} = require("../../utils/createNotifction");
+const { insertNotification } = require("../../utils/createNotifction");
 const logger = require("../../middleware/Logger");
 const createLogEntry = require("../../utils/createLog");
 const stagnantMaterialsRegister = async (req, res) => {
@@ -125,10 +125,7 @@ const stagnantMaterialsRegister = async (req, res) => {
         ]);
         const data = userInformation[0];
         const logInfo = `تم إدراج هذا المنتج ${trimmedNameMartials} من قبل المستخدم ${data.user_name}، والكمية التي تم إدراجها هي ${Quantity}`;
-        // const insertLogQuery = `
-        //   INSERT INTO log_information (master_id, text, stagnant_id)
-        //   VALUES (?, ?, ?)`;
-        // await connection.execute(insertLogQuery, [1, logInfo, insertId]);
+     
         createLogEntry(connection, 1, user_id, Entities_id, logInfo);
         const getDataUsersQuery = `
         SELECT 
@@ -139,8 +136,6 @@ const stagnantMaterialsRegister = async (req, res) => {
         WHERE um.entities_id = ? AND r.id = '2'
       `;
         // Execute the query with the entity ID
-        console.log(Entities_id);
-
         const [userData] = await connection.execute(getDataUsersQuery, [
           Entities_id,
         ]);
@@ -167,7 +162,7 @@ const stagnantMaterialsRegister = async (req, res) => {
           name: "send_request_material",
           message: `تم أدراج مادة من خلال ${userAuth.user_name} التابع ${userAuth.Entities_name}  بأنتظار الموافقة على الطلب`,
           user_id: user.user_id,
-          category_id:2
+          category_id: 2,
           // entities_id: entities_id,
         };
         pusher.trigger("poll", "vote", eventData);
@@ -513,14 +508,7 @@ const stagnantMaterialsEdit = async (req, res) => {
       ]);
       const dataUser = userInfoRows[0];
       const text = `تم تعديل المنتج من قبل ${dataUser.user_name}`;
-      const insertLogQuery =
-        "INSERT INTO log_information (master_id, user_id, entities_id, text) VALUES (?, ?, ?, ?)";
-      await connection.execute(insertLogQuery, [
-        3,
-        dataUser.id,
-        dataUser.entities_id,
-        text,
-      ]);
+      createLogEntry(connection, 3, user._id, dataUser.entities_id, text, 1);
       // Handle file deletions
       if (filesToRemove.length > 0) {
         const fileDeletePromises = filesToRemove.map(async (file) => {
@@ -791,7 +779,7 @@ const deleteById = async (req, res) => {
     const [userInfoRows] = await conn.execute(getInformation, [user._id]);
     const userInfo = userInfoRows[0];
     const text = `تم حذف المنتج من قبل المستخدم ${userInfo?.user_name}`;
-    createLogEntry(connection, 2, user._id, data.Entities_id, text);
+    createLogEntry(connection, 2, user._id, data.Entities_id, text, 1);
     if (insertLogResult.affectedRows === 0) {
       throw new Error("Failed to insert log.");
     }
@@ -823,89 +811,76 @@ const deleteById = async (req, res) => {
 };
 
 const ApproveAdminMaterial = async (req, res) => {
+  let connection;
   try {
     const pool = await connect();
     const { dataId } = req.body;
-    const connection = await pool.getConnection();
     const user_id = req.user._id;
-    try {
-      await connection.beginTransaction();
-      // Update booking status to approved (set `approved_admin` to true)
-      const approveAdminQuery = `UPDATE stagnant_materials SET approved_admin = ? WHERE stagnant_id = ?`;
-      const [approveResponse] = await connection.execute(approveAdminQuery, [
-        true,
-        dataId,
+    connection = await pool.getConnection();
+    await connection.beginTransaction();
+
+    // Update booking status
+    const approveAdminQuery = `UPDATE stagnant_materials SET approved_admin = ? WHERE stagnant_id = ?`;
+    const [approveResponse] = await connection.execute(approveAdminQuery, [
+      true,
+      dataId,
+    ]);
+
+    if (approveResponse.affectedRows > 0) {
+      const [userDataAuth] = await connection.execute(getUserByIdQuery, [
+        user_id,
       ]);
-      // Check if the update was successful
-      if (approveResponse.affectedRows > 0) {
-        // Fetch user authorization data
-        const [userDataAuth] = await connection.execute(getUserByIdQuery, [
-          user_id,
-        ]);
-        // Fetch user data with the "technical support" role
-        const getDataUsersQuery = `
-          SELECT um.id AS user_id, um.*, r.id AS role_id, r.*
-          FROM users_management um
-          LEFT JOIN roles r ON um.group_id = r.id
-          WHERE r.id = '4'
-        `;
-        const [userData] = await connection.execute(getDataUsersQuery);
-        if (userDataAuth.length > 0 && userData.length > 0) {
-          const userAuth = userDataAuth[0];
-          const user = userData[0];
-          // Create log entry
-          const logText = `تم الموافقة على الطلب الرفع ${userAuth.user_name} التابع الى ${userAuth.Entities_name}`;
-          const insertLogQuery = `
-            INSERT INTO log_information (master_id, user_id, entities_id, text)
-            VALUES (?, ?, ?, ?)
-          `;
-          await connection.execute(insertLogQuery, [
-            7,
-            user_id,
-            userAuth.entity_id,
-            logText,
-          ]);
-          // Trigger Pusher event
-          const message = `${userAuth?.user_name} من ${userAuth?.Entities_name} طلب موافقة رفع مادة`;
-          await insertNotification(
-            userAuth.user_id,
-            "طلب موافقة المادة",
-            message,
-            (type = "info"),
-            (url = "Obsolete-Material-Approve-Super-Admin"),
-            user.entities_id,
-            null,
-            2
-          );
-          const eventData = {
-            name: "approve_Admin_request",
-            message: `تم أرسال طلب رفع مادة من قبل ${userAuth.user_name} التابع الى  ${userAuth.Entities_name}`,
-            user_id: user.user_id,
-            category_id:2
-          };
-          pusher.trigger("poll", "vote", eventData);
-        }
+
+      const getDataUsersQuery = `
+        SELECT um.id AS user_id, um.*, r.id AS role_id, r.*
+        FROM users_management um
+        LEFT JOIN roles r ON um.group_id = r.id
+        WHERE r.id = '4'
+      `;
+      const [userData] = await connection.execute(getDataUsersQuery);
+      if (userDataAuth.length > 0 && userData.length > 0) {
+        const userAuth = userDataAuth[0];
+        const user = userData[0];
+        // Insert log
+        const logText = `تم الموافقة على الطلب الرفع ${userAuth.user_name} التابع الى ${userAuth.Entities_name}`;
+        createLogEntry(connection, 7, user_id, userAuth.entity_id, logText, 1);
+        // ✅ Now, call insertNotification AFTER commit
+        const message = `${userAuth?.user_name} من ${userAuth?.Entities_name} طلب موافقة رفع مادة`;
+        await insertNotification(
+          userAuth.user_id,
+          "طلب موافقة المادة",
+          message,
+          "info",
+          "Obsolete-Material-Approve-Super-Admin",
+          user.entities_id,
+          null,
+          2
+        );
+
+        // ✅ Call Pusher AFTER commit
+        const eventData = {
+          name: "approve_Admin_request",
+          message: `تم أرسال طلب رفع مادة من قبل ${userAuth.user_name} التابع الى  ${userAuth.Entities_name}`,
+          user_id: user.user_id,
+          category_id: 2,
+        };
+        pusher.trigger("poll", "vote", eventData);
       }
-      await connection.commit();
-      res
-        .status(200)
-        .json({ message: "تم الموافقة على الطلب", approveResponse });
-    } catch (err) {
-      await connection.rollback();
-      console.error("Error during transaction:", err);
-      res
-        .status(500)
-        .json({ message: "Database query error", error: err.message });
-    } finally {
-      connection.release();
     }
+    await connection.commit(); // ✅ Commit transaction BEFORE releasing
+
+    res.status(200).json({ message: "تم الموافقة على الطلب", approveResponse });
   } catch (error) {
+    if (connection) await connection.rollback(); // Rollback on error
     console.error("Error approving booking:", error);
     res
       .status(500)
-      .json({ message: "Internal server error", error: error.message });
+      .json({ message: "Database query error", error: error.message });
+  } finally {
+    if (connection) connection.release(); // ✅ Release connection only at the end
   }
 };
+
 const ApproveSuperAdminMaterial = async (req, res) => {
   try {
     const pool = await connect();
@@ -956,16 +931,8 @@ const ApproveSuperAdminMaterial = async (req, res) => {
 
           // Create log entry
           const logText = `تم الموافقة على رفع المادة الخاصة ب ${dataMaterial.Entities_name} بواسطة ${userAuth.Entities_name} المستخدم ${userAuth.user_name}`;
-          const insertLogQuery = `
-            INSERT INTO log_information (master_id, user_id, entities_id, text)
-            VALUES (?, ?, ?, ?)
-          `;
-          await connection.execute(insertLogQuery, [
-            9,
-            user_id,
-            userAuth.entity_id,
-            logText,
-          ]);
+       
+          createLogEntry(connection, 9, user_id, userAuth.entity_id, logText, 1);
           // Trigger Pusher event
           const message = `تم الموافقة على الرافع`;
           await insertNotification(
@@ -982,7 +949,7 @@ const ApproveSuperAdminMaterial = async (req, res) => {
             name: "approve_super_Admin_request",
             message: `تم رفع المنتج بنجاح`,
             user_id: dataMaterial.user_id,
-            category_id:2
+            category_id: 2,
           };
           pusher.trigger("poll", "vote", eventData);
         }
@@ -1188,7 +1155,7 @@ const stagnantMaterialsRegisterAsForLoop = async (req, res) => {
         const data = userInformation[0];
         const logInfo = `تم إدراج هذا المنتج ${trimmedNameMartials} من قبل المستخدم ${data.user_name}، والكمية التي تم إدراجها هي ${Quantity}`;
         // Insert log entry
-        createLogEntry(connection, 1, user_id, entity_id, logInfo);
+        createLogEntry(connection, 1, user_id, entity_id, logInfo, 1);
         // Fetch users for notification
         const getDataUsersQuery = `
           SELECT 
@@ -1224,7 +1191,7 @@ const stagnantMaterialsRegisterAsForLoop = async (req, res) => {
           name: "send_request_material",
           message: `تم إدراج مادة من خلال ${userAuth.user_name} التابع ${userAuth.Entities_name} بأنتظار الموافقة على الطلب`,
           user_id: user.user_id,
-          category_id:2
+          category_id: 2,
         };
         pusher.trigger("poll", "vote", eventData);
       }

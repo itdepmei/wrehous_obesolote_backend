@@ -50,7 +50,7 @@ const warehouseRegister = async (req, res) => {
         const insertId = response.insertId;
         // Logging
         const logInfo = `تم إنشاء مستودع جديد "${name}" بواسطة المستخدم ${userAuth}`;
-        await createLogEntry(connection, 1, user_id, entity_id, logInfo);
+        await createLogEntry(connection, 1, user_id, entity_id, logInfo,2);
         return res.status(201).json({
           message: "تم إضافة المستودع بنجاح",
           warehouseId: insertId,
@@ -255,7 +255,8 @@ const warehouseEdit = async (req, res) => {
           3,
           user_id,
           userInfo?.entities_id,
-          logInfo
+          logInfo,
+          2
         );
         return res.status(200).json({
           message: "تم تحديث بيانات المستودع بنجاح",
