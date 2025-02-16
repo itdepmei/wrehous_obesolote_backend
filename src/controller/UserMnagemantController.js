@@ -729,44 +729,44 @@ const refreshToken = async (req, res) => {
 
 
 // Cron Job: Update `is_active_session` daily and weekly
-// const scheduleSessionUpdates = async () => {
-//   const pool = await connect();
+const scheduleSessionUpdates = async () => {
+  const pool = await connect();
 
-//   // Daily job to deactivate expired sessions
-//   cron.schedule("0 0 * * *", async () => {
-//     let connection;
-//     try {
-//       connection = await pool.getConnection();
-//       await connection.execute(
-//         `UPDATE active_session_user
-//          SET is_active_session = FALSE
-//          WHERE TIMESTAMPDIFF(DAY, last_active_at, NOW()) >= 1`
-//       );
-//       console.log("Daily session update executed.");
-//     } catch (error) {
-//       console.error("Error during daily session update:", error);
-//     } finally {
-//       if (connection) connection.release();
-//     }
-//   });
-//   // Weekly job to update active sessions
-//   cron.schedule("0 0 * * 0", async () => {
-//     let connection;
-//     try {
-//       connection = await pool.getConnection();
-//       await connection.execute(
-//         `UPDATE active_session_user
-//          SET is_active_session = TRUE
-//          WHERE TIMESTAMPDIFF(DAY, last_active_at, NOW()) < 7`
-//       );
-//       console.log("Weekly session update executed.");
-//     } catch (error) {
-//       console.error("Error during weekly session update:", error);
-//     } finally {
-//       if (connection) connection.release();
-//     }
-//   });
-// };
+  // Daily job to deactivate expired sessions
+  cron.schedule("0 0 * * *", async () => {
+    let connection;
+    try {
+      connection = await pool.getConnection();
+      await connection.execute(
+        `UPDATE active_session_user
+         SET is_active_session = FALSE
+         WHERE TIMESTAMPDIFF(DAY, last_active_at, NOW()) >= 1`
+      );
+      console.log("Daily session update executed.");
+    } catch (error) {
+      console.error("Error during daily session update:", error);
+    } finally {
+      if (connection) connection.release();
+    }
+  });
+  // Weekly job to update active sessions
+  cron.schedule("0 0 * * 0", async () => {
+    let connection;
+    try {
+      connection = await pool.getConnection();
+      await connection.execute(
+        `UPDATE active_session_user
+         SET is_active_session = TRUE
+         WHERE TIMESTAMPDIFF(DAY, last_active_at, NOW()) < 7`
+      );
+      console.log("Weekly session update executed.");
+    } catch (error) {
+      console.error("Error during weekly session update:", error);
+    } finally {
+      if (connection) connection.release();
+    }
+  });
+};
 
 // Initialize the cron jobs
 // scheduleSessionUpdates();
@@ -784,5 +784,5 @@ module.exports = {
   refreshToken,
   logout,
   getDataUserManageBIdEntityWithoutLimit,
-  // scheduleSessionUpdates
+  
 };

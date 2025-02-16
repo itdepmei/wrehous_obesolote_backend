@@ -10,7 +10,7 @@ const ProcessorFile = require("../../utils/DeleteFile");
 const {
   getInformation,
   getUserByIdQuery2,
-  getUserByIdQuery,
+
 } = require("../../query/userMangeController-db");
 const { formatDate } = require("../../utils/function");
 const pusher = require("../../utils/pusherINfo");
@@ -818,19 +818,16 @@ const ApproveAdminMaterial = async (req, res) => {
     const user_id = req.user._id;
     connection = await pool.getConnection();
     await connection.beginTransaction();
-
     // Update booking status
     const approveAdminQuery = `UPDATE stagnant_materials SET approved_admin = ? WHERE stagnant_id = ?`;
     const [approveResponse] = await connection.execute(approveAdminQuery, [
       true,
       dataId,
     ]);
-
     if (approveResponse.affectedRows > 0) {
-      const [userDataAuth] = await connection.execute(getUserByIdQuery, [
+      const [userDataAuth] = await connection.execute(getUserByIdQuery2, [
         user_id,
       ]);
-
       const getDataUsersQuery = `
         SELECT um.id AS user_id, um.*, r.id AS role_id, r.*
         FROM users_management um
@@ -843,7 +840,7 @@ const ApproveAdminMaterial = async (req, res) => {
         const user = userData[0];
         // Insert log
         const logText = `تم الموافقة على الطلب الرفع ${userAuth.user_name} التابع الى ${userAuth.Entities_name}`;
-        createLogEntry(connection, 7, user_id, userAuth.entity_id, logText, 1);
+        await createLogEntry(connection, 7, user_id, userAuth.entity_id, logText, 1);
         // ✅ Now, call insertNotification AFTER commit
         const message = `${userAuth?.user_name} من ${userAuth?.Entities_name} طلب موافقة رفع مادة`;
         await insertNotification(
@@ -898,7 +895,7 @@ const ApproveSuperAdminMaterial = async (req, res) => {
       // Check if the update was successful
       if (approveResponse.affectedRows > 0) {
         // Fetch user authorization data
-        const [userDataAuth] = await connection.execute(getUserByIdQuery, [
+        const [userDataAuth] = await connection.execute(getUserByIdQuery2, [
           user_id,
         ]);
         // Fetch user data with the "technical support" role

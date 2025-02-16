@@ -1,7 +1,7 @@
 const { editQuantity } = require("../../utils/function");
 const pusher = require("../../utils/pusherINfo");
 const {
-  getUserByIdQuery,
+ 
   getUserByIdQuery2,
   getDataUsersQuery,
 } = require("../../query/userMangeController-db");
@@ -11,7 +11,7 @@ const { getDataBookQuery } = require("../../query/bookedQuery");
 const createLogEntry = require("../../utils/createLog");
 const path = require("path");
 const ProcessorFile = require("../../utils/DeleteFile");
-const { getConnection, connect, mainCoection } = require("../../Config/db");
+const { connect, mainCoection } = require("../../Config/db");
 const bookRegister = async (req, res) => {
   const {
     material_id,
@@ -173,7 +173,7 @@ const UploadBookForEntityBuy = async (req, res) => {
     }
 
     // Fetch user details
-    const [userAuthData] = await connection.execute(getUserByIdQuery, [
+    const [userAuthData] = await connection.execute(getUserByIdQuery2, [
       user_Auth,
     ]);
     const userAuth = userAuthData[0];
@@ -992,11 +992,11 @@ mainCoection();
           WHERE stagnant_id = ?`;
         await connection.execute(updateQuery, [updatedQuantity, material_id]);
         // Fetch the user data to create a log entry
-        const [userDataBuy] = await connection.execute(getUserByIdQuery, [
+        const [userDataBuy] = await connection.execute(getUserByIdQuery2, [
           dataBook.user_id,
         ]);
         const userInformationForEntityBuy = userDataBuy[0];
-        const [userData] = await connection.execute(getUserByIdQuery, [
+        const [userData] = await connection.execute(getUserByIdQuery2, [
           user_id,
         ]);
         if (userData.length > 0) {
@@ -1086,7 +1086,7 @@ const Contacted = async (req, res) => {
         dataId,
       ]);
       // Retrieve user information by ID for additional processing
-      const [userBookingData] = await connection.execute(getUserByIdQuery, [
+      const [userBookingData] = await connection.execute(getUserByIdQuery2, [
         bookingData.user_id,
       ]);
       const userBookingInfo = userBookingData[0] || null;
@@ -1095,7 +1095,7 @@ const Contacted = async (req, res) => {
         throw new Error("User data for the booking not found");
       }
 
-      const [userData] = await connection.execute(getUserByIdQuery, [userId]);
+      const [userData] = await connection.execute(getUserByIdQuery2, [userId]);
       const currentUser = userData[0] || null;
 
       if (!currentUser) {

@@ -27,11 +27,9 @@ const getApplicationPermissionById = async (req, res) => {
   try {
     const pool = await connect();
     connection = await pool.getConnection();
-    
     const getUserByIdQuery = `
       SELECT * FROM user_id_application__permission_id
       WHERE user_id = ?`;
-    
     // Set query timeout to 5 seconds
     const [userData] = await Promise.race([
       connection.execute(getUserByIdQuery, [user_id]),
@@ -39,7 +37,6 @@ const getApplicationPermissionById = async (req, res) => {
         setTimeout(() => reject(new Error('Query timeout')), 5000)
       )
     ]);
-
     if (userData.length === 0) {
       return res.status(404).json({ message: "User not found" });
     }

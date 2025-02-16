@@ -56,9 +56,16 @@ const getUserByIdQuery2 = `
 SELECT 
   users_management.id AS user_id, 
   users_management.user_name,
-  entities.Entities_name
+  entities.Entities_name,
+  entities.id AS entity_id,
+  job_title.job_name,
+  job_title.id AS job_id,
+  governorate.governorate_name,
+  governorate.id AS address_id
 FROM users_management
 LEFT JOIN entities ON users_management.entities_id = entities.id
+LEFT JOIN job_title ON users_management.job_title_id = job_title.id
+LEFT JOIN governorate ON users_management.address_id = governorate.id
 WHERE users_management.id = ?
 `;
 const getDataUsersQuery = `

@@ -723,3 +723,6 @@
 [2024-12-19 10:04:53] ERROR: Missing required fields.
 [2024-12-19 10:19:54] ERROR: Missing required fields.
 [2025-02-10 08:26:54] ERROR: Error connecting to the database: connect ECONNREFUSED ::1:3306
+[2025-02-16 20:17:48] ERROR: Error connecting to the database: connect ECONNREFUSED ::1:3306
+[2025-02-16 20:22:52] ERROR: Error connecting to the database: connect ECONNREFUSED ::1:3306
+[2025-02-16 20:31:13] ERROR: Error connecting to the database: connect ECONNREFUSED ::1:3306

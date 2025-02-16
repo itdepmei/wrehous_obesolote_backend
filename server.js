@@ -17,23 +17,18 @@ const {
   removeOldData,
   removeOldDataLog,
 } = require("./src/controller/RemoveDateController.js");
-const {
-  handleInventoryNotifications,
-} = require("./src/controller/waerhouseController/inventoryRegister.js");
-const {
-  handelQuintityNotifction,
-} = require("./src/controller/waerhouseController/storeDataController.js");
 
+const {
+  scheduleDeleteZeroQuantityItems,
+  handleInventoryNotifications,
+  handelQuintityNotifction,
+} = require("./src/cron/deleteZeroQuantityItems");
+const { scheduleSessionUpdates, scheduleLogsCleanup } = require("./src/cron/managemantUserSession.js");
 // Load environment variables
 config();
-
 // Initialize Express app
 const App = express();
-
 // Security Middleware Configuration
-// Basic Security Headers
-
-
 // Specific CSP Configuration
 App.use(
   helmet.contentSecurityPolicy({
@@ -54,7 +49,6 @@ App.use(
     },
   })
 );
-
 
 // Rate limiting
 // const limiter = rateLimit({
@@ -122,14 +116,11 @@ App.use((req, res, next) => {
   //   }
   //   // Add response time header
   //   res.set("X-Response-Time", `${responseTime}ms`);
-
   //   res.end = end;
   //   res.end(chunk, encoding);
   // };
-
   next();
 });
-
 // Timeout Error Handler
 App.use((err, req, res, next) => {
   if (err.timeout) {
@@ -159,7 +150,6 @@ App.use((req, res, next) => {
   });
   next();
 });
-
 // Payload Size Error Handler
 App.use((err, req, res, next) => {
   if (err.type === "entity.too.large") {
@@ -171,10 +161,8 @@ App.use((err, req, res, next) => {
   }
   next(err);
 });
-
 // Database Connection
 mainCoection();
-
 // API Routes
 // Obsolete Material Routes
 App.use("/api", require("./src/Rote/ObesoloteMaterialR/MinistriesR.js"));
@@ -234,6 +222,10 @@ cron.schedule("0 0 * * *", async () => {
   ]);
 });
 
+// Initialize cron jobs
+scheduleDeleteZeroQuantityItems();
+scheduleSessionUpdates();
+scheduleLogsCleanup();
 // Metrics Endpoint
 App.get("/metrics", async (req, res) => {
   res.set("Content-Type", register.contentType);

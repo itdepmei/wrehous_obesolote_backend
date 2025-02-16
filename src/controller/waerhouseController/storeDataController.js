@@ -438,76 +438,6 @@ const SearchStoreData = async (req, res) => {
   }
 };
 
-const handelQuintityNotifction = async () => {
-  try {
-    const pool = await connect();
-    const connection = await pool.getConnection();
-    console.log("hello");
-    try {
-      // Fetch inventory data from the database
-      const query = `
-        SELECT * FROM store_data 
-      `;
-      const [rows] = await connection.execute(query);
-      // Filter items where the balance equals the minimum stock level
-      const notifications = rows.filter(
-        (item) => item.balance >= item.minimum_stock_level
-      );
-      for (const item of notifications) {
-        // Construct the notification message
-        const message = `المادة ${item.name_of_material} وصلت إلى الحد الأدنى للمخزون (${item.minimum_stock_level}).`;
-        // Insert notification into the database
-        const url = `material-movement?material_id=${item.id}`;
-        await insertNotification(
-          item.user_id,
-          "تنبيه المخزون",
-          message,
-          "warning",
-          url,
-          item.entity_id,
-          null,
-          1
-        );
-
-        // Log the event
-        const logInfo = `تحذير: المادة ${item.name_of_material} وصلت إلى الحد الأدنى للمخزون.`;
-        await createLogEntry(
-          connection,
-          12, // Log type ID (adjust as needed)
-          item.user_id,
-          item.entity_id,
-          logInfo,
-          2
-        );
-
-        // Trigger a Pusher event to notify clients
-        const eventData = {
-          name: "send_alarm_notification",
-          message,
-          entityId: item.entity_id,
-          user_id: item.user_id,
-          category_id:1
-        };
-        await pusher.trigger("poll", "vote", eventData);
-
-        console.log(`Notification sent for inventory ID: ${item.id}`);
-      }
-
-      console.log("Inventory notifications handled successfully.");
-    } finally {
-      // Ensure the connection is released
-      if (connection) {
-        connection.release();
-      }
-    }
-  } catch (error) {
-    console.error(
-      "Error handling inventory notifications:",
-      error.message,
-      error.stack
-    );
-  }
-};
 
 const deleteStorDataById = async (req, res) => {
   const pool = await connect();
@@ -659,5 +589,5 @@ module.exports = {
   deleteStorDataById,
   dataStoreRegisterAsForLoop,
   inventoryGetDataByCode,
-  handelQuintityNotifction,
+  
 };
