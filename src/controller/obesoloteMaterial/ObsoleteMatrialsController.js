@@ -155,7 +155,7 @@ const stagnantMaterialsRegister = async (req, res) => {
           (url = "Obsolete-Material-Approve-Admin"),
           user.entities_id,
           response.insertId,
-          2
+          1
         );
         // Trigger Pusher event
         const eventData = {
@@ -851,7 +851,7 @@ const ApproveAdminMaterial = async (req, res) => {
           "Obsolete-Material-Approve-Super-Admin",
           user.entities_id,
           null,
-          2
+          1
         );
 
         // ✅ Call Pusher AFTER commit
@@ -940,7 +940,7 @@ const ApproveSuperAdminMaterial = async (req, res) => {
             (url = `Material-Overview/${dataId}`),
             dataMaterial.Entities_id,
             null,
-            2
+            1
           );
           const eventData = {
             name: "approve_super_Admin_request",
@@ -1180,7 +1180,7 @@ const stagnantMaterialsRegisterAsForLoop = async (req, res) => {
           "Obsolete-Material-Approve-Admin",
           user.entities_id,
           response.insertId,
-          2
+          1
         );
 
         // Trigger Pusher event

@@ -15,10 +15,11 @@ const {
   getDataUserManageBIdEntityWithoutLimit,
 } = require("../controller/UserMnagemantController.js");
 const authorization = require("../middleware/Authorization.js");
-const {Auth} = require("../middleware/auth.js");
+const {Auth, refreshTokenHandler} = require("../middleware/auth.js");
 const router = Router();
 router.post("/registerUser", registerUser);
 router.post("/Login", login);
+router.post("/refresh-token", refreshTokenHandler);
 router.get("/getDataUserManage", Auth, authorization, getDataUserManage);
 router.get("/deleteDataUserManage/:id", Auth, deleteById);
 router.post("/userManagementEdit", Auth, userManagementEdit);
@@ -29,12 +30,11 @@ router.get(
   authorization,
   getDataUserManageByIdEntities
 );
-
 router.post("/userEdit", Auth, userEdit);
 router.post("/ActiveAccount", Auth, ActiveAccount);
 router.get("/getDataUserSearch", Auth, getDataUserSearch);
 router.post("/LogoutUser", logout);
-router.post("/refreshToken", refreshToken);
+router.post("/refreshTokenHandler", refreshToken);
 router.get(
   "/getDataUserManageBIdEntityWithoutLimit/:id",
   // Auth,

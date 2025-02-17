@@ -114,7 +114,7 @@ const bookRegister = async (req, res) => {
       notificationUrl,
       entityForNotification,
       null,
-      2
+      1
     );
     // Trigger Pusher event
     await pusher.trigger("poll", "vote", eventData);
@@ -203,7 +203,7 @@ const UploadBookForEntityBuy = async (req, res) => {
       "BookObsoleteMaterial",
       dataBooked.entity_id,
       null,
-      2
+      1
     );
     // Trigger Pusher event
     const eventData = {
@@ -406,6 +406,8 @@ const getDataBookByEntityId = async (req, res) => {
 };
 const getDataBookedFalse = async (req, res) => {
   const pool = await connect();
+  console.log(   req.query,);
+  
   const connection = await pool.getConnection();
   try {
     const getDataBookingMQuery = `
@@ -428,7 +430,7 @@ const getDataBookedFalse = async (req, res) => {
       ORDER BY booking_materials.id ASC
     `;
     const [rows] = await connection.execute(getDataBookingMQuery, [
-      req.params.id,
+      req.query.entities_id,
     ]);
     if (rows.length === 0) {
       return res.status(404).json({ message: "No booking materials found" });
@@ -473,7 +475,7 @@ const deleteBookById = async (req, res) => {
         `Product-Overview/${bookedMaterial.material_id}`,
         req.user.entity_id,
         null,
-        2
+        1
       );
       // Trigger Pusher event
       const eventData = {
@@ -1022,7 +1024,7 @@ mainCoection();
             (url = `Product-Overview/${material_id}`),
             userInformationForEntityBuy.entity_id,
             null,
-            2
+            1
           );
           const eventData = {
             name: "approve_Book",
@@ -1112,7 +1114,7 @@ const Contacted = async (req, res) => {
         (url = `Product-Overview/${bookingData.material_id}`),
         userBookingInfo.entity_id,
         null,
-        2
+        1
       );
       const eventData = {
         name: "approve_Book",
@@ -1224,7 +1226,7 @@ const approvedAdminSendRequestBook = async (req, res) => {
         "Approval-reservations",
         bookedMaterial.entity_id,
         null,
-        2
+        1
       );
 
       // Trigger Pusher event
@@ -1249,7 +1251,7 @@ const approvedAdminSendRequestBook = async (req, res) => {
         `Product-Overview/${bookedMaterial.material_id}`,
         bookedMaterial.entity_Buy_id,
         null,
-        2
+        1
       );
       // Construct the event data for the user
       const eventDataUser = {
@@ -1348,7 +1350,7 @@ const approvedAdminToUploadBook = async (req, res) => {
         `Product-Overview/${bookedMaterial.material_id}`,
         bookedMaterial.entity_Buy_id,
         null,
-        2
+        1
       );
       // Trigger Pusher event
       const eventData = {

@@ -3,7 +3,7 @@ const { fetchNotifications } = require("../utils/createNotifction");
 const pusher = require("../utils/pusherINfo");
 const getNotification = async (req, res) => {
   try {
-    const rows = await fetchNotifications(req.params.id, 2);
+    const rows = await fetchNotifications(req.query.entity_id, req.query.category_id);
     if (rows.length === 0) {
       return res.status(404).json({ message: "لاتوجد بيانات حالية" });
     }

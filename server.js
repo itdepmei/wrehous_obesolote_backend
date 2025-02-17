@@ -176,7 +176,6 @@ App.use(
   require("./src/Rote/ObesoloteMaterialR/mainClassAndSubClassR.js")
 );
 App.use("/api", require("./src/Rote/ObesoloteMaterialR/ObsoleteMartialsR.js"));
-App.use("/api", require("./src/Rote/ObesoloteMaterialR/logR.js"));
 App.use("/api", require("./src/Rote/ObesoloteMaterialR/BookR.js"));
 App.use("/api", require("./src/Rote/ObesoloteMaterialR/MatrialState.js"));
 App.use("/api", require("./src/Rote/ObesoloteMaterialR/governorateR.js"));
@@ -209,6 +208,7 @@ App.use("/api", require("./src/Rote/BannerR.js"));
 App.use("/api", require("./src/Rote/AboutR.js"));
 App.use("/api", require("./src/Rote/reportR.js"));
 App.use("/api", require("./src/Rote/NotificaltionR.js"));
+App.use("/api", require("./src/Rote/logR.js"));
 
 // Scheduled Tasks
 // Data Cleanup Jobs

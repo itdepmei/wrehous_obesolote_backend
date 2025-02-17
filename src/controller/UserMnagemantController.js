@@ -37,10 +37,12 @@ const {
   verifyRefreshToken,
   checkActiveSession,
   getUserData,
+  insertUser,
 } = require("../model/userModel");
 const {
   validateInput,
   validateInputActive,
+  validateInputEdit,
 } = require("../validation/userValidtion");
 const { getPagination } = require("../utils/pagination");
 const { verifyToken } = require("../middleware/auth");
@@ -108,13 +110,11 @@ const login = async (req, res) => {
         .status(400)
         .json({ status: "error", message: "Email and password are required" });
     }
-
     const trimmedEmail = email.trim();
     const pool = await connect();
     connection = await pool.getConnection();
     await connection.beginTransaction();
     const user = await getUserByEmail(connection, trimmedEmail);
-    
     if (!user) {
       return res.status(401).json({
         status: "error",
@@ -139,17 +139,16 @@ const login = async (req, res) => {
       req
     );
     await logUserAction(connection, user.id, req);
-    
     const getUserByIdQuery = `
       SELECT * FROM user_id_application__permission_id
       WHERE user_id = ?`;
-    
+
     // Set query timeout to 5 seconds
     const [applicationpermissionResponse] = await Promise.race([
       connection.execute(getUserByIdQuery, [user.id]),
-      new Promise((_, reject) => 
-        setTimeout(() => reject(new Error('Query timeout')), 5000)
-      )
+      new Promise((_, reject) =>
+        setTimeout(() => reject(new Error("Query timeout")), 5000)
+      ),
     ]);
 
     const userResponse = await getUserDataById(connection, user.id);
@@ -161,10 +160,11 @@ const login = async (req, res) => {
       accessToken: `Bearer ${accessToken}`,
       refreshToken,
       message: "Login successful",
-      applicationpermissionResponse
+      applicationpermissionResponse,
     });
   } catch (error) {
-    if (connection && connection.connection._closing !== true) await connection.rollback();
+    if (connection && connection.connection._closing !== true)
+      await connection.rollback();
     console.error("Login error:", error);
     return res.status(500).json({
       status: "error",
@@ -181,6 +181,7 @@ const login = async (req, res) => {
 const logout = async (req, res) => {
   let connection;
   try {
+    console.log(req.body);
     const refreshToken =
       req.body.refreshToken ||
       req.cookies.refreshToken ||
@@ -192,7 +193,6 @@ const logout = async (req, res) => {
         message: "Authentication token is required.",
       });
     }
-
     const pool = await connect();
     connection = await pool.getConnection();
     const payload = verifyToken(refreshToken);
@@ -266,9 +266,8 @@ const getDataUserManage = async (req, res) => {
     const page = parseInt(req.query.page, 10) || 1;
     const limit = parseInt(req.query.limit, 10) || 10;
     const offset = (page - 1) * limit;
-
+    console.log("here user manage", req.query);
     connection = await getConnection();
-    
     const totalRowsQuery = "SELECT COUNT(*) AS count FROM users_management";
     const totalItems = await fetchTotalRows(connection, totalRowsQuery);
     const totalPages = Math.ceil(totalItems / limit);
@@ -315,7 +314,9 @@ const getDataUserManage = async (req, res) => {
       },
     });
   } catch (error) {
-    res.status(500).json({ message: "An error occurred", error: error.message });
+    res
+      .status(500)
+      .json({ message: "An error occurred", error: error.message });
   } finally {
     if (connection) connection.release();
   }
@@ -329,9 +330,11 @@ const getDataUserManageByIdEntities = async (req, res) => {
     const offset = (page - 1) * limit;
 
     connection = await getConnection();
-    
+
     const getTotalRowsQuery = `SELECT COUNT(*) AS count FROM users_management WHERE entities_id = ?`;
-    const totalItems = await fetchTotalRows(connection, getTotalRowsQuery, [req.query.id]);
+    const totalItems = await fetchTotalRows(connection, getTotalRowsQuery, [
+      req.query.id,
+    ]);
     const totalPages = Math.ceil(totalItems / limit);
 
     if (totalItems === 0) {
@@ -357,7 +360,9 @@ const getDataUserManageByIdEntities = async (req, res) => {
       WHERE um.entities_id = ?
       LIMIT ${limit} OFFSET ${offset};
     `;
-    const rows = await fetchUserData(connection, getDataUsersQuery, [req.query.id]);
+    const rows = await fetchUserData(connection, getDataUsersQuery, [
+      req.query.id,
+    ]);
     res.status(200).json({
       response: rows,
       pagination: {
@@ -369,7 +374,9 @@ const getDataUserManageByIdEntities = async (req, res) => {
     });
   } catch (error) {
     console.error("Error fetching user management data:", error.message);
-    res.status(500).json({ message: "An error occurred", error: error.message });
+    res
+      .status(500)
+      .json({ message: "An error occurred", error: error.message });
   } finally {
     if (connection) connection.release();
   }
@@ -424,7 +431,7 @@ const getUserById = async (req, res) => {
       LEFT JOIN ministries m ON u.ministres_id = m.id
       LEFT JOIN governorate g ON u.address_id = g.id
       WHERE u.id = ?`;
-    
+
     const [userData] = await connection.execute(getUserByIdQuery, [user_id]);
 
     if (!userData.length) {
@@ -444,13 +451,11 @@ const getUserById = async (req, res) => {
   }
 };
 
-
 // edit information by company
 const userManagementEdit = async (req, res) => {
   try {
-    const validatedData = validateInput(req.body);
+    const validatedData = validateInputEdit(req.body);
     const connection = await getConnection();
-
     try {
       // Check if user exists
       await checkUserExists(connection, validatedData.dataId);
@@ -460,15 +465,12 @@ const userManagementEdit = async (req, res) => {
         validatedData.email,
         validatedData.dataId
       );
-
       // Hash password if provided
-      const hashedPassword = await hashPassword(validatedData.password);
-
+      if (validatedData.password && validatedData.password !== "") {
+        validatedData.password = await hashPassword(validatedData.password);
+      }
       // Update user data
-      const response = await updateUserData(connection, {
-        ...validatedData,
-        password: hashedPassword,
-      });
+      const response = await updateUserData(connection, validatedData);
 
       if (response.affectedRows > 0) {
         // Update permissions if roleId is provided
@@ -616,7 +618,7 @@ const deleteById = async (req, res) => {
         const userIsDeletingInfo = userIsDeleting[0];
         const logInfo = ` تم حذف المستخدم  (${userIsDeletingInfo.user_name} من قبل ${userInfo?.user_name}`;
         // Insert log entry
-        createLogEntry(connection, 2, user._id, user.entity_id, logInfo ,1);
+        createLogEntry(connection, 2, user._id, user.entity_id, logInfo, 1);
         return res.status(200).json({ message: "تم الحذف بنجاح" });
       } else {
         return res.status(404).json({ message: "Item not found" });
@@ -647,19 +649,27 @@ const getDataUserSearch = async (req, res) => {
 
     // Build search conditions
     const { searchConditions, queryParams } = buildSearchConditions(req.query);
-    const whereClause = searchConditions.length ? `WHERE ${searchConditions.join(" AND ")}` : "";
-
+    const whereClause = searchConditions.length
+      ? `WHERE ${searchConditions.join(" AND ")}`
+      : "";
     // Get total count for pagination
-    const totalItems = await getTotalCount(connection, whereClause, queryParams);
+    const totalItems = await getTotalCount(
+      connection,
+      whereClause,
+      queryParams
+    );
     const totalPages = Math.ceil(totalItems / itemsPerPage);
-
     // Get data with pagination
-    const rows = await getDataWithPagination(connection, whereClause, queryParams, itemsPerPage, offset);
-
+    const rows = await getDataWithPagination(
+      connection,
+      whereClause,
+      queryParams,
+      itemsPerPage,
+      offset
+    );
     if (rows.length === 0) {
       return res.status(404).json({ message: "لا توجد بيانات" });
     }
-
     res.status(200).json({
       response: rows,
       pagination: {
@@ -671,20 +681,18 @@ const getDataUserSearch = async (req, res) => {
     });
   } catch (error) {
     console.error("An error occurred: ", error.message);
-    res.status(500).json({ message: "An error occurred", error: error.message });
+    res
+      .status(500)
+      .json({ message: "An error occurred", error: error.message });
   } finally {
     if (connection) connection.release();
     console.log("Connection released");
   }
 };
-
 // Helper function to verify refresh token
-
-
 // Main function to refresh the token
 const refreshToken = async (req, res) => {
   const { refreshToken } = req.body;
-
   if (!refreshToken) {
     return res.status(400).json({ message: "Refresh token is required" });
   }
@@ -695,12 +703,16 @@ const refreshToken = async (req, res) => {
     const payload = verifyRefreshToken(refreshToken);
     if (!payload) {
       res.clearCookie("authorization", { path: "/" });
-      return res.status(401).json({ message: "Invalid or expired refresh token" });
+      return res
+        .status(401)
+        .json({ message: "Invalid or expired refresh token" });
     }
     // Check if there is an active session
     const isActiveSession = await checkActiveSession(connection, payload._id);
     if (!isActiveSession) {
-      return res.status(404).json({ message: "No active session found for the user." });
+      return res
+        .status(404)
+        .json({ message: "No active session found for the user." });
     }
     // Get the user data
     const user = await getUserData(connection, payload._id);
@@ -715,7 +727,9 @@ const refreshToken = async (req, res) => {
         message: "Access token refreshed successfully",
       });
     } else {
-      return res.status(500).json({ message: "Failed to generate access token" });
+      return res
+        .status(500)
+        .json({ message: "Failed to generate access token" });
     }
   } catch (error) {
     console.error("Error during token refresh:", error);
@@ -726,49 +740,7 @@ const refreshToken = async (req, res) => {
     if (connection) connection.release();
   }
 };
-
-
 // Cron Job: Update `is_active_session` daily and weekly
-const scheduleSessionUpdates = async () => {
-  const pool = await connect();
-
-  // Daily job to deactivate expired sessions
-  cron.schedule("0 0 * * *", async () => {
-    let connection;
-    try {
-      connection = await pool.getConnection();
-      await connection.execute(
-        `UPDATE active_session_user
-         SET is_active_session = FALSE
-         WHERE TIMESTAMPDIFF(DAY, last_active_at, NOW()) >= 1`
-      );
-      console.log("Daily session update executed.");
-    } catch (error) {
-      console.error("Error during daily session update:", error);
-    } finally {
-      if (connection) connection.release();
-    }
-  });
-  // Weekly job to update active sessions
-  cron.schedule("0 0 * * 0", async () => {
-    let connection;
-    try {
-      connection = await pool.getConnection();
-      await connection.execute(
-        `UPDATE active_session_user
-         SET is_active_session = TRUE
-         WHERE TIMESTAMPDIFF(DAY, last_active_at, NOW()) < 7`
-      );
-      console.log("Weekly session update executed.");
-    } catch (error) {
-      console.error("Error during weekly session update:", error);
-    } finally {
-      if (connection) connection.release();
-    }
-  });
-};
-
-// Initialize the cron jobs
 // scheduleSessionUpdates();
 module.exports = {
   registerUser,
@@ -784,5 +756,4 @@ module.exports = {
   refreshToken,
   logout,
   getDataUserManageBIdEntityWithoutLimit,
-  
 };

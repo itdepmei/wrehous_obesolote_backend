@@ -1,14 +1,11 @@
 const validateInput = (body) => {
-    const { name, password, email, phone, jopTitle, address_id, is_active } =
+    const { name, email, phone, jopTitle } =
       body;
     if (
       !name ||
-      !password ||
       !email ||
       !phone ||
-      !jopTitle ||
-      !address_id ||
-      !is_active
+      !jopTitle 
     ) {
       throw new Error("أدخل البيانات المطلوبة");
     }

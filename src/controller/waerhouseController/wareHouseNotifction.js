@@ -17,7 +17,7 @@ const pusher = require("../../utils/pusherINfo");
 
 const getNotificationWarehouse = async (req, res) => {
   try {
-    const rows = await fetchNotifications(req.params.id, 1);
+    const rows = await fetchNotifications(req.query.entity_id, 2);
     if (rows.length === 0) {
       return res.status(404).json({ message: "لاتوجد بيانات حالية" });
     }

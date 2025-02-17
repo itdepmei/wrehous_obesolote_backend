@@ -50,7 +50,7 @@ const warehouseRegister = async (req, res) => {
         const insertId = response.insertId;
         // Logging
         const logInfo = `تم إنشاء مستودع جديد "${name}" بواسطة المستخدم ${userAuth}`;
-        await createLogEntry(connection, 1, user_id, entity_id, logInfo,2);
+        await createLogEntry(connection, 1, user_id, entity_id, logInfo, 2);
         return res.status(201).json({
           message: "تم إضافة المستودع بنجاح",
           warehouseId: insertId,
@@ -72,6 +72,7 @@ const warehouseRegister = async (req, res) => {
 const getWarehouseData = async (req, res) => {
   const { entity_id, lab_id, factory_id } = req.query;
   try {
+    console.log("sdlfkjhskldjfhlksd",req.query);
     const pool = await connect();
     const connection = await pool.getConnection();
     try {
@@ -88,15 +89,17 @@ const getWarehouseData = async (req, res) => {
         WHERE 1=1 AND warehouse.entity_id = ? 
       `;
       const params = [entity_id];
-      if ((lab_id && lab_id !== "null", lab_id !== "undefined")) {
+      if (lab_id && lab_id !== "null" && lab_id !== "undefined") {
         query += " AND warehouse.laboratory_id = ?";
         params.push(lab_id);
       }
-      if ((factory_id, factory_id !== "null", factory_id !== "undefined")) {
+      if (factory_id && factory_id !== "null" && factory_id !== "undefined") {
         query += " AND warehouse.factory_id = ?";
         params.push(factory_id);
       }
       // Execute the query
+      console.log(params);
+
       const [rows] = await connection.execute(query, params);
       if (rows.length > 0) {
         return res.status(200).json({
@@ -309,5 +312,5 @@ module.exports = {
   warehouseEdit,
   deleteWareHouseById,
   getWarehouseDataById,
-  getWarehouseDataByEntity_id
+  getWarehouseDataByEntity_id,
 };

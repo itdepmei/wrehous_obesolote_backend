@@ -5,8 +5,9 @@ const {
   deleteNotificationById,
   EditNotificationById,
 } = require("../utils/createNotifction.js");
+const authorization = require("../middleware/Authorization.js");
 const router = Router();
-router.get("/getNotification/:id", Auth, getNotification);
-router.get("/deleteNotificationById", Auth, deleteNotificationById);
-router.post("/EditNotificationById", Auth, EditNotificationById);
+router.get("/getNotification", Auth, authorization, getNotification);
+router.get("/deleteNotificationById", Auth, authorization, deleteNotificationById);
+router.post("/EditNotificationById", Auth, authorization, EditNotificationById);
 module.exports = router;

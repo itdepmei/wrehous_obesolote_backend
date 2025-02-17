@@ -1,4 +1,4 @@
-const { connect } = require("../../Config/db");
+const { connect } = require("../Config/db");
 const getLog = async (req, res) => {
   let connection;
   try {
@@ -41,7 +41,6 @@ const getLog = async (req, res) => {
       WHERE log_information.category_id = 1
       ORDER BY log_information.id DESC
       LIMIT ${limit} OFFSET ${offset};
-
     `;
     const [logs] = await connection.execute(selectQueryLog);
     // Check if logs are found
@@ -74,7 +73,7 @@ const getLogByEntityId = async (req, res) => {
   let connection;
   try {
     // Check if entityId is provided
-    const { entityId, page = 1, limit = 10 } = req.query;
+    const { entityId, page = 1, limit = 10, category_id } = req.query;
     if (!entityId) {
       return res.status(400).json({ message: "Entity ID is required" });
     }
@@ -89,11 +88,13 @@ const getLogByEntityId = async (req, res) => {
     }
     const offset = (pageNumber - 1) * limitNumber;
     // Fetch total count of logs for pagination
-    const totalCountQuery = `SELECT COUNT(*) AS count FROM log_information WHERE log_information.entities_id = ? AND log_information.category_id = 1`;
-    const [totalRows] = await connection.execute(totalCountQuery, [entityId]);
+    const totalCountQuery = `SELECT COUNT(*) AS count FROM log_information WHERE log_information.entities_id = ? AND log_information.category_id = ?`;
+    const [totalRows] = await connection.execute(totalCountQuery, [
+      entityId,
+      category_id,
+    ]);
     const totalItems = totalRows[0].count;
     const totalPages = Math.ceil(totalItems / limitNumber);
-    console.log("Total Items:", totalItems, "Total Pages:", totalPages);
     // If no logs exist for the given entity ID
     if (totalItems === 0) {
       return res

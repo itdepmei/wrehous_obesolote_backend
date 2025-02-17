@@ -40,8 +40,9 @@ router.get(
   getDataStagnantMaterialsBookedPa
 );
 router.get(
-  "/getDataBookedFalse/:id",
+  "/getDataBookedFalse",
   Auth,
+  authorization,
   getDataBookedFalse
 );
 router.get(
