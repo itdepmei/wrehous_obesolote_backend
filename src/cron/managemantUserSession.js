@@ -31,7 +31,6 @@ const scheduleLogsCleanup = async () => {
     try {
       connection = await pool.getConnection();
       await connection.beginTransaction();
-
       // Delete records older than 1 year from user_auth_logs
       await connection.execute(
         `DELETE FROM user_auth_logs 
@@ -43,7 +42,6 @@ const scheduleLogsCleanup = async () => {
          WHERE TIMESTAMPDIFF(YEAR, created_at, NOW()) >= 1`
       );
       console.log("Cleaned up error_logs older than 1 year");
-
       await connection.commit();
       console.log("Yearly logs cleanup executed at:", new Date().toISOString());
     } catch (error) {

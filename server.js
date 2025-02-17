@@ -23,7 +23,11 @@ const {
   handleInventoryNotifications,
   handelQuintityNotifction,
 } = require("./src/cron/deleteZeroQuantityItems");
-const { scheduleSessionUpdates, scheduleLogsCleanup } = require("./src/cron/managemantUserSession.js");
+const {
+  scheduleSessionUpdates,
+  scheduleLogsCleanup,
+} = require("./src/cron/managemantUserSession.js");
+const cleanOldLogs = require("./src/cron/cleanOldLogs.js");
 // Load environment variables
 config();
 // Initialize Express app
@@ -212,7 +216,6 @@ cron.schedule("0 0 1 * *", async () => {
   Logger.info("Running scheduled data cleanup jobs");
   await Promise.all([removeOldData(), removeOldDataLog()]);
 });
-
 // Notification Jobs
 cron.schedule("0 0 * * *", async () => {
   Logger.info("Running notification checks");
@@ -221,7 +224,6 @@ cron.schedule("0 0 * * *", async () => {
     handelQuintityNotifction(),
   ]);
 });
-
 // Initialize cron jobs
 scheduleDeleteZeroQuantityItems();
 scheduleSessionUpdates();
@@ -231,24 +233,19 @@ App.get("/metrics", async (req, res) => {
   res.set("Content-Type", register.contentType);
   res.end(await register.metrics());
 });
-
 // Welcome Route
 App.get("/", (req, res) => {
   res.send("<h1>Welcome to the Warehouse Management API</h1>");
 });
-
 // Error Handlers
 App.use(errorHandler);
-
 // 404 Handler
 App.all("*", (req, res) => {
   return res.status(404).json({ message: "Route not found" });
 });
-
 // Server Setup
 const server = require("http").createServer(App);
 const port = process.env.PORT || 4000;
-
 server.listen(port, () => {
   Logger.info(`Server is running on http://127.0.0.1:${port}`);
 });

@@ -1,42 +1,23 @@
 const cron = require("node-cron");
 const { connect } = require("../Config/db");
-const path = require("path");
-const ProcessorFile = require("../utils/DeleteFile");
 const createLogEntry = require("../utils/createLog");
-
 // Schedule the task to run every hour
 const scheduleDeleteZeroQuantityItems = () => {
   // '0 * * * *' means: run at minute 0 of every hour
   cron.schedule("0 * * * *", async () => {
     console.log("Running delete zero quantity items check...");
     let connection;
-
     try {
       const pool = await connect();
       connection = await pool.getConnection();
-
       // Get all items with zero quantity
       const [zeroQuantityItems] = await connection.execute(
         "SELECT * FROM stagnant_materials WHERE Quantity = 0"
       );
-
       if (zeroQuantityItems.length > 0) {
         await connection.beginTransaction();
-
         for (const item of zeroQuantityItems) {
           try {
-            // Get associated files
-            const [files] = await connection.execute(
-              "SELECT * FROM files WHERE insert_id = ?",
-              [item.stagnant_id]
-            );
-
-            // Delete physical files
-            for (const file of files) {
-              const filePath = path.join("src/upload_Data/", file.file_name);
-              await ProcessorFile(filePath);
-            }
-
             // Delete the item
             await connection.execute(
               "DELETE FROM stagnant_materials WHERE stagnant_id = ?",
