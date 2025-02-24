@@ -13,10 +13,7 @@ const refreshTokenHandler = async (req, res) => {
   try {
     const pool = await connect();
     connection = await pool.getConnection();
-    const payload = verifyRefreshToken(
-      refreshToken || "",
-      process.env.REFRESHTOKEN
-    );
+    const payload =jwt.verify(refreshToken, process.env.REFRESHTOKEN);
     if (!payload) {
       res.clearCookie("authorization", { path: "/" });
       return res
@@ -33,6 +30,8 @@ const refreshTokenHandler = async (req, res) => {
         .status(500)
         .json({ message: "Failed to generate access token" });
     }
+    console.log("fljhdfiusdhfkjgdfhkgj");
+    
     return res.status(200).json({
       accessToken: `Bearer ${newAccessToken}`,
       message: "Access token refreshed successfully",
@@ -46,6 +45,8 @@ const refreshTokenHandler = async (req, res) => {
     if (connection) connection.release();
   }
 };
+
+
 
 const Auth = (req, res, next) => {
   const authorizationHeader = req.headers["authorization"];

@@ -1,5 +1,5 @@
 const path = require("path");
-const { connect } = require("../../Config/db");
+const { connect } = require("../../config/db");
 const {
   getDataQuery,
   deleteItem,
@@ -125,8 +125,7 @@ const stagnantMaterialsRegister = async (req, res) => {
         ]);
         const data = userInformation[0];
         const logInfo = `تم إدراج هذا المنتج ${trimmedNameMartials} من قبل المستخدم ${data.user_name}، والكمية التي تم إدراجها هي ${Quantity}`;
-     
-        createLogEntry(connection, 1, user_id, Entities_id, logInfo);
+        createLogEntry(connection, 1, user_id, Entities_id, logInfo ,1);
         const getDataUsersQuery = `
         SELECT 
           um.id AS user_id, um.*, 

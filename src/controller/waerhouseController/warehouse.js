@@ -1,4 +1,4 @@
-const { connect } = require("../../Config/db");
+const { connect } = require("../../config/db");
 const { getInformation } = require("../../query/userMangeController-db");
 const createLogEntry = require("../../utils/createLog");
 const warehouseRegister = async (req, res) => {

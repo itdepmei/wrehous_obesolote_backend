@@ -1,4 +1,4 @@
-const { connect } = require("../Config/db");
+const { connect } = require("../config/db");
 const { selectQuery, insertQuery } = require("../query/permisionsQuery");
 
 const setPermission = async (req, res) => {

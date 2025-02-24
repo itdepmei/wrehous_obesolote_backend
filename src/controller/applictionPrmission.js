@@ -1,4 +1,4 @@
-const { connect, getConnection } = require("../Config/db");
+const { connect, getConnection } = require("../config/db");
 const getDataApplicationPermission = async (req, res) => {
   const pool = await connect();
   const connection = await pool.getConnection();

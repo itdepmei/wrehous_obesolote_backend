@@ -1,4 +1,4 @@
-const { connect } = require("../../Config/db");
+const { connect } = require("../../config/db");
 const jopTitleRegister = async (req, res) => {
   const { job } = req.body;
   if (!job) {

@@ -1,4 +1,4 @@
-const { connect } = require("../Config/db");
+const { connect } = require("../config/db");
 const getLog = async (req, res) => {
   let connection;
   try {

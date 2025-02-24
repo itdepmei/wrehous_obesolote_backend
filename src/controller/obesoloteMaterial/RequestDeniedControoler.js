@@ -1,4 +1,4 @@
-const { connect } = require("../../Config/db");
+const { connect } = require("../../config/db");
 const MessageDeniedRegister = async (req, res) => {
   const { message, book_id } = req.body;
   if (!message) {

@@ -1,5 +1,5 @@
 const cron = require('node-cron');
-const { connect } = require("../Config/db");
+const { connect } = require("../config/db");
 
 const scheduleSessionUpdates = async () => {
   const pool = await connect();

@@ -1,4 +1,4 @@
-const { connect } = require("../../Config/db");
+const { connect } = require("../../config/db");
 const pusher = require("../../utils/pusherINfo"); // Ensure pusher is configured correctly
 const createLogEntry = require("../../utils/createLog");
 const {insertNotification} = require("../../utils/createNotifction");

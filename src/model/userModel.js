@@ -1,5 +1,11 @@
-const { getDataRoleAndPermissionQuery, insertQueryRolePermission } = require("../query/RoleQuery");
-const { getDataUsersById, getInformation } = require("../query/userMangeController-db");
+const {
+  getDataRoleAndPermissionQuery,
+  insertQueryRolePermission,
+} = require("../query/RoleQuery");
+const {
+  getDataUsersById,
+  getInformation,
+} = require("../query/userMangeController-db");
 const generateToken = require("../utils/genrateToken");
 const bcrypt = require("bcrypt");
 
@@ -7,7 +13,7 @@ let checkEmailQuery = "SELECT * FROM users_management WHERE email = ?";
 
 const hashPassword = async (password) => {
   console.log("pass", password);
-  
+
   return await bcrypt.hash(password, 10);
 };
 const insertUser = async (connection, userData) => {
@@ -74,12 +80,11 @@ const getUserByEmail = async (connection, email) => {
 
 const generateTokens = (user) => {
   return {
-    accessToken: generateToken(user, process.env.ACCESSTOKEN, "15m"),
-    refreshToken: generateToken(user, process.env.REFRESHTOKEN ,"8h"),
-    refreshTokenExp: new Date(Date.now() + 8 * 60 * 60 * 1000) // 8 hours
+    accessToken: generateToken(user, process.env.ACCESSTOKEN, "1d"),
+    refreshToken: generateToken(user, process.env.REFRESHTOKEN, "2d"),
+    refreshTokenExp: new Date(Date.now() + 24 * 60 * 60 * 1000), // 1 day
   };
 };
-
 const manageUserSession = async (
   connection,
   userId,
@@ -92,7 +97,6 @@ const manageUserSession = async (
     "SELECT id FROM active_session_user WHERE user_id = ?",
     [userId]
   );
-
   if (existingSession.length > 0) {
     await connection.execute(
       "UPDATE active_session_user SET is_active_session = TRUE, refresh_token = ?, access_token = ?, expires_at = ?, device_info = ?, ip_address = ?, created_at = NOW() WHERE id = ?",
@@ -144,7 +148,7 @@ const setSecureCookies = (res, accessToken, refreshToken, refreshTokenExp) => {
   };
   res.cookie("accessToken", accessToken, {
     ...cookieOptions,
-    expires: new Date(Date.now() +  60 * 1000),
+    expires: new Date(Date.now() + 60 * 1000),
   });
   res.cookie("refreshToken", refreshToken, {
     ...cookieOptions,

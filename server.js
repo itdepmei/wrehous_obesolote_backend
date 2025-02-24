@@ -12,12 +12,11 @@ const timeout = require("connect-timeout");
 // Internal imports
 const { errorHandler } = require("./src/middleware/errorHandel.js");
 const Logger = require("./src/middleware/Logger");
-const { mainCoection } = require("./src/Config/db.js");
+const { mainCoection } = require("./src/config/db.js");
 const {
   removeOldData,
   removeOldDataLog,
 } = require("./src/controller/RemoveDateController.js");
-
 const {
   scheduleDeleteZeroQuantityItems,
   handleInventoryNotifications,
@@ -53,18 +52,15 @@ App.use(
     },
   })
 );
-
 // Rate limiting
 // const limiter = rateLimit({
 //   windowMs: 15 * 60 * 1000, // 15 minutes
 //   max: 400, // limit each IP to 100 requests per windowMs
 // });
 // App.use('/api', limiter);
-
 // Data Sanitization
 App.use(xss()); // Against XSS
 App.use(hpp()); // Prevent HTTP Parameter Pollution
-
 // CORS Configuration
 App.use(cors());
 App.use((req, res, next) => {

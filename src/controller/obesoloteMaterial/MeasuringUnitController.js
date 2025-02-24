@@ -1,4 +1,4 @@
-const { connect } = require("../../Config/db");
+const { connect } = require("../../config/db");
 const unitRegister = async (req, res) => {
   const { unitMeasuring, entities_id } = req.body;
   if (!unitMeasuring) {

@@ -1,15 +1,12 @@
-const { connect } = require("../../Config/db");
-const pusher = require("../../utils/pusherINfo"); // Ensure pusher is configured correctly
+const { connect } = require("../../config/db");
 const createLogEntry = require("../../utils/createLog");
-const { insertNotification } = require("../../utils/createNotifction");
 const { logger } = require("../../middleware/errorHandel");
+const { formatDateE } = require("../../utils/function");
 const {
-
   insertInventory,
   updateStoreBalance,
   updateMaterialBalance,
 } = require("../../model/invevtoryModel/inventoryModel");
-const e = require("express");
 const { getUserDataById } = require("../../model/userModel");
 /**
  * Register new inventory entry
@@ -68,19 +65,19 @@ const inventoryRegister = async (req, res) => {
   try {
     await insertInventory([
       quantity_incoming_outgoing,
-      expiry_date,
-      purchase_date,
+      formatDateE(expiry_date),
+      formatDateE(purchase_date),
       user_id,
       entity_id,
       ministry_id,
       warehouse_id,
       price,
       trimDocumentNumber,
-      document_date,
+      formatDateE(document_date),
       trimBeneficiary,
       document_type || null,
       material_id,
-      production_date,
+      formatDateE(production_date),
       state_id,
     ]);
 

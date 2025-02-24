@@ -1,4 +1,4 @@
-const {connect} = require("../../Config/db");
+const {connect} = require("../../config/db");
 const insertInventory = async (data) => {
   const pool = await connect();
   const connection = await pool.getConnection();

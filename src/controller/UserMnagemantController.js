@@ -1,6 +1,6 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const { connect, getConnection } = require("../Config/db");
+const { connect, getConnection } = require("../config/db");
 const {
   deleteItem,
   getInformation,
@@ -128,7 +128,19 @@ const login = async (req, res) => {
         message: "البريد الالكتروني أو كلمة السر غير صحيحة",
       });
     }
-
+    const checkActiveUser = `
+    SELECT * FROM active_user
+    WHERE user_id = ? AND is_active = 1`;
+    const [activeUserRows] = await connection.execute(checkActiveUser, [
+      user.id,
+    ]);
+    if (!activeUserRows || activeUserRows.length === 0) {
+      await connection.rollback();
+      return res.status(401).json({
+        status: "error",
+        message: "الحساب غير مفعل. يرجى الاتصال بالمسؤول",
+      });
+    }
     const { accessToken, refreshToken, refreshTokenExp } = generateTokens(user);
     await manageUserSession(
       connection,

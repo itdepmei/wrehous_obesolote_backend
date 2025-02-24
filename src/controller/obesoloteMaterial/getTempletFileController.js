@@ -1,5 +1,5 @@
 const ExcelJS = require("exceljs");
-const { connect } = require("../../Config/db");
+const { connect } = require("../../config/db");
 
 const getTemplateFileExcel = async (req, res) => {
   try {

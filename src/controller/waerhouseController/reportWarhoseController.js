@@ -1,4 +1,4 @@
-const { connect } = require("../../Config/db");
+const { connect } = require("../../config/db");
 const puppeteer = require("puppeteer");
 const { formatDate, formatDateNew } = require("../../utils/function");
 const ExcelJS = require("exceljs");

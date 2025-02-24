@@ -11,7 +11,7 @@ const { getDataBookQuery } = require("../../query/bookedQuery");
 const createLogEntry = require("../../utils/createLog");
 const path = require("path");
 const ProcessorFile = require("../../utils/DeleteFile");
-const { connect, mainCoection } = require("../../Config/db");
+const { connect, mainCoection } = require("../../config/db");
 const bookRegister = async (req, res) => {
   const {
     material_id,

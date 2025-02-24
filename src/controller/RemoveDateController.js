@@ -1,4 +1,4 @@
-const { connect } = require("../Config/db");
+const { connect } = require("../config/db");
 const cron = require("node-cron");
 const { formatDate } = require("../utils/function");
 const moment = require("moment");

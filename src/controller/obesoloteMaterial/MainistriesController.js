@@ -1,4 +1,4 @@
-const { connect } = require("../../Config/db");
+const { connect } = require("../../config/db");
 const MinistriesRegister = async (req, res) => {
   const { ministries } = req.body;
   if (!ministries) {

@@ -1,4 +1,4 @@
-const { connect } = require("../Config/db");
+const { connect } = require("../config/db");
 const aboutSystemAdd = async (req, res) => {
   const { title, text } = req.body;
   // Trim input data

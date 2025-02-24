@@ -1,5 +1,5 @@
 const cron = require("node-cron");
-const { connect } = require("../Config/db");
+const { connect } = require("../config/db");
 const createLogEntry = require("../utils/createLog");
 // Schedule the task to run every hour
 const scheduleDeleteZeroQuantityItems = () => {

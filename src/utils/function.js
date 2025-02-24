@@ -1,5 +1,5 @@
 const moment = require("moment");
-const { connect } = require("../Config/db");
+const { connect } = require("../config/db");
 const formatDate = (Data) => {
   const date = new Date(Data);
   return moment(date).format("YYYY-MM-DD ");
@@ -94,14 +94,23 @@ const editQuantity = async (connection, id, relation = "+") => {
 
 
 
-
 const formatDateNew = (date) => {
   const options = { year: "numeric", month: "2-digit", day: "2-digit" };
   return new Date(date).toLocaleDateString("ar-EG", options);
 };
 
+const formatDateArabic = (date) => {
+  if (!date) return null; // Handle null values
+  return new Date(date).toLocaleDateString("ar-EG");
+};
+const formatDateE = (date) => {
+  if (!date) return null; // Handle null values
+  return new Date(date).toISOString().slice(0, 19).replace("T", " ");
+};
 module.exports = {
   formatDate,
   editQuantity,
-  formatDateNew
+  formatDateNew,
+  formatDateE,
+  formatDateArabic,
 };

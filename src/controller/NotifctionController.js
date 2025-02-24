@@ -1,4 +1,4 @@
-const { connect } = require("../Config/db");
+const { connect } = require("../config/db");
 const { fetchNotifications } = require("../utils/createNotifction");
 const pusher = require("../utils/pusherINfo");
 const getNotification = async (req, res) => {

@@ -1,5 +1,5 @@
 const path = require("path");
-const { connect } = require("../Config/db");
+const { connect } = require("../config/db");
 const ProcessorFile = require("../utils/DeleteFile");
 const UserGuidInsert = async (req, res) => {
   const { description } = req.body;

@@ -1,4 +1,4 @@
-const { connect } = require("../Config/db");
+const { connect } = require("../config/db");
 const BannerRegister = async (req, res) => {
   const { title, description } = req.body;
 

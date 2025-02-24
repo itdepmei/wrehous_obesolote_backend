@@ -1,4 +1,4 @@
-const { connect } = require("../Config/db");
+const { connect } = require("../config/db");
 const pusher = require("./pusherINfo");
 async function insertNotification(
   user_id,

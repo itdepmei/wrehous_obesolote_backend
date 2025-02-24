@@ -1,4 +1,4 @@
-const { connect } = require("../../Config/db");
+const { connect } = require("../../config/db");
 const governorateRegister = async (req, res) => {
   const { governorate_name } = req.body;
   if (!governorate_name) {

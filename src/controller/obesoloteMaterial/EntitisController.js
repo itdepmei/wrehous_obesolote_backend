@@ -1,5 +1,5 @@
 const express = require("express");
-const { connect } = require("../../Config/db");
+const { connect } = require("../../config/db");
 const EntitiesRegister = async (req, res) => {
 
   try {

@@ -1,4 +1,4 @@
-const { connect } = require("../Config/db");
+const { connect } = require("../config/db");
 const { getDataPermissionUserIdDataQuery } = require("../query/RoleQuery");
 const authorization = async (req, res, next) => {
   const user = req.user;
