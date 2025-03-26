@@ -9,5 +9,5 @@ const authorization = require("../middleware/Authorization.js");
 const router = Router();
 router.get("/getNotification", Auth, authorization, getNotification);
 router.get("/deleteNotificationById", Auth, authorization, deleteNotificationById);
-router.post("/EditNotificationById", Auth, authorization, EditNotificationById);
+router.post("/EditNotificationById", Auth, EditNotificationById);
 module.exports = router;

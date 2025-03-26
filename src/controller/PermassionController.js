@@ -1,10 +1,12 @@
 const { connect } = require("../config/db");
+const logger = require("../middleware/Logger");
 const { selectQuery, insertQuery } = require("../query/permisionsQuery");
 
 const setPermission = async (req, res) => {
   try {
     const { permissionName } = req.body;
     if (!permissionName) {
+      logger.error("Data is required");
       return res.status(400).json({ message: "Data is required" });
     }
     const pool = await connect();
@@ -19,6 +21,7 @@ const setPermission = async (req, res) => {
           .status(200)
           .json({ message: "Permission saved successfully", response });
       } else {
+        logger.error("Error occurred while saving permission");
         return res
           .status(400)
           .json({ message: "Error occurred while saving permission" });
@@ -27,6 +30,7 @@ const setPermission = async (req, res) => {
       connection.release();
     }
   } catch (error) {
+    logger.error("Error saving permission:", error);
     console.error("Error saving permission:", error);
     return res.status(500).json({ message: "An error occurred", error });
   }
@@ -48,6 +52,7 @@ const getPermissionByRoleId = async (req, res) => {
       connection.release();
     }
   } catch (error) {
+    logger.error("Error fetching permissions by role ID:", error);
     console.error("Error fetching permissions by role ID:", error);
     return res.status(500).json({ message: "An error occurred", error });
   }
@@ -68,6 +73,7 @@ const getAllPermissions = async (req, res) => {
       connection.release();
     }
   } catch (error) {
+    logger.error("Error fetching all permissions:", error);
     console.error("Error fetching all permissions:", error);
     return res.status(500).json({ message: "An error occurred", error });
   }
@@ -101,11 +107,11 @@ const getPermissionsById = async (req, res) => {
       connection.release();
     }
   } catch (error) {
+    logger.error("Error fetching all permissions:", error);
     console.error("Error fetching all permissions:", error);
     return res.status(500).json({ message: "An error occurred", error });
   }
 };
-
 module.exports = {
   getAllPermissions,
   getPermissionByRoleId,

@@ -14,8 +14,6 @@ const logger = winston.createLogger({
     new winston.transports.File({ filename: 'logs/app.log' })
   ]
 });
-
-
 const errorHandler = (err, req, res, next) => {
   const statusCode = res.statusCode === 200 ? 500 : res.statusCode;
   res.status(statusCode);

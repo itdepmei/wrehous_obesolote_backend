@@ -46,6 +46,7 @@ const {
 } = require("../validation/userValidtion");
 const { getPagination } = require("../utils/pagination");
 const { verifyToken } = require("../middleware/auth");
+const logger = require("../middleware/Logger");
 
 const registerUser = async (req, res) => {
   const {
@@ -94,6 +95,7 @@ const registerUser = async (req, res) => {
       connection.release();
     }
   } catch (error) {
+    logger.error("Error registering user:", error);
     console.error("Error registering user:", error);
     res
       .status(error.statusCode || 500)
@@ -128,6 +130,7 @@ const login = async (req, res) => {
         message: "البريد الالكتروني أو كلمة السر غير صحيحة",
       });
     }
+    // check if user is active
     const checkActiveUser = `
     SELECT * FROM active_user
     WHERE user_id = ? AND is_active = 1`;
@@ -136,12 +139,31 @@ const login = async (req, res) => {
     ]);
     if (!activeUserRows || activeUserRows.length === 0) {
       await connection.rollback();
+      logger.error(
+        "Error logging in:",
+        "User is not active in the active_user table"
+      );
       return res.status(401).json({
         status: "error",
         message: "الحساب غير مفعل. يرجى الاتصال بالمسؤول",
       });
     }
+
+    const currentSession = await getActiveSession(connection, user.id);
+    console.log(currentSession);
+    if (currentSession === null) {
+      // التحقق من null أو undefined
+      await connection.rollback();
+      logger.error(
+        "Error logging in:"+"User is not active in the active_session_user table" + currentSession + user.user_name+user.id + user.email
+      )
+      return res.status(401).json({
+        status: "error",
+        message: "الحساب نشط حاليا يرجى تسجيل الخروج من الجلسة النشطة",
+      });
+    }
     const { accessToken, refreshToken, refreshTokenExp } = generateTokens(user);
+    // handel user active session
     await manageUserSession(
       connection,
       user.id,
@@ -150,6 +172,7 @@ const login = async (req, res) => {
       refreshTokenExp,
       req
     );
+
     await logUserAction(connection, user.id, req);
     const getUserByIdQuery = `
       SELECT * FROM user_id_application__permission_id
@@ -178,6 +201,7 @@ const login = async (req, res) => {
     if (connection && connection.connection._closing !== true)
       await connection.rollback();
     console.error("Login error:", error);
+    logger.error("Error logging in:", error);
     return res.status(500).json({
       status: "error",
       message: "An error occurred during login",
@@ -200,6 +224,10 @@ const logout = async (req, res) => {
       req.headers["x-refresh-token"];
 
     if (!refreshToken) {
+      logger.error(
+        "Error logging out:",
+        "Refresh token is required for logout"
+      );
       return res.status(400).json({
         status: "error",
         message: "Authentication token is required.",
@@ -209,6 +237,7 @@ const logout = async (req, res) => {
     connection = await pool.getConnection();
     const payload = verifyToken(refreshToken);
     if (!payload || !payload._id) {
+      logger.error("Error logging out:", "Invalid token payload");
       return res.status(401).json({
         status: "error",
         message: "Invalid token payload",
@@ -226,6 +255,7 @@ const logout = async (req, res) => {
     });
   } catch (error) {
     console.error("Logout error:", error);
+    logger.error("Error logging out:", error);
     return res.status(500).json({
       status: "error",
       message: "An error occurred during logout",
@@ -326,6 +356,7 @@ const getDataUserManage = async (req, res) => {
       },
     });
   } catch (error) {
+    logger.error("Error fetching users:", error);
     res
       .status(500)
       .json({ message: "An error occurred", error: error.message });
@@ -385,6 +416,7 @@ const getDataUserManageByIdEntities = async (req, res) => {
       },
     });
   } catch (error) {
+    logger.error("Error fetching users management data:", error);
     console.error("Error fetching user management data:", error.message);
     res
       .status(500)
@@ -408,6 +440,7 @@ const getDataUserManageBIdEntityWithoutLimit = async (req, res) => {
       response: rows,
     });
   } catch (error) {
+    logger.error("Error fetching users management data:", error);
     console.error("Error fetching user management data:", error.message);
     res
       .status(500)
@@ -455,6 +488,7 @@ const getUserById = async (req, res) => {
       response: userData[0],
     });
   } catch (error) {
+    logger.error("Error fetching user data:", error);
     console.error("Error fetching user data:", error);
     res.status(500).json({ message: "Internal server error" });
   } finally {
@@ -501,6 +535,7 @@ const userManagementEdit = async (req, res) => {
       connection.release();
     }
   } catch (error) {
+    logger.error("Error updating user management:", error);
     console.error("Error updating user management:", error);
     return res.status(500).json({ message: "Internal server error" });
   }
@@ -576,6 +611,7 @@ const userEdit = async (req, res) => {
       connection.release();
     }
   } catch (error) {
+    logger.error("Error updating user management:", error);
     console.error("Error updating user management:", error);
     res.status(500).json({ message: "Internal server error" });
   }
@@ -640,6 +676,7 @@ const deleteById = async (req, res) => {
       connection.release();
     }
   } catch (error) {
+    logger.error("Error deleting item:", error);
     console.error("Error deleting item:", error);
     res.status(500).json({ message: "Internal server error" });
   }
@@ -692,6 +729,7 @@ const getDataUserSearch = async (req, res) => {
       },
     });
   } catch (error) {
+    logger.error("Error fetching users management data:", error);
     console.error("An error occurred: ", error.message);
     res
       .status(500)

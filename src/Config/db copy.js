@@ -1,14 +1,16 @@
 const mysql = require("mysql2/promise");
 const { config } = require("dotenv");
 const Redis = require("ioredis");
-const logger = require("../middleware/Logger");
-config();
+const Logger = require("../middleware/Logger");
+config(); // Load environment variables
+// Validate required environment variables
 const requiredEnv = ["HOST", "USER", "DATABASE", "CONNECTIONLIMIT", "REDIS_HOST", "REDIS_PORT"];
 for (const key of requiredEnv) {
   if (!process.env[key]) {
     throw new Error(`Missing required environment variable: ${key}`);
   }
 }
+// Database configuration
 const dbConfig = {
   host: process.env.HOST,
   user: process.env.USER,
@@ -20,7 +22,7 @@ const dbConfig = {
   acquireTimeout: 10000,
   multipleStatements: false,
 };
-// Create a connection pool
+
 let pool; // Singleton pool instance
 const redis = new Redis({ host: process.env.REDIS_HOST, port: process.env.REDIS_PORT }); // Redis instance
 
@@ -31,32 +33,29 @@ async function connect() {
   }
   return pool;
 }
-// Function to get a connection from the pool
+
 async function getConnection() {
-  const pool = await connect();
-  const connection = await pool.getConnection();
-  return connection;
-}
-// Usage example
-async function mainConnection() {
-  let connection;
   try {
     const pool = await connect();
-    console.log("Database connection pool created.");
-    connection = await getConnection();
-    console.log("Database connection obtained from pool.");
-    // Perform database operations
-    const [rows] = await connection.query("SELECT 1");
-    console.log(rows);
+    const connection = await pool.getConnection();
+    return connection;
   } catch (error) {
-    logger.error("Error connecting to the database:", error);
-    console.log("Error connecting to the database:", error);
-  } finally {
-    if (connection) {
-      connection.release();
-    }
+    logger.error("❌ Error getting database connection:", error);
+    throw new Error("Database connection failed");
   }
 }
+async function connect() {
+  if (!pool) {
+    pool = mysql.createPool(dbConfig);
+  }
+  return pool;
+}
+/**
+ * Execute a query with caching
+ * @param {string} query - The SQL query to execute
+ * @param {Array} params - The parameters for the SQL query
+ * @param {number} cacheTTL - Time to live for cache in seconds
+ */
 async function executeQuery(query, params = [], cacheTTL = 60) {
   const cacheKey = `query:${query}:${JSON.stringify(params)}`;
 
@@ -82,18 +81,22 @@ async function executeQuery(query, params = [], cacheTTL = 60) {
     if (connection) connection.release();
   }
 }
+/**
+ * Main test function
+ */
 async function mainConnection() {
   try {
     const pool = await connect();
-    logger.info("✅ Database connection pool initialized.");
+    Logger.info("✅ Database connection pool initialized.");
     
     const result = await executeQuery("SELECT NOW() AS current_time");
-    logger.info("✅ Database test query executed:"+ result);
+    Logger.info("✅ Database test query executed:", result);
   } catch (error) {
-    logger.error("❌ Error connecting to the database:"+ error);
+    Logger.error("❌ Error connecting to the database:", error);
   }
 }
 
-module.exports = { mainConnection, getConnection, connect ,executeQuery };
-// Uncomment the following line to run the example when this file is executed
-// mainCoection().catch(console.error);
+module.exports = { mainConnection, getConnection, executeQuery ,connect };
+
+// Uncomment the following line to run the test when this file is executed
+// mainConnection().catch(console.error);

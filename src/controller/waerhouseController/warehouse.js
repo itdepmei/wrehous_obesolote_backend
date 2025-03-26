@@ -1,4 +1,5 @@
 const { connect } = require("../../config/db");
+const logger = require("../../middleware/Logger");
 const { getInformation } = require("../../query/userMangeController-db");
 const createLogEntry = require("../../utils/createLog");
 const warehouseRegister = async (req, res) => {
@@ -62,7 +63,7 @@ const warehouseRegister = async (req, res) => {
       connection.release();
     }
   } catch (error) {
-    console.error("Error registering warehouse:", error);
+    logger.error("Error registering warehouse:", error);
     return res.status(500).json({
       message: "حدث خطأ أثناء إضافة المستودع",
       error: error.message,
@@ -117,7 +118,7 @@ const getWarehouseData = async (req, res) => {
     }
   } catch (error) {
     // Log and return error details
-    console.error("Error fetching warehouse data:", error);
+    logger.error("Error fetching warehouse data:", error);
     return res.status(500).json({
       message: "حدث خطأ أثناء استرجاع بيانات المستودع",
       error: error.message,
@@ -161,7 +162,7 @@ const getWarehouseDataByEntity_id = async (req, res) => {
     }
   } catch (error) {
     // Log and return error details
-    console.error("Error fetching warehouse data:", error);
+    logger.error("Error fetching warehouse data:", error);
     return res.status(500).json({
       message: "حدث خطأ أثناء استرجاع بيانات المستودع",
       error: error.message,
@@ -193,7 +194,7 @@ const getWarehouseDataById = async (req, res) => {
     }
   } catch (error) {
     // Log and return error details
-    console.error("Error fetching warehouse data:", error);
+    logger.error("Error fetching warehouse data:", error);
     return res.status(500).json({
       message: "حدث خطأ أثناء استرجاع بيانات المستودع",
       error: error.message,
@@ -201,7 +202,7 @@ const getWarehouseDataById = async (req, res) => {
   }
 };
 const warehouseEdit = async (req, res) => {
-  const { name, location, capacity, status, used, code, warehouse_id } =
+  const { name, location, status, code, warehouse_id } =
     req.body;
   // Validate required fields
   const user_id = req.user._id;
@@ -209,7 +210,6 @@ const warehouseEdit = async (req, res) => {
     { field: warehouse_id, message: "معرف المستودع مطلوب" },
     { field: name, message: "اسم المستودع مطلوب" },
     { field: location, message: "الموقع مطلوب" },
-    { field: capacity, message: "السعة الكلية مطلوبة" },
   ];
   // Check for missing or invalid fields
   const missingField = requiredFields.find((req) => !req.field);
@@ -217,10 +217,6 @@ const warehouseEdit = async (req, res) => {
     return res.status(400).json({ message: missingField.message });
   }
   // Validate capacity
-  const parsedCapacity = Number(capacity);
-  if (isNaN(parsedCapacity) || parsedCapacity <= 0) {
-    return res.status(400).json({ message: "يجب أن تكون السعة رقمًا موجبًا" });
-  }
   try {
     const pool = await connect();
     const connection = await pool.getConnection();
@@ -231,18 +227,14 @@ const warehouseEdit = async (req, res) => {
           SET 
             name = ?,
             location = ?,
-            capacity = ?,
             status = ?,
-            used = ?,
             code=?
           WHERE id = ?
         `;
       const [response] = await connection.execute(updateQuery, [
         name.trim(),
         location.trim(),
-        parsedCapacity,
         status,
-        used,
         code,
         warehouse_id,
       ]);
@@ -270,7 +262,7 @@ const warehouseEdit = async (req, res) => {
       connection.release();
     }
   } catch (error) {
-    console.error("Error updating warehouse:", error);
+    logger.error("Error updating warehouse:", error);
     return res.status(500).json({
       message: "حدث خطأ أثناء تحديث بيانات المستودع",
       error: error.message,
@@ -299,7 +291,7 @@ const deleteWareHouseById = async (req, res) => {
   } catch (error) {
     // Rollback on any general error
     await connection.rollback();
-    console.error("Error deleting main class:", error);
+    logger.error("Error deleting main class:", error);
     return res.status(500).json({ message: "Internal server error" });
   } finally {
     // Ensure connection is always released

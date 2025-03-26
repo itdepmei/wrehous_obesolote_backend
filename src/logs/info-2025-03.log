@@ -1,0 +1,185 @@
+[2025-03-04 10:34:51] INFO: ✅ MySQL connection pool created.
+[2025-03-04 10:34:51] INFO: Server is running on http://127.0.0.1:5000
+[2025-03-04 10:34:54] INFO: ✅ MySQL connection pool created.
+[2025-03-04 10:34:55] INFO: Server is running on http://127.0.0.1:5000
+[2025-03-04 10:35:00] ERROR: Error logging in:User is not active in the active_session_user tablenullموضف معمل91lab@ur.com
+[2025-03-04 10:35:01] ERROR: Error logging in:User is not active in the active_session_user tablenullموضف معمل91lab@ur.com
+[2025-03-04 10:35:02] ERROR: Error logging in:User is not active in the active_session_user tablenullموضف معمل91lab@ur.com
+[2025-03-04 10:35:02] ERROR: Error logging in:User is not active in the active_session_user tablenullموضف معمل91lab@ur.com
+[2025-03-04 10:35:02] ERROR: Error logging in:User is not active in the active_session_user tablenullموضف معمل91lab@ur.com
+[2025-03-04 10:35:02] ERROR: Error logging in:User is not active in the active_session_user tablenullموضف معمل91lab@ur.com
+[2025-03-04 10:35:02] ERROR: Error logging in:User is not active in the active_session_user tablenullموضف معمل91lab@ur.com
+[2025-03-04 10:35:02] ERROR: Error logging in:User is not active in the active_session_user tablenullموضف معمل91lab@ur.com
+[2025-03-04 10:35:03] ERROR: Error logging in:User is not active in the active_session_user tablenullموضف معمل91lab@ur.com
+[2025-03-04 10:37:21] INFO: ✅ MySQL connection pool created.
+[2025-03-04 10:37:21] INFO: Server is running on http://127.0.0.1:5000
+[2025-03-04 10:44:17] INFO: ✅ MySQL connection pool created.
+[2025-03-04 10:44:18] INFO: Server is running on http://127.0.0.1:5000
+[2025-03-04 10:44:55] INFO: ✅ MySQL connection pool created.
+[2025-03-04 10:44:56] INFO: Server is running on http://127.0.0.1:5000
+[2025-03-04 10:44:58] INFO: ✅ MySQL connection pool created.
+[2025-03-04 10:44:58] INFO: Server is running on http://127.0.0.1:5000
+[2025-03-04 10:50:56] INFO: ✅ MySQL connection pool created.
+[2025-03-04 10:50:57] INFO: Server is running on http://127.0.0.1:5000
+[2025-03-04 10:51:06] INFO: ✅ MySQL connection pool created.
+[2025-03-04 10:51:08] INFO: Server is running on http://127.0.0.1:5000
+[2025-03-04 10:52:25] INFO: ✅ MySQL connection pool created.
+[2025-03-04 10:52:26] INFO: Server is running on http://127.0.0.1:5000
+[2025-03-04 10:54:00] INFO: ✅ MySQL connection pool created.
+[2025-03-04 10:54:02] INFO: Server is running on http://127.0.0.1:5000
+[2025-03-04 10:54:05] INFO: ✅ MySQL connection pool created.
+[2025-03-04 10:54:06] INFO: Server is running on http://127.0.0.1:5000
+[2025-03-04 10:54:30] INFO: ✅ MySQL connection pool created.
+[2025-03-04 10:54:31] INFO: Server is running on http://127.0.0.1:5000
+[2025-03-04 10:54:31] INFO: ✅ Database connection pool initialized.
+[2025-03-04 10:54:35] INFO: ✅ MySQL connection pool created.
+[2025-03-04 10:54:37] INFO: Server is running on http://127.0.0.1:5000
+[2025-03-04 10:54:37] INFO: ✅ Database connection pool initialized.
+[2025-03-04 10:54:38] INFO: ✅ MySQL connection pool created.
+[2025-03-04 10:54:40] INFO: Server is running on http://127.0.0.1:5000
+[2025-03-04 10:54:40] INFO: ✅ Database connection pool initialized.
+[2025-03-04 10:54:45] INFO: ✅ MySQL connection pool created.
+[2025-03-04 10:54:46] INFO: Server is running on http://127.0.0.1:5000
+[2025-03-04 10:54:46] INFO: ✅ Database connection pool initialized.
+[2025-03-04 10:54:53] INFO: ✅ MySQL connection pool created.
+[2025-03-04 10:54:54] INFO: Server is running on http://127.0.0.1:5000
+[2025-03-04 10:54:54] INFO: ✅ Database connection pool initialized.
+[2025-03-04 10:55:05] ERROR: ❌ Error connecting to the database:MaxRetriesPerRequestError: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.
+[2025-03-04 10:55:55] INFO: ✅ MySQL connection pool created.
+[2025-03-04 10:55:56] INFO: Server is running on http://127.0.0.1:5000
+[2025-03-04 10:55:56] INFO: ✅ Database connection pool initialized.
+[2025-03-04 10:56:07] ERROR: ❌ Error connecting to the database:MaxRetriesPerRequestError: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.
+[2025-03-04 11:00:00] INFO: Running delete zero quantity items check...
+[2025-03-04 11:02:18] INFO: ✅ MySQL connection pool created.
+[2025-03-04 11:02:20] INFO: Server is running on http://127.0.0.1:5000
+[2025-03-04 11:02:20] INFO: ✅ Database connection pool initialized.
+[2025-03-04 11:02:30] ERROR: ❌ Error connecting to the database:MaxRetriesPerRequestError: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.
+[2025-03-04 11:04:22] INFO: ✅ MySQL connection pool created.
+[2025-03-04 11:04:23] INFO: Server is running on http://127.0.0.1:5000
+[2025-03-04 11:04:23] INFO: ✅ Database connection pool initialized.
+[2025-03-04 11:04:23] ERROR: ❌ Error connecting to the database:ParserError: Protocol error, got "Y" as reply type byte. Please report this.
+[2025-03-04 11:08:55] INFO: ✅ MySQL connection pool created.
+[2025-03-04 11:08:57] INFO: Server is running on http://127.0.0.1:5000
+[2025-03-04 11:08:57] INFO: ✅ Database connection pool initialized.
+[2025-03-04 11:09:07] ERROR: ❌ Error connecting to the database:MaxRetriesPerRequestError: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.
+[2025-03-04 11:27:38] INFO: ✅ MySQL connection pool created.
+[2025-03-04 11:27:39] INFO: Server is running on http://127.0.0.1:5000
+[2025-03-04 11:27:39] INFO: ✅ Database connection pool initialized.
+[2025-03-04 11:27:50] ERROR: ❌ Error connecting to the database:MaxRetriesPerRequestError: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.
+[2025-03-04 12:00:00] INFO: Running delete zero quantity items check...
+[2025-03-04 13:00:00] INFO: Running delete zero quantity items check...
+[2025-03-19 08:52:55] INFO: ✅ MySQL connection pool created.
+[2025-03-19 08:52:56] INFO: Server is running on http://127.0.0.1:5000
+[2025-03-19 08:52:56] INFO: ✅ Database connection pool initialized.
+[2025-03-19 08:53:07] ERROR: ❌ Error connecting to the database:MaxRetriesPerRequestError: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.
+[2025-03-19 09:00:00] INFO: Running delete zero quantity items check...
+[2025-03-19 09:00:33] INFO: ✅ MySQL connection pool created.
+[2025-03-19 09:00:34] INFO: Server is running on http://127.0.0.1:5000
+[2025-03-19 09:00:34] INFO: ✅ Database connection pool initialized.
+[2025-03-19 09:00:45] ERROR: ❌ Error connecting to the database:MaxRetriesPerRequestError: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.
+[2025-03-19 09:01:52] INFO: ✅ MySQL connection pool created.
+[2025-03-19 09:01:53] INFO: Server is running on http://127.0.0.1:5000
+[2025-03-19 09:01:53] INFO: ✅ Database connection pool initialized.
+[2025-03-19 09:01:56] INFO: ✅ MySQL connection pool created.
+[2025-03-19 09:01:57] INFO: Server is running on http://127.0.0.1:5000
+[2025-03-19 09:01:57] INFO: ✅ Database connection pool initialized.
+[2025-03-19 09:02:02] INFO: ✅ MySQL connection pool created.
+[2025-03-19 09:02:02] INFO: Server is running on http://127.0.0.1:5000
+[2025-03-19 09:02:02] INFO: ✅ Database connection pool initialized.
+[2025-03-19 09:02:06] INFO: ✅ MySQL connection pool created.
+[2025-03-19 09:02:07] INFO: Server is running on http://127.0.0.1:5000
+[2025-03-19 09:02:07] INFO: ✅ Database connection pool initialized.
+[2025-03-19 09:02:13] INFO: ✅ MySQL connection pool created.
+[2025-03-19 09:02:14] INFO: Server is running on http://127.0.0.1:5000
+[2025-03-19 09:02:14] INFO: ✅ Database connection pool initialized.
+[2025-03-19 09:02:18] INFO: ✅ MySQL connection pool created.
+[2025-03-19 09:02:19] INFO: Server is running on http://127.0.0.1:5000
+[2025-03-19 09:02:19] INFO: ✅ Database connection pool initialized.
+[2025-03-19 09:02:30] INFO: ✅ MySQL connection pool created.
+[2025-03-19 09:02:31] INFO: Server is running on http://127.0.0.1:5000
+[2025-03-19 09:02:31] INFO: ✅ Database connection pool initialized.
+[2025-03-19 09:02:42] ERROR: ❌ Error connecting to the database:MaxRetriesPerRequestError: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.
+[2025-03-19 09:07:13] ERROR: Error logging in:User is not active in the active_session_user tablenullمستخدم مصنع90factory@ur.com
+[2025-03-19 09:08:11] INFO: ✅ MySQL connection pool created.
+[2025-03-19 09:08:12] INFO: Server is running on http://127.0.0.1:5000
+[2025-03-19 09:08:12] INFO: ✅ Database connection pool initialized.
+[2025-03-19 09:08:22] ERROR: ❌ Error connecting to the database:MaxRetriesPerRequestError: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.
+[2025-03-19 09:24:47] INFO: ✅ MySQL connection pool created.
+[2025-03-19 09:24:48] INFO: Server is running on http://127.0.0.1:5000
+[2025-03-19 09:24:48] INFO: ✅ Database connection pool initialized.
+[2025-03-19 09:31:37] INFO: ✅ MySQL connection pool created.
+[2025-03-19 09:31:38] INFO: Server is running on http://127.0.0.1:5000
+[2025-03-19 09:31:38] INFO: ✅ Database connection pool initialized.
+[2025-03-19 09:31:49] ERROR: ❌ Error connecting to the database:MaxRetriesPerRequestError: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.
+[2025-03-19 09:33:11] INFO: ✅ MySQL connection pool created.
+[2025-03-19 09:33:12] INFO: Server is running on http://127.0.0.1:5000
+[2025-03-19 09:33:12] INFO: ✅ Database connection pool initialized.
+[2025-03-19 09:33:16] INFO: ✅ MySQL connection pool created.
+[2025-03-19 09:33:17] INFO: Server is running on http://127.0.0.1:5000
+[2025-03-19 09:33:17] INFO: ✅ Database connection pool initialized.
+[2025-03-19 09:33:26] INFO: ✅ MySQL connection pool created.
+[2025-03-19 09:33:26] INFO: Server is running on http://127.0.0.1:5000
+[2025-03-19 09:33:26] INFO: ✅ Database connection pool initialized.
+[2025-03-19 09:33:37] ERROR: ❌ Error connecting to the database:MaxRetriesPerRequestError: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.
+[2025-03-19 09:33:41] INFO: ✅ MySQL connection pool created.
+[2025-03-19 09:33:42] INFO: Server is running on http://127.0.0.1:5000
+[2025-03-19 09:33:42] INFO: ✅ Database connection pool initialized.
+[2025-03-19 09:33:45] INFO: ✅ MySQL connection pool created.
+[2025-03-19 09:33:46] INFO: Server is running on http://127.0.0.1:5000
+[2025-03-19 09:33:46] INFO: ✅ Database connection pool initialized.
+[2025-03-19 09:33:57] ERROR: ❌ Error connecting to the database:MaxRetriesPerRequestError: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.
+[2025-03-19 09:41:59] INFO: ✅ MySQL connection pool created.
+[2025-03-19 09:42:00] INFO: Server is running on http://127.0.0.1:5000
+[2025-03-19 09:42:00] INFO: ✅ Database connection pool initialized.
+[2025-03-24 20:18:36] INFO: ✅ MySQL connection pool created.
+[2025-03-24 20:18:38] INFO: Server is running on http://127.0.0.1:5000
+[2025-03-24 20:18:38] INFO: ✅ Database connection pool initialized.
+[2025-03-24 20:18:49] ERROR: ❌ Error connecting to the database:MaxRetriesPerRequestError: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.
+[2025-03-24 20:18:57] ERROR: Error logging in:User is not active in the active_session_user tablenullباسم حسين عبد الامير51Bassim@ur.com
+[2025-03-24 20:19:35] ERROR: Error logging in:User is not active in the active_session_user tablenullباسم حسين عبد الامير51Bassim@ur.com
+[2025-03-24 20:47:33] INFO: ✅ MySQL connection pool created.
+[2025-03-24 20:47:35] INFO: Server is running on http://127.0.0.1:5000
+[2025-03-24 20:47:35] INFO: ✅ Database connection pool initialized.
+[2025-03-24 20:47:45] ERROR: ❌ Error connecting to the database:MaxRetriesPerRequestError: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.
+[2025-03-24 20:49:21] ERROR: Error logging in:User is not active in the active_session_user tablenullباسم حسين عبد الامير51Bassim@ur.com
+[2025-03-24 20:58:28] ERROR: Error logging in: Table 'stagnant_materials_warhouse_db.users_management' doesn't exist in engine
+[2025-03-24 21:00:00] INFO: Running delete zero quantity items check...
+[2025-03-24 21:00:56] ERROR: Error logging in:User is not active in the active_session_user tablenullباسم حسين عبد الامير51Bassim@ur.com
+[2025-03-24 21:02:46] INFO: ✅ MySQL connection pool created.
+[2025-03-24 21:02:47] INFO: Server is running on http://127.0.0.1:5000
+[2025-03-24 21:02:47] INFO: ✅ Database connection pool initialized.
+[2025-03-25 09:42:50] INFO: ✅ MySQL connection pool created.
+[2025-03-25 09:42:51] INFO: Server is running on http://127.0.0.1:5000
+[2025-03-25 09:42:51] INFO: ✅ Database connection pool initialized.
+[2025-03-25 09:43:02] ERROR: ❌ Error connecting to the database:MaxRetriesPerRequestError: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.
+[2025-03-25 09:47:00] ERROR: Error logging in:User is not active in the active_session_user tablenullباسم حسين عبد الامير51Bassim@ur.com
+[2025-03-25 10:00:00] INFO: Running delete zero quantity items check...
+[2025-03-25 11:00:00] INFO: Running delete zero quantity items check...
+[2025-03-25 11:34:19] ERROR: Error logging in:User is not active in the active_session_user tablenullموضف معمل91lab@ur.com
+[2025-03-25 11:34:20] ERROR: Error logging in:User is not active in the active_session_user tablenullموضف معمل91lab@ur.com
+[2025-03-25 12:00:00] INFO: Running delete zero quantity items check...
+[2025-03-25 13:00:00] INFO: Running delete zero quantity items check...
+[2025-03-25 13:20:17] INFO: ✅ MySQL connection pool created.
+[2025-03-25 13:20:19] INFO: Server is running on http://127.0.0.1:5000
+[2025-03-25 13:20:19] INFO: ✅ Database connection pool initialized.
+[2025-03-26 10:42:21] INFO: ✅ MySQL connection pool created.
+[2025-03-26 10:42:22] INFO: Server is running on http://127.0.0.1:5000
+[2025-03-26 10:42:22] INFO: ✅ Database connection pool initialized.
+[2025-03-26 10:42:32] ERROR: ❌ Error connecting to the database:MaxRetriesPerRequestError: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.
+[2025-03-26 10:43:38] ERROR: Error logging in:User is not active in the active_session_user tablenullباسم حسين عبد الامير51Bassim@ur.com
+[2025-03-26 11:00:00] INFO: Running delete zero quantity items check...
+[2025-03-26 11:01:56] INFO: ✅ MySQL connection pool created.
+[2025-03-26 11:01:57] INFO: Server is running on http://127.0.0.1:5000
+[2025-03-26 11:01:57] INFO: ✅ Database connection pool initialized.
+[2025-03-26 11:02:08] ERROR: ❌ Error connecting to the database:MaxRetriesPerRequestError: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.
+[2025-03-26 11:50:14] ERROR: Error logging in:User is not active in the active_session_user tablenullموضف معمل91lab@ur.com
+[2025-03-26 11:51:01] ERROR: Error logging in:User is not active in the active_session_user tablenullموضف معمل91lab@ur.com
+[2025-03-26 12:00:00] INFO: Running delete zero quantity items check...
+[2025-03-26 12:24:45] INFO: ✅ MySQL connection pool created.
+[2025-03-26 12:24:46] INFO: Server is running on http://127.0.0.1:5000
+[2025-03-26 12:24:46] INFO: ✅ Database connection pool initialized.
+[2025-03-26 12:24:57] ERROR: ❌ Error connecting to the database:MaxRetriesPerRequestError: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.
+[2025-03-26 13:00:00] INFO: Running delete zero quantity items check...
+[2025-03-26 13:32:20] INFO: ✅ MySQL connection pool created.
+[2025-03-26 13:32:21] INFO: Server is running on http://127.0.0.1:5000
+[2025-03-26 13:32:21] INFO: ✅ Database connection pool initialized.

@@ -1,4 +1,5 @@
 const { connect } = require("../../config/db");
+const logger = require("../../middleware/Logger");
 const createLogEntry = require("../../utils/createLog");
 const LabRegister = async (req, res) => {
   const {
@@ -53,6 +54,7 @@ const LabRegister = async (req, res) => {
       connection.release();
     }
   } catch (error) {
+    logger.error("Error registering Laboratory:", error);
     return res.status(500).json({
       message: "حدث خطأ أثناء إضافة المستودع",
       error: error.message,
@@ -121,7 +123,7 @@ const getLabData = async (req, res) => {
       connection.release();
     }
   } catch (error) {
-    console.error("Error fetching lab data:", error);
+    logger.error("Error fetching lab data:", error);
 
     // Handle internal server error
     return res.status(500).json({
@@ -159,7 +161,7 @@ const getLabDataByEntity_id = async (req, res) => {
       connection.release();
     }
   } catch (error) {
-    console.error("Error fetching lab data:", error);
+    logger.error("Error fetching lab data:", error);
 
     // Handle internal server error
     return res.status(500).json({
@@ -219,7 +221,7 @@ const laboratoriesEdit = async (req, res) => {
       connection.release();
     }
   } catch (error) {
-    console.error("Error updating Laboratory:", error);
+    logger.error("Error updating Laboratory:", error);
     return res.status(500).json({
       message: "حدث خطأ أثناء تحديث بيانات المعمل",
       error: error.message,
@@ -246,13 +248,13 @@ const deleteLaboratoriesById = async (req, res) => {
       return res.status(404).json({ message: "لم يتم العثور على العنصر" });
     } catch (error) {
       await connection.rollback();
-      console.error("Error deleting warehouse:", error);
+      logger.error("Error deleting warehouse:", error);
       return res.status(500).json({ message: "حدث خطأ أثناء الحذف" });
     } finally {
       connection.release();
     }
   } catch (error) {
-    console.error("Error deleting warehouse:", error);
+    logger.error("Error deleting warehouse:", error);
     return res.status(500).json({ message: "خطأ داخلي" });
   }
 };
@@ -303,7 +305,7 @@ const getWarehouseAndUserData = async (req, res) => {
       connection.release(); // Always release the connection
     }
   } catch (error) {
-    console.error(error);
+    logger.error(error);
     return res.status(500).json({
       message: "حدث خطأ في الاتصال بقاعدة البيانات",
       error: error.message,

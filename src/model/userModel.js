@@ -8,12 +8,9 @@ const {
 } = require("../query/userMangeController-db");
 const generateToken = require("../utils/genrateToken");
 const bcrypt = require("bcrypt");
-
 let checkEmailQuery = "SELECT * FROM users_management WHERE email = ?";
-
 const hashPassword = async (password) => {
   console.log("pass", password);
-
   return await bcrypt.hash(password, 10);
 };
 const insertUser = async (connection, userData) => {
@@ -72,12 +69,11 @@ const insertApplicationPermissions = async (connection, userId, is_active) => {
     await connection.execute(ApplicationPermissionQuery, [userId, element]);
   }
 };
-
+// login section
 const getUserByEmail = async (connection, email) => {
   const [users] = await connection.execute(checkEmailQuery, [email]);
   return users.length > 0 ? users[0] : null;
 };
-
 const generateTokens = (user) => {
   return {
     accessToken: generateToken(user, process.env.ACCESSTOKEN, "1d"),
@@ -85,6 +81,7 @@ const generateTokens = (user) => {
     refreshTokenExp: new Date(Date.now() + 24 * 60 * 60 * 1000), // 1 day
   };
 };
+
 const manageUserSession = async (
   connection,
   userId,
@@ -156,21 +153,18 @@ const setSecureCookies = (res, accessToken, refreshToken, refreshTokenExp) => {
     expires: new Date(Date.now() + 60 * 1000),
   });
 };
-
-const getActiveSession = async (connection, userId, refreshToken) => {
+// get session user to check active or not
+const getActiveSession = async (connection, userId) => {
   const [currentSession] = await connection.execute(
-    `SELECT * FROM active_session_user 
-       WHERE user_id = ? 
-       AND refresh_token = ?
-       AND is_active_session = TRUE`,
-    [userId, refreshToken]
+    `SELECT  is_active_session FROM active_session_user 
+     WHERE user_id = ? 
+     AND is_active_session = 0
+     ORDER BY created_at DESC LIMIT 1`,
+    [userId]
   );
-  if (currentSession.length === 0) {
-    return null;
-  }
-  return currentSession;
+  return currentSession.length > 0 ? currentSession : null;
 };
-
+// update session
 const updateSession = async (connection, userId, refreshToken) => {
   await connection.execute(
     `UPDATE active_session_user 
@@ -182,7 +176,6 @@ const updateSession = async (connection, userId, refreshToken) => {
     [userId, refreshToken]
   );
 };
-
 const logLogout = async (connection, userId, ip, userAgent) => {
   await connection.execute(
     `INSERT INTO user_auth_logs (

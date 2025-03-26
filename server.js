@@ -12,7 +12,7 @@ const timeout = require("connect-timeout");
 // Internal imports
 const { errorHandler } = require("./src/middleware/errorHandel.js");
 const Logger = require("./src/middleware/Logger");
-const { mainCoection } = require("./src/config/db.js");
+const { mainConnection } = require("./src/config/db.js");
 const {
   removeOldData,
   removeOldDataLog,
@@ -26,7 +26,6 @@ const {
   scheduleSessionUpdates,
   scheduleLogsCleanup,
 } = require("./src/cron/managemantUserSession.js");
-const cleanOldLogs = require("./src/cron/cleanOldLogs.js");
 // Load environment variables
 config();
 // Initialize Express app
@@ -162,7 +161,7 @@ App.use((err, req, res, next) => {
   next(err);
 });
 // Database Connection
-mainCoection();
+mainConnection();
 // API Routes
 // Obsolete Material Routes
 App.use("/api", require("./src/Rote/ObesoloteMaterialR/MinistriesR.js"));
@@ -241,7 +240,7 @@ App.all("*", (req, res) => {
 });
 // Server Setup
 const server = require("http").createServer(App);
-const port = process.env.PORT || 4000;
-server.listen(port, () => {
+const port = process.env.PORT || 5000;
+server.listen(5000, () => {
   Logger.info(`Server is running on http://127.0.0.1:${port}`);
 });

@@ -1,4 +1,5 @@
 const { connect, getConnection } = require("../config/db");
+const logger = require("../middleware/Logger");
 const getDataApplicationPermission = async (req, res) => {
   const pool = await connect();
   const connection = await pool.getConnection();
@@ -46,6 +47,7 @@ const getApplicationPermissionById = async (req, res) => {
       response: userData,
     });
   } catch (error) {
+    logger.error("Error fetching user data:", error);
     console.error("Error fetching user data:", error);
     res.status(500).json({ 
       message: "Internal server error",

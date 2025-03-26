@@ -89,7 +89,8 @@ const inventoryRegister = async (req, res) => {
 
     return res.status(200).json({ message: "تمت العملية بنجاح" });
   } catch (error) {
-    console.error("Error:", error);
+    logger.error("Error when insert information inventory:", error)
+    logger.error("Error:", error);
     return res.status(500).json({ message: error.message });
   }
 };
@@ -158,7 +159,8 @@ const inventoryGetData = async (req, res) => {
       connection.release();
     }
   } catch (error) {
-    console.error("Error fetching inventory data:", error.message, error.stack);
+    logger.error("Error fetching inventory data:", error);
+    logger.error("Error fetching inventory data:", error.message, error.stack);
     return res
       .status(500)
       .json({ message: "حدث خطأ أثناء جلب بيانات المخزون" });
@@ -202,7 +204,7 @@ const inventoryGetDataById = async (req, res) => {
       connection.release();
     }
   } catch (error) {
-    console.error("Error fetching inventory data:", error);
+    logger.error("Error fetching inventory data:", error);
     return res
       .status(500)
       .json({ message: "حدث خطأ أثناء جلب بيانات المخزون" });
@@ -239,7 +241,7 @@ const materialMovements = async (req, res) => {
       connection.release();
     }
   } catch (error) {
-    console.error("Error fetching inventory data:", error);
+    logger.error("Error fetching inventory data:", error);
     return res
       .status(500)
       .json({ message: "حدث خطأ أثناء جلب بيانات المخزون" });
@@ -320,13 +322,13 @@ const inventoryEdit = async (req, res) => {
 
       return res.status(200).json({ message: "تم تحديث المادة بنجاح" });
     } catch (error) {
-      console.error("Database operation failed:", error);
+      logger.error("Database operation failed:", error);
       return res.status(500).json({ message: "خطأ في تحديث المادة" });
     } finally {
       connection.release();
     }
   } catch (error) {
-    console.error("Error connecting to the database:", error);
+    logger.error("Error connecting to the database:", error);
     return res.status(500).json({ message: "خطأ داخلي في الخادم" });
   }
 };
@@ -417,7 +419,7 @@ const SearchInventory = async (req, res) => {
       },
     });
   } catch (error) {
-    console.error("An error occurred: ", error.message);
+    logger.error("An error occurred: ", error.message);
     res.status(500).json({
       message: "حدث خطأ أثناء البحث",
       error: error.message,
@@ -426,7 +428,6 @@ const SearchInventory = async (req, res) => {
     if (connection) connection.release();
   }
 };
-
 const deleteInventoryById = async (req, res) => {
   const pool = await connect();
   const connection = await pool.getConnection();
@@ -449,7 +450,7 @@ const deleteInventoryById = async (req, res) => {
   } catch (error) {
     // Rollback on any general error
     await connection.rollback();
-    console.error("Error deleting main class:", error);
+    logger.error("Error deleting main class:", error);
     return res.status(500).json({ message: "Internal server error" });
   } finally {
     // Ensure connection is always released
@@ -563,6 +564,7 @@ const inventoryRegisterAsForLoop = async (req, res) => {
       existingMaterials,
     });
   } catch (error) {
+    
     console.log(error);
 
     logger.error("Error occurred during registration.", { error });

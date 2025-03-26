@@ -1,4 +1,5 @@
 const { connect } = require("../config/db");
+const logger = require("../middleware/Logger");
 const getLog = async (req, res) => {
   let connection;
   try {
@@ -45,6 +46,7 @@ const getLog = async (req, res) => {
     const [logs] = await connection.execute(selectQueryLog);
     // Check if logs are found
     if (logs.length === 0) {
+      logger.error("No logs found");
       return res.status(404).json({ message: "No logs found" });
     }
     // Respond with logs and pagination data
@@ -59,6 +61,7 @@ const getLog = async (req, res) => {
     });
   } catch (error) {
     // Log error and respond with an error message
+    logger.error("Error fetching logs:", error);
     console.error("Error fetching logs:", error);
     return res.status(500).json({
       message: "An internal server error occurred",
@@ -97,6 +100,7 @@ const getLogByEntityId = async (req, res) => {
     const totalPages = Math.ceil(totalItems / limitNumber);
     // If no logs exist for the given entity ID
     if (totalItems === 0) {
+      logger.error("No logs found for the specified entity");
       return res
         .status(404)
         .json({ message: "No logs found for the specified entity" });
@@ -143,6 +147,7 @@ const getLogByEntityId = async (req, res) => {
     });
   } catch (error) {
     // Log error and respond with an error message
+    logger.error("Error fetching logs:", error);
     console.error("Error fetching logs:", error);
     return res.status(500).json({
       message: "An internal server error occurred",

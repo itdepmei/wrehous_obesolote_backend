@@ -30,15 +30,7 @@ const getNotificationWarehouse = async (req, res) => {
 };
 
 // Endpoint to send a notification
-const expirationDateNotification = (req, res) => {
-  const { message } = req.body;
-  // Trigger the event
-  pusher.trigger("your-channel", "your-event", {
-    message,
-  });
 
-  res.status(200).send("Notification sent");
-};
 
 module.exports = {
   getNotificationWarehouse,

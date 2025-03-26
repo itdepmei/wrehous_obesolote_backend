@@ -23,7 +23,6 @@ const getDataUsersById = `
   WHERE 
     users_management.id = ?
 `;
-
 const getDataUsersDataQuery = `
   SELECT 
     users_management.id AS user_id, 

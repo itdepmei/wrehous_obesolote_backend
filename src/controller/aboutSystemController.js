@@ -1,4 +1,5 @@
 const { connect } = require("../config/db");
+const logger = require("../middleware/Logger");
 const aboutSystemAdd = async (req, res) => {
   const { title, text } = req.body;
   // Trim input data
@@ -19,6 +20,7 @@ const aboutSystemAdd = async (req, res) => {
       connection.release();
     }
   } catch (error) {
+    logger.error("Error adding about system information:", error);
     console.error("Error adding about system information:", error);
     res.status(500).json({ message: "Internal server error" });
   }
@@ -60,7 +62,7 @@ const deleteAboutById = async (req, res) => {
       connection.release();
     }
   } catch (error) {
-    console.error("Error deleting material:", error);
+    logger.error("Error deleting material:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 };
@@ -89,6 +91,7 @@ const editAboutSystem = async (req, res) => {
       connection.release();
     }
   } catch (error) {
+    logger.error("Error updating user management:", error);
     console.error("Error updating user management:", error);
     res.status(500).json({ message: "Internal server error" });
   }

@@ -1,15 +1,6 @@
 const { connect } = require("../../config/db");
-const puppeteer = require("puppeteer");
-const { formatDate, formatDateNew } = require("../../utils/function");
 const ExcelJS = require("exceljs");
-const {
-  queryUserData,
-  queryMinistries,
-  getDataMaterialByEntityId,
-  getDataMaterial,
-  queryMainClass,
-} = require("../../query/reportQuery");
-const { log } = require("winston");
+const logger = require("../../middleware/Logger");
 const getDataCountDataOfEntity = async (req, res) => {
   let connection;
   try {
@@ -61,7 +52,7 @@ const getDataCountDataOfEntity = async (req, res) => {
       totalFactory,
     });
   } catch (error) {
-    console.error("An error occurred: ", error);
+  logger.error("An error occurred: ", error);
     res
       .status(500)
       .json({ message: "An error occurred", error: error.message });
@@ -130,7 +121,7 @@ const getDataCountOfEntity = async (req, res) => {
       totalCountBooked,
     });
   } catch (error) {
-    console.error("An error occurred: ", error.message);
+  logger.error("An error occurred: ", error.message);
     res
       .status(500)
       .json({ message: "An error occurred", error: error.message });
@@ -314,7 +305,7 @@ const getDateAsFileExcel = async (req, res) => {
     await workbook.xlsx.write(res);
     res.end();
   } catch (error) {
-    console.error("Error generating Excel file:", error);
+  logger.error("Error generating Excel file:", error);
     res.status(500).send("Internal Server Error");
   } finally {
     if (connection) connection.release();
@@ -356,7 +347,7 @@ const getDataINforamaitionReport = async (req, res) => {
     }
 
     if (!Array.isArray(reports) || reports.length === 0) {
-      console.error("Invalid reports structure:", reports);
+    logger.error("Invalid reports structure:", reports);
       return res.status(400).json({ message: "Invalid request structure" });
     }
 
@@ -477,7 +468,7 @@ const getDataINforamaitionReport = async (req, res) => {
       activeMaterial,
     });
   } catch (error) {
-    console.error("Error fetching report data:", error);
+  logger.error("Error fetching report data:", error);
     return res.status(500).json({ message: "Internal Server Error" });
   } finally {
     if (connection) connection.release(); // Ensure connection is released

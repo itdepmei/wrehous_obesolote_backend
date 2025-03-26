@@ -226,7 +226,7 @@ class SubClassController extends DatabaseController {
   async register(req, res) {
     console.log(req.body);
     
-    const { subClassName, mainClassId, entitiesId } = req.body;
+    const { subClassName, mainClass_id, entities_id } = req.body;
     
     // if (!subClassName || !mainClassId  || !entitiesId) {
     //   return res.status(400).json({
@@ -241,7 +241,7 @@ class SubClassController extends DatabaseController {
       const [existingSubClass] = await this.executeQuery(
         connection,
         "SELECT * FROM sub_class_for_main_class WHERE sub_class_name = ? AND mainClass_id = ?",
-        [subClassName, mainClassId]
+        [subClassName, mainClass_id]
       );
 
       if (existingSubClass.length > 0) {
@@ -251,7 +251,7 @@ class SubClassController extends DatabaseController {
       const [response] = await this.executeQuery(
         connection,
         "INSERT INTO sub_class_for_main_class (sub_class_name, entities_id, mainClass_id) VALUES (?, ?, ?)",
-        [subClassName.trim(), entitiesId, mainClassId]
+        [subClassName.trim(), entities_id, mainClass_id]
       );
 
       if (response.affectedRows > 0) {

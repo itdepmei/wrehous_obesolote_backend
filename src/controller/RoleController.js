@@ -62,7 +62,6 @@ const getDataRoleIdAndUserId = async (req, res) => {
     console.log("Connection released");
   }
 };
-
 const getRole = async (req, res) => {
   try {
     const pool = await connect();

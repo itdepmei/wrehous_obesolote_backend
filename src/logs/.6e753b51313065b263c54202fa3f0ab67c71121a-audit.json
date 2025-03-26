@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": false,
+        "amount": 12
+    },
+    "auditLog": "D:\\warhouse_ObesolotyMatria\\server\\src\\logs\\.6e753b51313065b263c54202fa3f0ab67c71121a-audit.json",
+    "files": [
+        {
+            "date": 1741073691059,
+            "name": "D:\\warhouse_ObesolotyMatria\\server\\src\\logs\\info-2025-03.log",
+            "hash": "33852375922345561e6d5aeddb6be0e2c057df01ff47995758331b216541d388"
+        }
+    ],
+    "hashType": "sha256"
+}

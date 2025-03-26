@@ -25,7 +25,6 @@ const insertInventory = async (data) => {
     connection.release();
   }
 };
-
 const updateStoreBalance = async (quantity, material_id, document_type) => {
   const pool = await connect();
   const connection = await pool.getConnection();
@@ -60,7 +59,6 @@ const updateStoreBalance = async (quantity, material_id, document_type) => {
     connection.release();
   }
 };
-
 const updateOutgoingBalance = async (connection, quantity, material_id) => {
   const [updateResult] = await connection.execute(
     `UPDATE store_data SET balance = balance - ? WHERE id = ? AND balance >= ?`,
@@ -68,7 +66,6 @@ const updateOutgoingBalance = async (connection, quantity, material_id) => {
   );
   return updateResult.affectedRows > 0;
 };
-
 const updateIncomingBalance = async (connection, quantity, material_id) => {
   const [updateResult] = await connection.execute(
     `UPDATE store_data SET balance = balance + ? WHERE id = ?`,

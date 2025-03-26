@@ -1,10 +1,12 @@
 const cron = require("node-cron");
 const { connect } = require("../config/db");
 const createLogEntry = require("../utils/createLog");
+const logger = require("../middleware/Logger");
 // Schedule the task to run every hour
 const scheduleDeleteZeroQuantityItems = () => {
   // '0 * * * *' means: run at minute 0 of every hour
   cron.schedule("0 * * * *", async () => {
+    logger.info("Running delete zero quantity items check...");
     console.log("Running delete zero quantity items check...");
     let connection;
     try {
@@ -26,6 +28,7 @@ const scheduleDeleteZeroQuantityItems = () => {
 
             // Create log entry
             const logText = `تم حذف المنتج تلقائياً بسبب نفاد الكمية`;
+            logger.info(logText);
             await createLogEntry(
               connection,
               2, // Delete operation type
@@ -35,7 +38,11 @@ const scheduleDeleteZeroQuantityItems = () => {
               1
             );
           } catch (itemError) {
-            console.error(
+            logger.error(
+              `Error processing item ${item.stagnant_id}:`,
+              itemError
+            );
+            logger.error(
               `Error processing item ${item.stagnant_id}:`,
               itemError
             );
@@ -44,17 +51,20 @@ const scheduleDeleteZeroQuantityItems = () => {
         }
 
         await connection.commit();
+        logger.info(
+          `Successfully deleted ${zeroQuantityItems.length} items with zero quantity`
+        );
         console.log(
           `Successfully deleted ${zeroQuantityItems.length} items with zero quantity`
         );
       }
     } catch (error) {
-      console.error("Error in delete zero quantity cron job:", error);
+      logger.error("Error in delete zero quantity cron job:", error);
       if (connection) {
         try {
           await connection.rollback();
         } catch (rollbackError) {
-          console.error("Error rolling back:", rollbackError);
+          logger.error("Error rolling back:", rollbackError);
         }
       }
     } finally {
@@ -62,7 +72,7 @@ const scheduleDeleteZeroQuantityItems = () => {
         try {
           await connection.release();
         } catch (releaseError) {
-          console.error("Error releasing connection:", releaseError);
+          logger.error("Error releasing connection:", releaseError);
         }
       }
     }
@@ -100,6 +110,9 @@ const handleInventoryNotifications = async () => {
       for (const item of notifications) {
         // Skip the item if it's already expired
         if (item.days_to_expiry <= 0) {
+          logger.info(
+            `Skipping inventory ID: ${item.id} as it has already expired.`
+          );
           console.log(
             `Skipping inventory ID: ${item.id} as it has already expired.`
           );
@@ -146,7 +159,7 @@ const handleInventoryNotifications = async () => {
           category_id: 1,
         };
         await pusher.trigger("poll", "vote", eventData);
-
+logger.info(`Notification sent for inventory ID: ${item.id}`);
         console.log(`Notification sent for inventory ID: ${item.id}`);
       }
 
@@ -158,7 +171,8 @@ const handleInventoryNotifications = async () => {
       }
     }
   } catch (error) {
-    console.error(
+    
+    logger.error(
       "Error handling inventory notifications:",
       error.message,
       error.stack
@@ -228,7 +242,7 @@ const handelQuintityNotifction = async () => {
       }
     }
   } catch (error) {
-    console.error(
+    logger.error(
       "Error handling inventory notifications:",
       error.message,
       error.stack

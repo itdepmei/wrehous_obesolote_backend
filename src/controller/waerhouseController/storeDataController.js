@@ -1,7 +1,6 @@
 const { connect } = require("../../config/db");
 const pusher = require("../../utils/pusherINfo"); // Ensure pusher is configured correctly
 const createLogEntry = require("../../utils/createLog");
-const {insertNotification} = require("../../utils/createNotifction");
 const { logger } = require("../../middleware/errorHandel");
 const storeDataRegister = async (req, res) => {
   const {
@@ -99,13 +98,14 @@ const storeDataRegister = async (req, res) => {
         await createLogEntry(connection, 1, user_id, entity_id, logInfo,2); // Assuming createLogEntry is an async function
         return res.status(201).json({ message: "تم أضافة المادة بنجاح" });
       } else {
+        logger.error("Database operation failed:", response);
         return res.status(500).json({ message: "لم يتم إضافة المادة" });
       }
     } finally {
       connection.release();
     }
   } catch (error) {
-    console.error("Error registering material:", error);
+    logger.error("Error registering material:", error);
     return res.status(500).json({ message: "خطأ في النظام الداخلي" });
   }
 };
@@ -148,7 +148,7 @@ const GetDataStoreData = async (req, res) => {
       connection.release();
     }
   } catch (error) {
-    console.error("Error fetching inventory data:", error.message, error.stack);
+    logger.error("Error fetching inventory data:", error.message, error.stack);
     return res
       .status(500)
       .json({ message: "حدث خطأ أثناء جلب بيانات المخزون" });
@@ -182,7 +182,7 @@ const storGetDataById = async (req, res) => {
       connection.release();
     }
   } catch (error) {
-    console.error("Error fetching inventory data:", error);
+    logger.error("Error fetching inventory data:", error);
     return res
       .status(500)
       .json({ message: "حدث خطأ أثناء جلب بيانات المخزون" });
@@ -212,7 +212,7 @@ const inventoryGetDataByCode = async (req, res) => {
       connection.release();
     }
   } catch (error) {
-    console.error("Error fetching inventory data:", error);
+    logger.error("Error fetching inventory data:", error);
     return res
       .status(500)
       .json({ message: "حدث خطأ أثناء جلب بيانات المخزون" });
@@ -227,7 +227,7 @@ const inventoryGetDataByCode = async (req, res) => {
  * @returns {Promise<Object>} - response with message and inserted data
  */
 const StorDataEdit = async (req, res) => {
-  const { formData, storeData_id, user_id, entity_id } = req.body;
+  const { formData, storeData_id, user_id } = req.body;
   const userAuth = req.user._id; // Authenticated user ID
 
   // Extract fields from formData
@@ -329,13 +329,13 @@ const StorDataEdit = async (req, res) => {
           .json({ message: "المادة غير موجودة أو لم يتم تحديثها" });
       }
     } catch (error) {
-      console.error("Database operation failed:", error);
+      logger.error("Database operation failed:", error);
       return res.status(500).json({ message: "خطأ في تحديث المادة" });
     } finally {
       connection.release();
     }
   } catch (error) {
-    console.error("Error connecting to the database:", error);
+    logger.error("Error connecting to the database:", error);
     return res.status(500).json({ message: "Internal server error" });
   }
 };
@@ -428,7 +428,7 @@ const SearchStoreData = async (req, res) => {
       },
     });
   } catch (error) {
-    console.error("An error occurred: ", error.message);
+    logger.error("An error occurred: ", error.message);
     res.status(500).json({
       message: "حدث خطأ أثناء البحث",
       error: error.message,
@@ -461,7 +461,7 @@ const deleteStorDataById = async (req, res) => {
   } catch (error) {
     // Rollback on any general error
     await connection.rollback();
-    console.error("Error deleting main class:", error);
+    logger.error("Error deleting main class:", error);
     return res.status(500).json({ message: "Internal server error" });
   } finally {
     // Ensure connection is always released

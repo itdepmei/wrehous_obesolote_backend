@@ -1,0 +1,40 @@
+[2025-03-04 10:35:00] ERROR: Error logging in:User is not active in the active_session_user tablenullموضف معمل91lab@ur.com
+[2025-03-04 10:35:01] ERROR: Error logging in:User is not active in the active_session_user tablenullموضف معمل91lab@ur.com
+[2025-03-04 10:35:02] ERROR: Error logging in:User is not active in the active_session_user tablenullموضف معمل91lab@ur.com
+[2025-03-04 10:35:02] ERROR: Error logging in:User is not active in the active_session_user tablenullموضف معمل91lab@ur.com
+[2025-03-04 10:35:02] ERROR: Error logging in:User is not active in the active_session_user tablenullموضف معمل91lab@ur.com
+[2025-03-04 10:35:02] ERROR: Error logging in:User is not active in the active_session_user tablenullموضف معمل91lab@ur.com
+[2025-03-04 10:35:02] ERROR: Error logging in:User is not active in the active_session_user tablenullموضف معمل91lab@ur.com
+[2025-03-04 10:35:02] ERROR: Error logging in:User is not active in the active_session_user tablenullموضف معمل91lab@ur.com
+[2025-03-04 10:35:03] ERROR: Error logging in:User is not active in the active_session_user tablenullموضف معمل91lab@ur.com
+[2025-03-04 10:55:05] ERROR: ❌ Error connecting to the database:MaxRetriesPerRequestError: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.
+[2025-03-04 10:56:07] ERROR: ❌ Error connecting to the database:MaxRetriesPerRequestError: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.
+[2025-03-04 11:02:30] ERROR: ❌ Error connecting to the database:MaxRetriesPerRequestError: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.
+[2025-03-04 11:04:23] ERROR: ❌ Error connecting to the database:ParserError: Protocol error, got "Y" as reply type byte. Please report this.
+[2025-03-04 11:09:07] ERROR: ❌ Error connecting to the database:MaxRetriesPerRequestError: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.
+[2025-03-04 11:27:50] ERROR: ❌ Error connecting to the database:MaxRetriesPerRequestError: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.
+[2025-03-19 08:53:07] ERROR: ❌ Error connecting to the database:MaxRetriesPerRequestError: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.
+[2025-03-19 09:00:45] ERROR: ❌ Error connecting to the database:MaxRetriesPerRequestError: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.
+[2025-03-19 09:02:42] ERROR: ❌ Error connecting to the database:MaxRetriesPerRequestError: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.
+[2025-03-19 09:07:13] ERROR: Error logging in:User is not active in the active_session_user tablenullمستخدم مصنع90factory@ur.com
+[2025-03-19 09:08:22] ERROR: ❌ Error connecting to the database:MaxRetriesPerRequestError: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.
+[2025-03-19 09:31:49] ERROR: ❌ Error connecting to the database:MaxRetriesPerRequestError: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.
+[2025-03-19 09:33:37] ERROR: ❌ Error connecting to the database:MaxRetriesPerRequestError: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.
+[2025-03-19 09:33:57] ERROR: ❌ Error connecting to the database:MaxRetriesPerRequestError: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.
+[2025-03-24 20:18:49] ERROR: ❌ Error connecting to the database:MaxRetriesPerRequestError: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.
+[2025-03-24 20:18:57] ERROR: Error logging in:User is not active in the active_session_user tablenullباسم حسين عبد الامير51Bassim@ur.com
+[2025-03-24 20:19:35] ERROR: Error logging in:User is not active in the active_session_user tablenullباسم حسين عبد الامير51Bassim@ur.com
+[2025-03-24 20:47:45] ERROR: ❌ Error connecting to the database:MaxRetriesPerRequestError: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.
+[2025-03-24 20:49:21] ERROR: Error logging in:User is not active in the active_session_user tablenullباسم حسين عبد الامير51Bassim@ur.com
+[2025-03-24 20:58:28] ERROR: Error logging in: Table 'stagnant_materials_warhouse_db.users_management' doesn't exist in engine
+[2025-03-24 21:00:56] ERROR: Error logging in:User is not active in the active_session_user tablenullباسم حسين عبد الامير51Bassim@ur.com
+[2025-03-25 09:43:02] ERROR: ❌ Error connecting to the database:MaxRetriesPerRequestError: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.
+[2025-03-25 09:47:00] ERROR: Error logging in:User is not active in the active_session_user tablenullباسم حسين عبد الامير51Bassim@ur.com
+[2025-03-25 11:34:19] ERROR: Error logging in:User is not active in the active_session_user tablenullموضف معمل91lab@ur.com
+[2025-03-25 11:34:20] ERROR: Error logging in:User is not active in the active_session_user tablenullموضف معمل91lab@ur.com
+[2025-03-26 10:42:32] ERROR: ❌ Error connecting to the database:MaxRetriesPerRequestError: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.
+[2025-03-26 10:43:38] ERROR: Error logging in:User is not active in the active_session_user tablenullباسم حسين عبد الامير51Bassim@ur.com
+[2025-03-26 11:02:08] ERROR: ❌ Error connecting to the database:MaxRetriesPerRequestError: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.
+[2025-03-26 11:50:14] ERROR: Error logging in:User is not active in the active_session_user tablenullموضف معمل91lab@ur.com
+[2025-03-26 11:51:01] ERROR: Error logging in:User is not active in the active_session_user tablenullموضف معمل91lab@ur.com
+[2025-03-26 12:24:57] ERROR: ❌ Error connecting to the database:MaxRetriesPerRequestError: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.

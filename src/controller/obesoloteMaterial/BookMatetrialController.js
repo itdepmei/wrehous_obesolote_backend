@@ -12,6 +12,7 @@ const createLogEntry = require("../../utils/createLog");
 const path = require("path");
 const ProcessorFile = require("../../utils/DeleteFile");
 const { connect, mainCoection } = require("../../config/db");
+const logger = require("../../middleware/Logger");
 const bookRegister = async (req, res) => {
   const {
     material_id,
@@ -73,7 +74,6 @@ const bookRegister = async (req, res) => {
     if (insertResult.affectedRows === 0) {
       return res.status(500).json({ message: "Failed to register booking" });
     }
-
     // Fetch user information for logging and event triggering
     const [userData] = await connection.execute(getDataUsersQuery, [
       entities_id_buy,
@@ -84,6 +84,7 @@ const bookRegister = async (req, res) => {
     // console.log(userData,userAuthData);
 
     if (userAuthData.length === 0) {
+      logger.error("User not found in the database book material");
       return res.status(404).json({ message: "User not found" });
     }
     const user = userData[0];
@@ -124,7 +125,7 @@ const bookRegister = async (req, res) => {
       category_id: 2,
     });
   } catch (error) {
-    console.error("Internal server error:", error);
+    logger.error("Internal server error:", error);
     return res.status(500).json({ message: "Internal server error" });
   } finally {
     connection.release();
@@ -167,6 +168,7 @@ const UploadBookForEntityBuy = async (req, res) => {
 
     if (updateResponse.affectedRows === 0) {
       await connection.rollback();
+      logger.error("Failed to update booking record");
       return res
         .status(500)
         .json({ message: "Error occurred while updating the booking record" });
@@ -180,6 +182,7 @@ const UploadBookForEntityBuy = async (req, res) => {
 
     if (!userAuth) {
       await connection.rollback();
+      logger.error("User not found");
       return res.status(404).json({ message: "User not found" });
     }
 
@@ -218,7 +221,7 @@ const UploadBookForEntityBuy = async (req, res) => {
     res.status(200).json({ message: "Document uploaded successfully" });
   } catch (error) {
     await connection.rollback();
-    console.error(error);
+    logger.error(error);
     res
       .status(500)
       .json({ message: "An error occurred", error: error.message });
@@ -273,6 +276,7 @@ const getDataBook = async (req, res) => {
       req.query.entity_id,
     ]);
     if (rows.length === 0) {
+      logger.error("No booking materials found");
       return res.status(404).json({ message: "No booking materials found" });
     }
     res.status(200).json({
@@ -286,6 +290,7 @@ const getDataBook = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
+    logger.error(error);
     res
       .status(500)
       .json({ message: "An error occurred", error: error.message });
@@ -333,6 +338,7 @@ const getDataBookByEntityIdSendBooking = async (req, res) => {
       req.query.entity_id,
     ]);
     if (rows.length === 0) {
+      logger.error("No booking materials found");
       return res.status(404).json({ message: "No booking materials found" });
     }
     // console.log(rows);
@@ -347,6 +353,7 @@ const getDataBookByEntityIdSendBooking = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
+    logger.error(error);
     res
       .status(500)
       .json({ message: "An error occurred", error: error.message });
@@ -395,7 +402,7 @@ const getDataBookByEntityId = async (req, res) => {
     // Send all found records, not just the first one
     res.status(200).json({ response: rows[0] });
   } catch (error) {
-    console.error("Error fetching booking data:", error);
+    logger.error("Error fetching booking data:", error);
     res.status(500).json({
       message: "An error occurred while fetching booking data",
       error: error.message,
@@ -497,13 +504,13 @@ const deleteBookById = async (req, res) => {
     } catch (err) {
       // Rollback transaction in case of error
       await connection.rollback();
-      console.error("Error executing queries:", err);
+      logger.error("Error executing queries:", err);
       res.status(500).json({ message: "Database query error" });
     } finally {
       connection.release(); // Always release the connection
     }
   } catch (error) {
-    console.error("Error deleting booking:", error);
+    logger.error("Error deleting booking:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 };
@@ -551,7 +558,7 @@ const cancelRequest = async (req, res) => {
       }
     } catch (err) {
       await connection.rollback();
-      console.error("Error executing queries:", err);
+      logger.error("Error executing queries:", err);
       return res
         .status(500)
         .json({ message: "Database query error", error: err.message });
@@ -559,7 +566,7 @@ const cancelRequest = async (req, res) => {
       connection.release(); // Ensure connection is released in all cases
     }
   } catch (error) {
-    console.error("Error deleting booking:", error);
+    logger.error("Error deleting booking:", error);
     return res
       .status(500)
       .json({ message: "Internal server error", error: error.message });
@@ -607,13 +614,13 @@ const bookEdit = async (req, res) => {
     } catch (err) {
       // Rollback the transaction in case of an error
       await connection.rollback();
-      console.error("Error executing queries:", err);
+      logger.error("Error executing queries:", err);
       res.status(500).json({ message: "Database query error" });
     } finally {
       connection.release(); // Always release the connection
     }
   } catch (error) {
-    console.error("Error editing Book:", error);
+    logger.error("Error editing Book:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 };
@@ -772,7 +779,7 @@ const stagnantMaterialsEditBooked = async (req, res) => {
     if (connection) {
       await connection.rollback();
     }
-    console.error("Transaction error:", err);
+    logger.error("Transaction error:", err);
     return res.status(500).json({ message: "Failed to update material" });
   } finally {
     if (connection) {
@@ -852,7 +859,7 @@ const getDataStagnantMaterialsBookedPa = async (req, res) => {
       },
     });
   } catch (error) {
-    console.error("An error occurred: ", error.message);
+    logger.error("An error occurred: ", error.message);
     res
       .status(500)
       .json({ message: "An error occurred", error: error.message });
@@ -940,7 +947,7 @@ const getDataStagnantMaterialsBookedPByEntityBookedOrBuyTheMaterial = async (
       },
     });
   } catch (error) {
-    console.error("An error occurred: ", error.message);
+    logger.error("An error occurred: ", error.message);
     res
       .status(500)
       .json({ message: "An error occurred", error: error.message });
@@ -1132,7 +1139,7 @@ const Contacted = async (req, res) => {
     } catch (err) {
       // Roll back the transaction in case of an error
       await connection.rollback();
-      console.error("Error during transaction:", err);
+      logger.error("Error during transaction:", err);
       res.status(500).json({
         message: "Database query error",
         error: err.message,
@@ -1141,7 +1148,7 @@ const Contacted = async (req, res) => {
       connection.release(); // Always release the connection back to the pool
     }
   } catch (error) {
-    console.error("Error approving booking:", error);
+    logger.error("Error approving booking:", error);
     res.status(500).json({
       message: "Internal server error",
       error: error.message,
@@ -1276,13 +1283,13 @@ const approvedAdminSendRequestBook = async (req, res) => {
       return res.status(200).json({ message: "تم الموافقة بنجاح" });
     } catch (error) {
       await connection.rollback();
-      console.error("Error during booking approval:", error);
+      logger.error("Error during booking approval:", error);
       return res.status(500).json({ message: "Internal server error" });
     } finally {
       connection.release(); // Ensure connection is released
     }
   } catch (err) {
-    console.error("Database connection error:", err);
+    logger.error("Database connection error:", err);
     return res
       .status(500)
       .json({ message: "Failed to connect to the database" });
@@ -1377,7 +1384,7 @@ const approvedAdminToUploadBook = async (req, res) => {
       });
     } catch (err) {
       await connection.rollback(); // Roll back the transaction in case of an error
-      console.error("Error during transaction:", err);
+      logger.error("Error during transaction:", err);
       res.status(500).json({
         message: "Database query error",
         error: err.message,
@@ -1386,7 +1393,7 @@ const approvedAdminToUploadBook = async (req, res) => {
       connection.release(); // Always release the connection back to the pool
     }
   } catch (error) {
-    console.error("Error approving booking:", error);
+    logger.error("Error approving booking:", error);
     res.status(500).json({
       message: "Internal server error",
       error: error.message,
@@ -1488,7 +1495,7 @@ const getDataArchiveById = async (req, res) => {
     };
     res.status(200).json({ response: result });
   } catch (error) {
-    console.error("An error occurred: ", error.message);
+    logger.error("An error occurred: ", error.message);
     res
       .status(500)
       .json({ message: "An error occurred", error: error.message });
