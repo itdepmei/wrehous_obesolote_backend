@@ -137,6 +137,7 @@ const login = async (req, res) => {
     const [activeUserRows] = await connection.execute(checkActiveUser, [
       user.id,
     ]);
+    console.log("activeUserRows", activeUserRows);
     if (!activeUserRows || activeUserRows.length === 0) {
       await connection.rollback();
       logger.error(

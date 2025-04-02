@@ -16,11 +16,12 @@ const {
 } = require("../controller/UserMnagemantController.js");
 const authorization = require("../middleware/Authorization.js");
 const {Auth, refreshTokenHandler} = require("../middleware/auth.js");
+const applicationAuth = require("../middleware/ApplicationAuth.js");
 const router = Router();
 router.post("/registerUser", registerUser);
 router.post("/Login", login);
 router.post("/refresh-token", refreshTokenHandler);
-router.get("/getDataUserManage", Auth, authorization, getDataUserManage);
+router.get("/getDataUserManage", Auth, authorization,applicationAuth, getDataUserManage);
 router.get("/deleteDataUserManage/:id", Auth, deleteById);
 router.post("/userManagementEdit", Auth, userManagementEdit);
 router.get("/getUserById", Auth, getUserById);
@@ -28,6 +29,7 @@ router.get(
   "/getDataUserManageByIdEntities",
   Auth,
   authorization,
+  applicationAuth,
   getDataUserManageByIdEntities
 );
 router.post("/userEdit", Auth, userEdit);

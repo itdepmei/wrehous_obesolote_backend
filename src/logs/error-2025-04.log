@@ -1,0 +1,26 @@
+[2025-04-02 08:27:52] ERROR: ❌ Error connecting to the database:MaxRetriesPerRequestError: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.
+[2025-04-02 08:55:13] ERROR: Error logging in:User is not active in the active_session_user tablenullباسم حسين عبد الامير51Bassim@ur.com
+[2025-04-02 08:58:09] ERROR: Error logging in:User is not active in the active_session_user tablenullباسم حسين عبد الامير51Bassim@ur.com
+[2025-04-02 08:58:27] ERROR: Error logging in:User is not active in the active_session_user tablenullباسم حسين عبد الامير51Bassim@ur.com
+[2025-04-02 08:58:45] ERROR: Error logging in:User is not active in the active_session_user tablenullباسم حسين عبد الامير51Bassim@ur.com
+[2025-04-02 08:59:22] ERROR: Error logging in:User is not active in the active_session_user tablenullباسم حسين عبد الامير51Bassim@ur.com
+[2025-04-02 08:59:24] ERROR: Error logging in:User is not active in the active_session_user tablenullباسم حسين عبد الامير51Bassim@ur.com
+[2025-04-02 08:59:24] ERROR: Error logging in:User is not active in the active_session_user tablenullباسم حسين عبد الامير51Bassim@ur.com
+[2025-04-02 08:59:25] ERROR: Error logging in:User is not active in the active_session_user tablenullباسم حسين عبد الامير51Bassim@ur.com
+[2025-04-02 09:00:36] ERROR: Error logging in:User is not active in the active_session_user tablenullباسم حسين عبد الامير51Bassim@ur.com
+[2025-04-02 09:01:12] ERROR: ❌ Error connecting to the database:MaxRetriesPerRequestError: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.
+[2025-04-02 09:01:15] ERROR: Error logging in:User is not active in the active_session_user tablenullباسم حسين عبد الامير51Bassim@ur.com
+[2025-04-02 09:03:20] ERROR: Error logging in:User is not active in the active_session_user tablenullباسم حسين عبد الامير51Bassim@ur.com
+[2025-04-02 09:03:30] ERROR: ❌ Error connecting to the database:MaxRetriesPerRequestError: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.
+[2025-04-02 09:05:56] ERROR: ❌ Error connecting to the database:MaxRetriesPerRequestError: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.
+[2025-04-02 09:06:29] ERROR: ❌ Error connecting to the database:MaxRetriesPerRequestError: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.
+[2025-04-02 09:07:19] ERROR: ❌ Error connecting to the database:MaxRetriesPerRequestError: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.
+[2025-04-02 09:07:32] ERROR: ❌ Error connecting to the database:ReferenceError: cacheKey is not defined
+[2025-04-02 09:08:27] ERROR: ❌ Error connecting to the database:ReferenceError: redis is not defined
+[2025-04-02 09:08:48] ERROR: ❌ Error connecting to the database:MaxRetriesPerRequestError: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.
+[2025-04-02 09:09:36] ERROR: ❌ Error connecting to the database:MaxRetriesPerRequestError: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.
+[2025-04-02 09:10:06] ERROR: ❌ Error connecting to the database:MaxRetriesPerRequestError: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.
+[2025-04-02 09:13:08] ERROR: Error logging in:User is not active in the active_session_user tablenullباسم حسين عبد الامير51Bassim@ur.com
+[2025-04-02 12:03:01] ERROR: Error fetching users management data: Bind parameters must not contain undefined. To pass SQL NULL specify JS null
+[2025-04-02 12:04:32] ERROR: Error fetching users management data: Bind parameters must not contain undefined. To pass SQL NULL specify JS null
+[2025-04-02 12:05:57] ERROR: Error fetching users management data: Bind parameters must not contain undefined. To pass SQL NULL specify JS null

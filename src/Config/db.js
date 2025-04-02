@@ -1,99 +1,104 @@
 const mysql = require("mysql2/promise");
 const { config } = require("dotenv");
-const Redis = require("ioredis");
-const logger = require("../middleware/Logger");
+const Logger = require("../middleware/Logger");
 config();
-const requiredEnv = ["HOST", "USER", "DATABASE", "CONNECTIONLIMIT", "REDIS_HOST", "REDIS_PORT"];
-for (const key of requiredEnv) {
-  if (!process.env[key]) {
-    throw new Error(`Missing required environment variable: ${key}`);
-  }
-}
+
 const dbConfig = {
   host: process.env.HOST,
   user: process.env.USER,
   password: process.env.PASSWORD,
   database: process.env.DATABASE,
   waitForConnections: true,
-  connectionLimit: Number(process.env.CONNECTIONLIMIT) || 10,
+  connectionLimit: Number(process.env.CONNECTIONLIMIT) || 10, // Default if not set
   queueLimit: 0,
   acquireTimeout: 10000,
   multipleStatements: false,
 };
-// Create a connection pool
-let pool; // Singleton pool instance
-const redis = new Redis({ host: process.env.REDIS_HOST, port: process.env.REDIS_PORT }); // Redis instance
 
+let pool;
+
+/**
+ * Create a connection pool if not exists
+ */
 async function connect() {
   if (!pool) {
-    pool = mysql.createPool(dbConfig);
-    logger.info("✅ MySQL connection pool created.");
+    try {
+      pool = mysql.createPool(dbConfig);
+      console.log("Database pool created.");
+      Logger.info("Database pool created.");
+    } catch (error) {
+      Logger.error("Error creating pool: ", error);
+      console.error("Error creating pool:", error);
+      throw error;
+    }
   }
   return pool;
 }
-// Function to get a connection from the pool
+
+/**
+ * Get a connection from the pool
+ */
 async function getConnection() {
   const pool = await connect();
-  const connection = await pool.getConnection();
-  return connection;
-}
-// Usage example
-async function mainConnection() {
-  let connection;
   try {
-    const pool = await connect();
-    console.log("Database connection pool created.");
-    connection = await getConnection();
-    console.log("Database connection obtained from pool.");
-    // Perform database operations
-    const [rows] = await connection.query("SELECT 1");
-    console.log(rows);
+    const connection = await pool.getConnection();
+    connection.config.namedPlaceholders = true;
+    console.log("Connection obtained from pool.");
+    Logger.info("Connection obtained from pool.");
+    return connection;
   } catch (error) {
-    logger.error("Error connecting to the database:", error);
-    console.log("Error connecting to the database:", error);
-  } finally {
-    if (connection) {
+    Logger.error("Error obtaining connection: ", error);
+    console.error("Error obtaining connection:", error);
+    throw error;
+  }
+}
+
+/**
+ * Main connection function with retry logic
+ */
+async function mainConnection(retries = 5, delay = 3000) {
+  let connection;
+  while (retries > 0) {
+    try {
+      const pool = await connect();
+      console.log("Database pool is ready.");
+
+      connection = await getConnection();
+      console.log("Connection is successful.");
+
+      // Test query or your logic
+      const [rows] = await connection.query("SELECT 1");
+      console.log("Test query result:", rows);
+
+      // Release connection after use
       connection.release();
+      break; // Exit loop if successful
+    } catch (error) {
+      Logger.error(`Connection error. Retries left: ${retries - 1}`, error);
+      console.error(`Connection error. Retries left: ${retries - 1}`, error);
+
+      retries -= 1;
+      if (retries === 0) {
+        Logger.error("All retries failed. Could not connect to the database.");
+        console.error("All retries failed. Could not connect to the database.");
+        break;
+      }
+
+      // Wait before retrying
+      await new Promise(res => setTimeout(res, delay));
+    } finally {
+      if (connection) {
+        try {
+          connection.release();
+        } catch (releaseError) {
+          Logger.error("Error releasing connection: ", releaseError);
+        }
+      }
     }
   }
 }
-async function executeQuery(query, params = [], cacheTTL = 60) {
-  const cacheKey = `query:${query}:${JSON.stringify(params)}`;
 
-  // Check for cached result
-  const cachedResult = await redis.get(cacheKey);
-  if (cachedResult) {
-    Logger.info("✅ Returning cached result for query:", cacheKey);
-    return JSON.parse(cachedResult); // Parse and return cached result
-  }
+module.exports = { mainConnection, getConnection, connect };
 
-  let connection;
-  try {
-    connection = await getConnection();
-    const [results] = await connection.execute(query, params);
-    // Cache the result
-    await redis.set(cacheKey, JSON.stringify(results), 'EX', cacheTTL);
-    Logger.info("✅ Cached result for query:", cacheKey);
-    return results;
-  } catch (error) {
-    Logger.error(`❌ Database query error: ${error.message}`, { query, params });
-    throw error;
-  } finally {
-    if (connection) connection.release();
-  }
-}
-async function mainConnection() {
-  try {
-    const pool = await connect();
-    logger.info("✅ Database connection pool initialized.");
-    
-    const result = await executeQuery("SELECT NOW() AS current_time");
-    logger.info("✅ Database test query executed:"+ result);
-  } catch (error) {
-    logger.error("❌ Error connecting to the database:"+ error);
-  }
-}
-
-module.exports = { mainConnection, getConnection, connect ,executeQuery };
-// Uncomment the following line to run the example when this file is executed
-// mainCoection().catch(console.error);
+// Uncomment to run when executing the file directly
+// mainConnection().catch(console.error);

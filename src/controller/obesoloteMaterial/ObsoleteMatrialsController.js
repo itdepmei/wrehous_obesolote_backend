@@ -779,9 +779,6 @@ const deleteById = async (req, res) => {
     const userInfo = userInfoRows[0];
     const text = `تم حذف المنتج من قبل المستخدم ${userInfo?.user_name}`;
     createLogEntry(connection, 2, user._id, data.Entities_id, text, 1);
-    if (insertLogResult.affectedRows === 0) {
-      throw new Error("Failed to insert log.");
-    }
     // Fetch associated files
     const queryFiles = "SELECT * FROM files WHERE insert_id = ?";
     const [files] = await conn.execute(queryFiles, [req.params.id]);

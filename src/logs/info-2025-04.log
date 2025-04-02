@@ -1,0 +1,492 @@
+[2025-04-02 08:27:36] INFO: ✅ MySQL connection pool created.
+[2025-04-02 08:27:41] INFO: Server is running on http://127.0.0.1:5000
+[2025-04-02 08:27:41] INFO: ✅ Database connection pool initialized.
+[2025-04-02 08:27:52] ERROR: ❌ Error connecting to the database:MaxRetriesPerRequestError: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.
+[2025-04-02 08:55:13] ERROR: Error logging in:User is not active in the active_session_user tablenullباسم حسين عبد الامير51Bassim@ur.com
+[2025-04-02 08:58:09] ERROR: Error logging in:User is not active in the active_session_user tablenullباسم حسين عبد الامير51Bassim@ur.com
+[2025-04-02 08:58:27] ERROR: Error logging in:User is not active in the active_session_user tablenullباسم حسين عبد الامير51Bassim@ur.com
+[2025-04-02 08:58:45] ERROR: Error logging in:User is not active in the active_session_user tablenullباسم حسين عبد الامير51Bassim@ur.com
+[2025-04-02 08:59:22] ERROR: Error logging in:User is not active in the active_session_user tablenullباسم حسين عبد الامير51Bassim@ur.com
+[2025-04-02 08:59:24] ERROR: Error logging in:User is not active in the active_session_user tablenullباسم حسين عبد الامير51Bassim@ur.com
+[2025-04-02 08:59:24] ERROR: Error logging in:User is not active in the active_session_user tablenullباسم حسين عبد الامير51Bassim@ur.com
+[2025-04-02 08:59:25] ERROR: Error logging in:User is not active in the active_session_user tablenullباسم حسين عبد الامير51Bassim@ur.com
+[2025-04-02 09:00:00] INFO: Running delete zero quantity items check...
+[2025-04-02 09:00:36] ERROR: Error logging in:User is not active in the active_session_user tablenullباسم حسين عبد الامير51Bassim@ur.com
+[2025-04-02 09:00:59] INFO: ✅ MySQL connection pool created.
+[2025-04-02 09:01:01] INFO: Server is running on http://127.0.0.1:5000
+[2025-04-02 09:01:01] INFO: ✅ Database connection pool initialized.
+[2025-04-02 09:01:12] ERROR: ❌ Error connecting to the database:MaxRetriesPerRequestError: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.
+[2025-04-02 09:01:15] ERROR: Error logging in:User is not active in the active_session_user tablenullباسم حسين عبد الامير51Bassim@ur.com
+[2025-04-02 09:03:17] INFO: ✅ MySQL connection pool created.
+[2025-04-02 09:03:19] INFO: Server is running on http://127.0.0.1:5000
+[2025-04-02 09:03:19] INFO: ✅ Database connection pool initialized.
+[2025-04-02 09:03:20] ERROR: Error logging in:User is not active in the active_session_user tablenullباسم حسين عبد الامير51Bassim@ur.com
+[2025-04-02 09:03:30] ERROR: ❌ Error connecting to the database:MaxRetriesPerRequestError: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.
+[2025-04-02 09:05:43] INFO: ✅ MySQL connection pool created.
+[2025-04-02 09:05:45] INFO: Server is running on http://127.0.0.1:5000
+[2025-04-02 09:05:45] INFO: ✅ Database connection pool initialized.
+[2025-04-02 09:05:56] ERROR: ❌ Error connecting to the database:MaxRetriesPerRequestError: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.
+[2025-04-02 09:06:15] INFO: ✅ MySQL connection pool created.
+[2025-04-02 09:06:17] INFO: Server is running on http://127.0.0.1:5000
+[2025-04-02 09:06:17] INFO: ✅ Database connection pool initialized.
+[2025-04-02 09:06:29] ERROR: ❌ Error connecting to the database:MaxRetriesPerRequestError: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.
+[2025-04-02 09:07:00] INFO: ✅ MySQL connection pool created.
+[2025-04-02 09:07:02] INFO: Server is running on http://127.0.0.1:5000
+[2025-04-02 09:07:02] INFO: ✅ Database connection pool initialized.
+[2025-04-02 09:07:06] INFO: ✅ MySQL connection pool created.
+[2025-04-02 09:07:08] INFO: Server is running on http://127.0.0.1:5000
+[2025-04-02 09:07:08] INFO: ✅ Database connection pool initialized.
+[2025-04-02 09:07:19] ERROR: ❌ Error connecting to the database:MaxRetriesPerRequestError: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.
+[2025-04-02 09:07:30] INFO: ✅ MySQL connection pool created.
+[2025-04-02 09:07:32] INFO: Server is running on http://127.0.0.1:5000
+[2025-04-02 09:07:32] INFO: ✅ Database connection pool initialized.
+[2025-04-02 09:07:32] ERROR: ❌ Error connecting to the database:ReferenceError: cacheKey is not defined
+[2025-04-02 09:07:46] INFO: ✅ MySQL connection pool created.
+[2025-04-02 09:07:49] INFO: Server is running on http://127.0.0.1:5000
+[2025-04-02 09:07:49] INFO: ✅ Database connection pool initialized.
+[2025-04-02 09:08:02] INFO: ✅ MySQL connection pool created.
+[2025-04-02 09:08:04] INFO: Server is running on http://127.0.0.1:5000
+[2025-04-02 09:08:04] INFO: ✅ Database connection pool initialized.
+[2025-04-02 09:08:11] INFO: ✅ MySQL connection pool created.
+[2025-04-02 09:08:13] INFO: Server is running on http://127.0.0.1:5000
+[2025-04-02 09:08:13] INFO: ✅ Database connection pool initialized.
+[2025-04-02 09:08:25] INFO: ✅ MySQL connection pool created.
+[2025-04-02 09:08:27] INFO: Server is running on http://127.0.0.1:5000
+[2025-04-02 09:08:27] INFO: ✅ Database connection pool initialized.
+[2025-04-02 09:08:27] ERROR: ❌ Error connecting to the database:ReferenceError: redis is not defined
+[2025-04-02 09:08:34] INFO: ✅ MySQL connection pool created.
+[2025-04-02 09:08:37] INFO: Server is running on http://127.0.0.1:5000
+[2025-04-02 09:08:37] INFO: ✅ Database connection pool initialized.
+[2025-04-02 09:08:48] ERROR: ❌ Error connecting to the database:MaxRetriesPerRequestError: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.
+[2025-04-02 09:09:11] INFO: ✅ MySQL connection pool created.
+[2025-04-02 09:09:13] INFO: Server is running on http://127.0.0.1:5000
+[2025-04-02 09:09:13] INFO: ✅ Database connection pool initialized.
+[2025-04-02 09:09:23] INFO: ✅ MySQL connection pool created.
+[2025-04-02 09:09:25] INFO: Server is running on http://127.0.0.1:5000
+[2025-04-02 09:09:25] INFO: ✅ Database connection pool initialized.
+[2025-04-02 09:09:36] ERROR: ❌ Error connecting to the database:MaxRetriesPerRequestError: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.
+[2025-04-02 09:09:54] INFO: ✅ MySQL connection pool created.
+[2025-04-02 09:09:56] INFO: Server is running on http://127.0.0.1:5000
+[2025-04-02 09:09:56] INFO: ✅ Database connection pool initialized.
+[2025-04-02 09:10:06] ERROR: ❌ Error connecting to the database:MaxRetriesPerRequestError: Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details.
+[2025-04-02 09:11:24] INFO: Database pool created.
+[2025-04-02 09:11:27] INFO: Server is running on http://127.0.0.1:5000
+[2025-04-02 09:11:27] INFO: Connection obtained from pool.
+[2025-04-02 09:11:43] INFO: Database pool created.
+[2025-04-02 09:11:46] INFO: Server is running on http://127.0.0.1:5000
+[2025-04-02 09:11:46] INFO: Connection obtained from pool.
+[2025-04-02 09:13:08] ERROR: Error logging in:User is not active in the active_session_user tablenullباسم حسين عبد الامير51Bassim@ur.com
+[2025-04-02 09:13:21] INFO: Database pool created.
+[2025-04-02 09:13:23] INFO: Server is running on http://127.0.0.1:5000
+[2025-04-02 09:13:24] INFO: Connection obtained from pool.
+[2025-04-02 09:13:25] INFO: Connection obtained from pool.
+[2025-04-02 09:14:08] INFO: Connection obtained from pool.
+[2025-04-02 09:14:08] INFO: Connection obtained from pool.
+[2025-04-02 09:14:09] INFO: Connection obtained from pool.
+[2025-04-02 09:29:38] INFO: Connection obtained from pool.
+[2025-04-02 09:29:39] INFO: Connection obtained from pool.
+[2025-04-02 09:29:39] INFO: Connection obtained from pool.
+[2025-04-02 09:29:39] INFO: Connection obtained from pool.
+[2025-04-02 09:36:02] INFO: Connection obtained from pool.
+[2025-04-02 09:36:02] INFO: Connection obtained from pool.
+[2025-04-02 09:36:02] INFO: Connection obtained from pool.
+[2025-04-02 09:36:48] INFO: Connection obtained from pool.
+[2025-04-02 09:36:50] INFO: Connection obtained from pool.
+[2025-04-02 09:36:50] INFO: Connection obtained from pool.
+[2025-04-02 09:38:04] INFO: Connection obtained from pool.
+[2025-04-02 09:38:04] INFO: Connection obtained from pool.
+[2025-04-02 09:38:23] INFO: Connection obtained from pool.
+[2025-04-02 09:38:23] INFO: Connection obtained from pool.
+[2025-04-02 09:38:24] INFO: Connection obtained from pool.
+[2025-04-02 09:38:34] INFO: Connection obtained from pool.
+[2025-04-02 09:38:35] INFO: Connection obtained from pool.
+[2025-04-02 09:38:35] INFO: Connection obtained from pool.
+[2025-04-02 09:38:57] INFO: Connection obtained from pool.
+[2025-04-02 09:38:57] INFO: Connection obtained from pool.
+[2025-04-02 09:38:57] INFO: Connection obtained from pool.
+[2025-04-02 09:44:08] INFO: Connection obtained from pool.
+[2025-04-02 09:44:09] INFO: Connection obtained from pool.
+[2025-04-02 09:44:09] INFO: Connection obtained from pool.
+[2025-04-02 09:44:10] INFO: Connection obtained from pool.
+[2025-04-02 09:45:43] INFO: Connection obtained from pool.
+[2025-04-02 09:45:43] INFO: Connection obtained from pool.
+[2025-04-02 09:45:43] INFO: Connection obtained from pool.
+[2025-04-02 09:45:43] INFO: Connection obtained from pool.
+[2025-04-02 09:46:44] INFO: Connection obtained from pool.
+[2025-04-02 09:46:44] INFO: Connection obtained from pool.
+[2025-04-02 09:46:44] INFO: Connection obtained from pool.
+[2025-04-02 09:46:44] INFO: Connection obtained from pool.
+[2025-04-02 09:46:55] INFO: Connection obtained from pool.
+[2025-04-02 09:47:00] INFO: Connection obtained from pool.
+[2025-04-02 09:47:00] INFO: Connection obtained from pool.
+[2025-04-02 09:47:00] INFO: Connection obtained from pool.
+[2025-04-02 09:47:24] INFO: Connection obtained from pool.
+[2025-04-02 09:48:03] INFO: Connection obtained from pool.
+[2025-04-02 09:48:03] INFO: Connection obtained from pool.
+[2025-04-02 09:48:03] INFO: Connection obtained from pool.
+[2025-04-02 09:50:17] INFO: Connection obtained from pool.
+[2025-04-02 09:50:17] INFO: Connection obtained from pool.
+[2025-04-02 09:50:17] INFO: Connection obtained from pool.
+[2025-04-02 09:51:19] INFO: Connection obtained from pool.
+[2025-04-02 09:51:19] INFO: Connection obtained from pool.
+[2025-04-02 09:51:20] INFO: Connection obtained from pool.
+[2025-04-02 10:00:00] INFO: Running delete zero quantity items check...
+[2025-04-02 10:01:29] INFO: Connection obtained from pool.
+[2025-04-02 10:01:29] INFO: Connection obtained from pool.
+[2025-04-02 10:01:29] INFO: Connection obtained from pool.
+[2025-04-02 10:01:52] INFO: Connection obtained from pool.
+[2025-04-02 10:01:52] INFO: Connection obtained from pool.
+[2025-04-02 10:01:52] INFO: Connection obtained from pool.
+[2025-04-02 10:01:52] INFO: Connection obtained from pool.
+[2025-04-02 10:02:54] INFO: Connection obtained from pool.
+[2025-04-02 10:06:42] INFO: Connection obtained from pool.
+[2025-04-02 10:08:10] INFO: Connection obtained from pool.
+[2025-04-02 10:08:10] INFO: Connection obtained from pool.
+[2025-04-02 10:08:10] INFO: Connection obtained from pool.
+[2025-04-02 10:08:17] INFO: Connection obtained from pool.
+[2025-04-02 10:08:17] INFO: Connection obtained from pool.
+[2025-04-02 10:08:17] INFO: Connection obtained from pool.
+[2025-04-02 10:08:17] INFO: Connection obtained from pool.
+[2025-04-02 10:16:00] INFO: Connection obtained from pool.
+[2025-04-02 10:16:13] INFO: Connection obtained from pool.
+[2025-04-02 10:16:27] INFO: Connection obtained from pool.
+[2025-04-02 10:16:47] INFO: Connection obtained from pool.
+[2025-04-02 10:26:26] INFO: Connection obtained from pool.
+[2025-04-02 10:26:26] INFO: Connection obtained from pool.
+[2025-04-02 10:26:31] INFO: Connection obtained from pool.
+[2025-04-02 10:26:38] INFO: Connection obtained from pool.
+[2025-04-02 10:26:46] INFO: Connection obtained from pool.
+[2025-04-02 10:29:51] INFO: Connection obtained from pool.
+[2025-04-02 10:31:14] INFO: Connection obtained from pool.
+[2025-04-02 10:31:18] INFO: Connection obtained from pool.
+[2025-04-02 10:31:23] INFO: Connection obtained from pool.
+[2025-04-02 10:31:29] INFO: Connection obtained from pool.
+[2025-04-02 10:31:36] INFO: Connection obtained from pool.
+[2025-04-02 10:32:10] INFO: Connection obtained from pool.
+[2025-04-02 10:32:23] INFO: Connection obtained from pool.
+[2025-04-02 10:34:04] INFO: Connection obtained from pool.
+[2025-04-02 10:34:04] INFO: Connection obtained from pool.
+[2025-04-02 10:34:04] INFO: Connection obtained from pool.
+[2025-04-02 10:34:04] INFO: Connection obtained from pool.
+[2025-04-02 10:34:04] INFO: Connection obtained from pool.
+[2025-04-02 10:36:08] INFO: Connection obtained from pool.
+[2025-04-02 10:36:08] INFO: Connection obtained from pool.
+[2025-04-02 10:36:08] INFO: Connection obtained from pool.
+[2025-04-02 10:36:08] INFO: Connection obtained from pool.
+[2025-04-02 10:36:08] INFO: Connection obtained from pool.
+[2025-04-02 10:36:19] INFO: Connection obtained from pool.
+[2025-04-02 10:36:22] INFO: Connection obtained from pool.
+[2025-04-02 10:36:32] INFO: Connection obtained from pool.
+[2025-04-02 10:36:49] INFO: Connection obtained from pool.
+[2025-04-02 10:36:50] INFO: Connection obtained from pool.
+[2025-04-02 10:36:53] INFO: Connection obtained from pool.
+[2025-04-02 10:37:04] INFO: Connection obtained from pool.
+[2025-04-02 10:37:30] INFO: Connection obtained from pool.
+[2025-04-02 10:56:50] INFO: Connection obtained from pool.
+[2025-04-02 10:56:53] INFO: Connection obtained from pool.
+[2025-04-02 10:56:53] INFO: Connection obtained from pool.
+[2025-04-02 10:56:53] INFO: Connection obtained from pool.
+[2025-04-02 10:57:01] INFO: Connection obtained from pool.
+[2025-04-02 10:57:03] INFO: Connection obtained from pool.
+[2025-04-02 10:57:03] INFO: Connection obtained from pool.
+[2025-04-02 10:57:03] INFO: Connection obtained from pool.
+[2025-04-02 10:57:21] INFO: Connection obtained from pool.
+[2025-04-02 10:57:21] INFO: Connection obtained from pool.
+[2025-04-02 10:57:21] INFO: Connection obtained from pool.
+[2025-04-02 10:57:22] INFO: Connection obtained from pool.
+[2025-04-02 10:57:22] INFO: Connection obtained from pool.
+[2025-04-02 10:57:23] INFO: Connection obtained from pool.
+[2025-04-02 10:57:23] INFO: Connection obtained from pool.
+[2025-04-02 10:57:31] INFO: Connection obtained from pool.
+[2025-04-02 10:57:31] INFO: Connection obtained from pool.
+[2025-04-02 10:57:33] INFO: Connection obtained from pool.
+[2025-04-02 10:57:33] INFO: Connection obtained from pool.
+[2025-04-02 10:57:34] INFO: Connection obtained from pool.
+[2025-04-02 10:57:42] INFO: Connection obtained from pool.
+[2025-04-02 11:00:00] INFO: Running delete zero quantity items check...
+[2025-04-02 11:25:35] INFO: Connection obtained from pool.
+[2025-04-02 11:25:38] INFO: Connection obtained from pool.
+[2025-04-02 11:25:38] INFO: Connection obtained from pool.
+[2025-04-02 11:25:38] INFO: Connection obtained from pool.
+[2025-04-02 11:25:58] INFO: Connection obtained from pool.
+[2025-04-02 11:25:59] INFO: Connection obtained from pool.
+[2025-04-02 11:25:59] INFO: Connection obtained from pool.
+[2025-04-02 11:25:59] INFO: Connection obtained from pool.
+[2025-04-02 11:26:07] INFO: Connection obtained from pool.
+[2025-04-02 11:26:07] INFO: Connection obtained from pool.
+[2025-04-02 11:26:07] INFO: Connection obtained from pool.
+[2025-04-02 11:26:10] INFO: Connection obtained from pool.
+[2025-04-02 11:26:25] INFO: Connection obtained from pool.
+[2025-04-02 11:26:25] INFO: Connection obtained from pool.
+[2025-04-02 11:26:25] INFO: Connection obtained from pool.
+[2025-04-02 11:26:27] INFO: Connection obtained from pool.
+[2025-04-02 11:26:30] INFO: Connection obtained from pool.
+[2025-04-02 11:26:31] INFO: Connection obtained from pool.
+[2025-04-02 11:26:35] INFO: Connection obtained from pool.
+[2025-04-02 11:33:09] INFO: Connection obtained from pool.
+[2025-04-02 11:33:20] INFO: Database pool created.
+[2025-04-02 11:33:22] INFO: Server is running on http://127.0.0.1:5000
+[2025-04-02 11:33:23] INFO: Connection obtained from pool.
+[2025-04-02 11:33:30] INFO: Database pool created.
+[2025-04-02 11:33:32] INFO: Server is running on http://127.0.0.1:5000
+[2025-04-02 11:33:32] INFO: Connection obtained from pool.
+[2025-04-02 11:33:42] INFO: Database pool created.
+[2025-04-02 11:33:44] INFO: Server is running on http://127.0.0.1:5000
+[2025-04-02 11:33:44] INFO: Connection obtained from pool.
+[2025-04-02 11:34:00] INFO: Database pool created.
+[2025-04-02 11:34:02] INFO: Server is running on http://127.0.0.1:5000
+[2025-04-02 11:34:03] INFO: Connection obtained from pool.
+[2025-04-02 11:34:04] INFO: Connection obtained from pool.
+[2025-04-02 11:34:04] INFO: Connection obtained from pool.
+[2025-04-02 11:34:04] INFO: Connection obtained from pool.
+[2025-04-02 11:34:24] INFO: Connection obtained from pool.
+[2025-04-02 11:39:53] INFO: Connection obtained from pool.
+[2025-04-02 11:39:54] INFO: Connection obtained from pool.
+[2025-04-02 11:39:54] INFO: Connection obtained from pool.
+[2025-04-02 11:39:54] INFO: Connection obtained from pool.
+[2025-04-02 11:39:54] INFO: Connection obtained from pool.
+[2025-04-02 11:40:01] INFO: Connection obtained from pool.
+[2025-04-02 11:40:01] INFO: Connection obtained from pool.
+[2025-04-02 11:40:01] INFO: Connection obtained from pool.
+[2025-04-02 11:40:01] INFO: Connection obtained from pool.
+[2025-04-02 11:40:01] INFO: Connection obtained from pool.
+[2025-04-02 11:40:44] INFO: Connection obtained from pool.
+[2025-04-02 11:40:44] INFO: Connection obtained from pool.
+[2025-04-02 11:41:07] INFO: Connection obtained from pool.
+[2025-04-02 11:41:07] INFO: Connection obtained from pool.
+[2025-04-02 11:41:26] INFO: Connection obtained from pool.
+[2025-04-02 11:41:26] INFO: Connection obtained from pool.
+[2025-04-02 11:41:27] INFO: Connection obtained from pool.
+[2025-04-02 11:41:28] INFO: Connection obtained from pool.
+[2025-04-02 11:41:32] INFO: Connection obtained from pool.
+[2025-04-02 11:41:32] INFO: Connection obtained from pool.
+[2025-04-02 11:41:32] INFO: Connection obtained from pool.
+[2025-04-02 11:41:32] INFO: Connection obtained from pool.
+[2025-04-02 11:41:32] INFO: Connection obtained from pool.
+[2025-04-02 11:41:45] INFO: Connection obtained from pool.
+[2025-04-02 11:41:45] INFO: Connection obtained from pool.
+[2025-04-02 11:42:04] INFO: Database pool created.
+[2025-04-02 11:42:06] INFO: Server is running on http://127.0.0.1:5000
+[2025-04-02 11:42:06] INFO: Connection obtained from pool.
+[2025-04-02 11:42:10] INFO: Database pool created.
+[2025-04-02 11:42:12] INFO: Server is running on http://127.0.0.1:5000
+[2025-04-02 11:42:12] INFO: Connection obtained from pool.
+[2025-04-02 11:42:27] INFO: Connection obtained from pool.
+[2025-04-02 11:42:27] INFO: Connection obtained from pool.
+[2025-04-02 11:43:00] INFO: Connection obtained from pool.
+[2025-04-02 11:43:00] INFO: Connection obtained from pool.
+[2025-04-02 11:43:00] INFO: Connection obtained from pool.
+[2025-04-02 11:43:04] INFO: Connection obtained from pool.
+[2025-04-02 11:43:11] INFO: Connection obtained from pool.
+[2025-04-02 11:43:18] INFO: Connection obtained from pool.
+[2025-04-02 11:43:20] INFO: Connection obtained from pool.
+[2025-04-02 11:44:21] INFO: Database pool created.
+[2025-04-02 11:44:24] INFO: Server is running on http://127.0.0.1:5000
+[2025-04-02 11:44:24] INFO: Connection obtained from pool.
+[2025-04-02 11:44:37] INFO: Database pool created.
+[2025-04-02 11:44:38] INFO: Server is running on http://127.0.0.1:5000
+[2025-04-02 11:44:39] INFO: Connection obtained from pool.
+[2025-04-02 11:44:58] INFO: Database pool created.
+[2025-04-02 11:45:01] INFO: Server is running on http://127.0.0.1:5000
+[2025-04-02 11:45:01] INFO: Connection obtained from pool.
+[2025-04-02 11:45:31] INFO: Database pool created.
+[2025-04-02 11:45:33] INFO: Server is running on http://127.0.0.1:5000
+[2025-04-02 11:45:34] INFO: Connection obtained from pool.
+[2025-04-02 11:45:39] INFO: Database pool created.
+[2025-04-02 11:45:42] INFO: Server is running on http://127.0.0.1:5000
+[2025-04-02 11:45:42] INFO: Connection obtained from pool.
+[2025-04-02 11:45:58] INFO: Connection obtained from pool.
+[2025-04-02 11:45:58] INFO: Connection obtained from pool.
+[2025-04-02 11:46:01] INFO: Connection obtained from pool.
+[2025-04-02 11:46:01] INFO: Connection obtained from pool.
+[2025-04-02 11:46:01] INFO: Connection obtained from pool.
+[2025-04-02 11:46:02] INFO: Connection obtained from pool.
+[2025-04-02 11:46:02] INFO: Connection obtained from pool.
+[2025-04-02 11:46:35] INFO: Database pool created.
+[2025-04-02 11:46:38] INFO: Server is running on http://127.0.0.1:5000
+[2025-04-02 11:46:38] INFO: Connection obtained from pool.
+[2025-04-02 11:47:51] INFO: Connection obtained from pool.
+[2025-04-02 11:47:52] INFO: Connection obtained from pool.
+[2025-04-02 11:47:52] INFO: Connection obtained from pool.
+[2025-04-02 11:47:52] INFO: Connection obtained from pool.
+[2025-04-02 11:48:03] INFO: Connection obtained from pool.
+[2025-04-02 11:48:03] INFO: Connection obtained from pool.
+[2025-04-02 11:48:03] INFO: Connection obtained from pool.
+[2025-04-02 11:48:04] INFO: Connection obtained from pool.
+[2025-04-02 11:49:37] INFO: Database pool created.
+[2025-04-02 11:49:39] INFO: Server is running on http://127.0.0.1:5000
+[2025-04-02 11:49:39] INFO: Connection obtained from pool.
+[2025-04-02 11:49:42] INFO: Database pool created.
+[2025-04-02 11:49:44] INFO: Server is running on http://127.0.0.1:5000
+[2025-04-02 11:49:44] INFO: Connection obtained from pool.
+[2025-04-02 11:49:55] INFO: Database pool created.
+[2025-04-02 11:49:57] INFO: Server is running on http://127.0.0.1:5000
+[2025-04-02 11:49:57] INFO: Connection obtained from pool.
+[2025-04-02 11:50:10] INFO: Database pool created.
+[2025-04-02 11:50:11] INFO: Server is running on http://127.0.0.1:5000
+[2025-04-02 11:50:12] INFO: Database pool created.
+[2025-04-02 11:50:14] INFO: Server is running on http://127.0.0.1:5000
+[2025-04-02 11:50:18] INFO: Database pool created.
+[2025-04-02 11:50:19] INFO: Server is running on http://127.0.0.1:5000
+[2025-04-02 11:50:19] INFO: Connection obtained from pool.
+[2025-04-02 11:51:27] INFO: Connection obtained from pool.
+[2025-04-02 11:51:27] INFO: Connection obtained from pool.
+[2025-04-02 11:51:32] INFO: Connection obtained from pool.
+[2025-04-02 11:51:32] INFO: Connection obtained from pool.
+[2025-04-02 11:52:43] INFO: Database pool created.
+[2025-04-02 11:52:45] INFO: Server is running on http://127.0.0.1:5000
+[2025-04-02 11:52:45] INFO: Connection obtained from pool.
+[2025-04-02 11:52:48] INFO: Database pool created.
+[2025-04-02 11:52:50] INFO: Server is running on http://127.0.0.1:5000
+[2025-04-02 11:52:50] INFO: Connection obtained from pool.
+[2025-04-02 11:52:52] INFO: Connection obtained from pool.
+[2025-04-02 11:52:52] INFO: Connection obtained from pool.
+[2025-04-02 11:52:52] INFO: Connection obtained from pool.
+[2025-04-02 11:52:52] INFO: Connection obtained from pool.
+[2025-04-02 11:53:15] INFO: Database pool created.
+[2025-04-02 11:53:17] INFO: Server is running on http://127.0.0.1:5000
+[2025-04-02 11:53:17] INFO: Connection obtained from pool.
+[2025-04-02 11:53:28] INFO: Connection obtained from pool.
+[2025-04-02 11:54:39] INFO: Connection obtained from pool.
+[2025-04-02 11:54:39] INFO: Connection obtained from pool.
+[2025-04-02 11:54:39] INFO: Connection obtained from pool.
+[2025-04-02 11:54:40] INFO: Connection obtained from pool.
+[2025-04-02 11:56:48] INFO: Connection obtained from pool.
+[2025-04-02 11:56:48] INFO: Connection obtained from pool.
+[2025-04-02 11:56:48] INFO: Connection obtained from pool.
+[2025-04-02 11:56:49] INFO: Connection obtained from pool.
+[2025-04-02 11:57:08] INFO: Database pool created.
+[2025-04-02 11:57:10] INFO: Server is running on http://127.0.0.1:5000
+[2025-04-02 11:57:10] INFO: Connection obtained from pool.
+[2025-04-02 11:57:10] INFO: Connection obtained from pool.
+[2025-04-02 11:57:11] INFO: Connection obtained from pool.
+[2025-04-02 11:57:11] INFO: Connection obtained from pool.
+[2025-04-02 11:57:11] INFO: Connection obtained from pool.
+[2025-04-02 11:57:11] INFO: Connection obtained from pool.
+[2025-04-02 11:57:25] INFO: Connection obtained from pool.
+[2025-04-02 11:57:25] INFO: Connection obtained from pool.
+[2025-04-02 11:57:25] INFO: Connection obtained from pool.
+[2025-04-02 11:57:25] INFO: Connection obtained from pool.
+[2025-04-02 11:57:26] INFO: Connection obtained from pool.
+[2025-04-02 11:58:15] INFO: Connection obtained from pool.
+[2025-04-02 11:58:15] INFO: Connection obtained from pool.
+[2025-04-02 11:58:17] INFO: Connection obtained from pool.
+[2025-04-02 11:58:17] INFO: Connection obtained from pool.
+[2025-04-02 11:58:20] INFO: Connection obtained from pool.
+[2025-04-02 11:58:46] INFO: Connection obtained from pool.
+[2025-04-02 11:58:46] INFO: Connection obtained from pool.
+[2025-04-02 11:58:47] INFO: Connection obtained from pool.
+[2025-04-02 11:58:47] INFO: Connection obtained from pool.
+[2025-04-02 11:59:45] INFO: Connection obtained from pool.
+[2025-04-02 11:59:45] INFO: Connection obtained from pool.
+[2025-04-02 11:59:45] INFO: Connection obtained from pool.
+[2025-04-02 11:59:45] INFO: Connection obtained from pool.
+[2025-04-02 12:00:00] INFO: Running delete zero quantity items check...
+[2025-04-02 12:00:40] INFO: Connection obtained from pool.
+[2025-04-02 12:00:40] INFO: Connection obtained from pool.
+[2025-04-02 12:00:40] INFO: Connection obtained from pool.
+[2025-04-02 12:00:40] INFO: Connection obtained from pool.
+[2025-04-02 12:02:45] INFO: Connection obtained from pool.
+[2025-04-02 12:03:01] INFO: Connection obtained from pool.
+[2025-04-02 12:03:01] INFO: Connection obtained from pool.
+[2025-04-02 12:03:01] INFO: Connection obtained from pool.
+[2025-04-02 12:03:01] INFO: Connection obtained from pool.
+[2025-04-02 12:03:01] INFO: Connection obtained from pool.
+[2025-04-02 12:03:01] ERROR: Error fetching users management data: Bind parameters must not contain undefined. To pass SQL NULL specify JS null
+[2025-04-02 12:04:31] INFO: Connection obtained from pool.
+[2025-04-02 12:04:32] INFO: Connection obtained from pool.
+[2025-04-02 12:04:32] INFO: Connection obtained from pool.
+[2025-04-02 12:04:32] INFO: Connection obtained from pool.
+[2025-04-02 12:04:32] INFO: Connection obtained from pool.
+[2025-04-02 12:04:32] ERROR: Error fetching users management data: Bind parameters must not contain undefined. To pass SQL NULL specify JS null
+[2025-04-02 12:05:56] INFO: Connection obtained from pool.
+[2025-04-02 12:05:56] INFO: Connection obtained from pool.
+[2025-04-02 12:05:57] INFO: Connection obtained from pool.
+[2025-04-02 12:05:57] INFO: Connection obtained from pool.
+[2025-04-02 12:05:57] INFO: Connection obtained from pool.
+[2025-04-02 12:05:57] ERROR: Error fetching users management data: Bind parameters must not contain undefined. To pass SQL NULL specify JS null
+[2025-04-02 12:06:09] INFO: Connection obtained from pool.
+[2025-04-02 12:06:14] INFO: Connection obtained from pool.
+[2025-04-02 12:06:14] INFO: Connection obtained from pool.
+[2025-04-02 12:06:14] INFO: Connection obtained from pool.
+[2025-04-02 12:06:17] INFO: Connection obtained from pool.
+[2025-04-02 12:06:17] INFO: Connection obtained from pool.
+[2025-04-02 12:06:18] INFO: Connection obtained from pool.
+[2025-04-02 12:06:29] INFO: Connection obtained from pool.
+[2025-04-02 12:07:05] INFO: Connection obtained from pool.
+[2025-04-02 12:07:08] INFO: Connection obtained from pool.
+[2025-04-02 12:07:08] INFO: Connection obtained from pool.
+[2025-04-02 12:07:08] INFO: Connection obtained from pool.
+[2025-04-02 12:07:13] INFO: Connection obtained from pool.
+[2025-04-02 12:07:13] INFO: Connection obtained from pool.
+[2025-04-02 12:07:17] INFO: Connection obtained from pool.
+[2025-04-02 12:07:17] INFO: Connection obtained from pool.
+[2025-04-02 12:07:18] INFO: Connection obtained from pool.
+[2025-04-02 12:07:24] INFO: Connection obtained from pool.
+[2025-04-02 12:07:25] INFO: Connection obtained from pool.
+[2025-04-02 12:07:25] INFO: Connection obtained from pool.
+[2025-04-02 12:07:42] INFO: Connection obtained from pool.
+[2025-04-02 12:07:42] INFO: Connection obtained from pool.
+[2025-04-02 12:08:54] INFO: Database pool created.
+[2025-04-02 12:08:56] INFO: Server is running on http://127.0.0.1:5000
+[2025-04-02 12:08:56] INFO: Connection obtained from pool.
+[2025-04-02 12:09:09] INFO: Database pool created.
+[2025-04-02 12:09:10] INFO: Server is running on http://127.0.0.1:5000
+[2025-04-02 12:09:10] INFO: Connection obtained from pool.
+[2025-04-02 12:09:26] INFO: Connection obtained from pool.
+[2025-04-02 12:09:26] INFO: Connection obtained from pool.
+[2025-04-02 12:09:26] INFO: Connection obtained from pool.
+[2025-04-02 12:09:26] INFO: Connection obtained from pool.
+[2025-04-02 12:10:44] INFO: Connection obtained from pool.
+[2025-04-02 12:10:44] INFO: Connection obtained from pool.
+[2025-04-02 12:10:44] INFO: Connection obtained from pool.
+[2025-04-02 12:10:44] INFO: Connection obtained from pool.
+[2025-04-02 12:11:05] INFO: Connection obtained from pool.
+[2025-04-02 12:11:05] INFO: Connection obtained from pool.
+[2025-04-02 12:11:06] INFO: Connection obtained from pool.
+[2025-04-02 12:11:46] INFO: Connection obtained from pool.
+[2025-04-02 12:14:30] INFO: Connection obtained from pool.
+[2025-04-02 12:14:30] INFO: Connection obtained from pool.
+[2025-04-02 12:14:35] INFO: Connection obtained from pool.
+[2025-04-02 12:14:35] INFO: Connection obtained from pool.
+[2025-04-02 12:14:36] INFO: Connection obtained from pool.
+[2025-04-02 12:14:37] INFO: Connection obtained from pool.
+[2025-04-02 12:14:37] INFO: Connection obtained from pool.
+[2025-04-02 12:14:43] INFO: Connection obtained from pool.
+[2025-04-02 12:14:47] INFO: Connection obtained from pool.
+[2025-04-02 12:14:47] INFO: Connection obtained from pool.
+[2025-04-02 12:14:48] INFO: Connection obtained from pool.
+[2025-04-02 12:14:50] INFO: Connection obtained from pool.
+[2025-04-02 12:14:51] INFO: Connection obtained from pool.
+[2025-04-02 12:14:51] INFO: Connection obtained from pool.
+[2025-04-02 12:15:11] INFO: Connection obtained from pool.
+[2025-04-02 12:15:12] INFO: Connection obtained from pool.
+[2025-04-02 12:15:42] INFO: Connection obtained from pool.
+[2025-04-02 12:15:42] INFO: Connection obtained from pool.
+[2025-04-02 12:15:42] INFO: Connection obtained from pool.
+[2025-04-02 12:15:42] INFO: Connection obtained from pool.
+[2025-04-02 12:15:53] INFO: Connection obtained from pool.
+[2025-04-02 12:15:57] INFO: Connection obtained from pool.
+[2025-04-02 12:15:57] INFO: Connection obtained from pool.
+[2025-04-02 12:15:58] INFO: Connection obtained from pool.
+[2025-04-02 12:15:58] INFO: Connection obtained from pool.
+[2025-04-02 12:15:58] INFO: Connection obtained from pool.
+[2025-04-02 12:16:00] INFO: Connection obtained from pool.
+[2025-04-02 12:16:00] INFO: Connection obtained from pool.
+[2025-04-02 12:16:03] INFO: Connection obtained from pool.
+[2025-04-02 12:16:03] INFO: Connection obtained from pool.
+[2025-04-02 12:16:56] INFO: Connection obtained from pool.
+[2025-04-02 12:16:56] INFO: Connection obtained from pool.
+[2025-04-02 12:16:56] INFO: Connection obtained from pool.
+[2025-04-02 12:16:56] INFO: Connection obtained from pool.
+[2025-04-02 12:17:51] INFO: Connection obtained from pool.
+[2025-04-02 12:17:51] INFO: Connection obtained from pool.
+[2025-04-02 12:17:51] INFO: Connection obtained from pool.
+[2025-04-02 12:17:51] INFO: Connection obtained from pool.
+[2025-04-02 12:18:26] INFO: Connection obtained from pool.
+[2025-04-02 12:18:26] INFO: Connection obtained from pool.
+[2025-04-02 12:18:26] INFO: Connection obtained from pool.
+[2025-04-02 12:18:26] INFO: Connection obtained from pool.
+[2025-04-02 12:18:37] INFO: Connection obtained from pool.
+[2025-04-02 12:18:37] INFO: Connection obtained from pool.
+[2025-04-02 12:18:37] INFO: Connection obtained from pool.
