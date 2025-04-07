@@ -73,7 +73,7 @@ const warehouseRegister = async (req, res) => {
 const getWarehouseData = async (req, res) => {
   const { entity_id, lab_id, factory_id } = req.query;
   try {
-    console.log("sdlfkjhskldjfhlksd",req.query);
+    console.log("sdlfkjhskldjfhlksd===>",req.query);
     const pool = await connect();
     const connection = await pool.getConnection();
     try {

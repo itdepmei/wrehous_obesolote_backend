@@ -59,9 +59,11 @@ const registerUser = async (req, res) => {
     roleId,
     address_id,
     jopTitle,
-    is_active,
+    application_permission,
   } = req.body;
   try {
+    console.log(req.body);
+
     validateInput(req.body);
     const trimmedPhoneNumber = phone.trim();
     const trimmedUserName = name.trim();
@@ -86,7 +88,13 @@ const registerUser = async (req, res) => {
       const userId = insertUserResponse.insertId;
       await insertRolePermissions(connection, roleId, userId);
       await insertActiveUser(connection, userId);
-      await insertApplicationPermissions(connection, userId, is_active);
+      await insertActiveUser(connection, userId);
+
+      await insertApplicationPermissions(
+        connection,
+        userId,
+        application_permission
+      );
       res.status(201).json({
         message: "تم تسجيل المستخدم بنجاح",
         insertUserResponse,
@@ -137,7 +145,7 @@ const login = async (req, res) => {
     const [activeUserRows] = await connection.execute(checkActiveUser, [
       user.id,
     ]);
-    console.log("activeUserRows", activeUserRows);
+    // console.log("activeUserRows", activeUserRows);
     if (!activeUserRows || activeUserRows.length === 0) {
       await connection.rollback();
       logger.error(
@@ -149,30 +157,35 @@ const login = async (req, res) => {
         message: "الحساب غير مفعل. يرجى الاتصال بالمسؤول",
       });
     }
-
+    // end active user account
+    // check if user is active in the active_session_user table
+    logUserAction(connection, user.id, req);
     const currentSession = await getActiveSession(connection, user.id);
+    console.log("currentSession", currentSession);
     console.log(currentSession);
-    if (currentSession === null) {
-      // التحقق من null أو undefined
-      await connection.rollback();
-      logger.error(
-        "Error logging in:"+"User is not active in the active_session_user table" + currentSession + user.user_name+user.id + user.email
-      )
-      return res.status(401).json({
-        status: "error",
-        message: "الحساب نشط حاليا يرجى تسجيل الخروج من الجلسة النشطة",
-      });
+    if(currentSession.length > 0){
+
+      if (currentSession[0].is_active_session === 1 ) {
+        // التحقق من null أو undefined
+        await connection.rollback();
+        logger.error(
+          "Error logging in:" +
+            "User is not active in the active_session_user table" +
+            currentSession +
+            user.user_name +
+            user.id +
+            user.email
+        );
+        return res.status(401).json({
+          status: "error",
+          message: "الحساب نشط حاليا يرجى تسجيل الخروج من الجلسة النشطة",
+        });
+      }
     }
+ 
     const { accessToken, refreshToken, refreshTokenExp } = generateTokens(user);
     // handel user active session
-    await manageUserSession(
-      connection,
-      user.id,
-      accessToken,
-      refreshToken,
-      refreshTokenExp,
-      req
-    );
+    await manageUserSession(connection, user.id, refreshTokenExp, req);
 
     await logUserAction(connection, user.id, req);
     const getUserByIdQuery = `
@@ -245,8 +258,8 @@ const logout = async (req, res) => {
       });
     }
     await connection.beginTransaction();
-    await getActiveSession(connection, payload._id, refreshToken);
-    await updateSession(connection, payload._id, refreshToken);
+    await getActiveSession(connection, payload._id);
+    await updateSession(connection, payload._id);
     await logLogout(connection, payload._id, req.ip, req.headers["user-agent"]);
     await connection.commit();
     clearCookies(res);
@@ -339,9 +352,9 @@ const getDataUserManage = async (req, res) => {
       LEFT JOIN active_user ON users_management.id = active_user.user_id
       LEFT JOIN job_title ON users_management.job_title_id = job_title.id
       LEFT JOIN governorate ON users_management.address_id = governorate.id
-      LIMIT ${limit} OFFSET ${offset};
+      ORDER BY users_management.id DESC
+      LIMIT ${limit} OFFSET ${offset}
     `;
-
     const rows = await fetchUserData(connection, getDataUsersQuery);
     if (rows.length === 0) {
       return res.status(404).json({ message: "No users found" });

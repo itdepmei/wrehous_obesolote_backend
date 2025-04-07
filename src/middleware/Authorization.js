@@ -2,9 +2,9 @@ const { connect } = require("../config/db");
 const { getDataPermissionUserIdDataQuery } = require("../query/RoleQuery");
 const authorization = async (req, res, next) => {
   const user = req.user;
-  const {Add_Data}=req?.body
-  console.log(Add_Data);
-  const checkPermissionUser= req.query.checkPermissionUser||Add_Data;
+  const checkPermissionUser= req.query.checkPermissionUser;
+  console.log("hello p",req.query);
+  
   try {
     // console.log(checkPermissionUser);
     const pool = await connect();

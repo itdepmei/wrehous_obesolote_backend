@@ -85,8 +85,6 @@ const generateTokens = (user) => {
 const manageUserSession = async (
   connection,
   userId,
-  accessToken,
-  refreshToken,
   refreshTokenExp,
   req
 ) => {
@@ -96,10 +94,9 @@ const manageUserSession = async (
   );
   if (existingSession.length > 0) {
     await connection.execute(
-      "UPDATE active_session_user SET is_active_session = TRUE, refresh_token = ?, access_token = ?, expires_at = ?, device_info = ?, ip_address = ?, created_at = NOW() WHERE id = ?",
+      "UPDATE active_session_user SET is_active_session = TRUE, expires_at = ?, device_info = ?, ip_address = ?, created_at = NOW() WHERE id = ?",
       [
-        refreshToken,
-        accessToken,
+      
         refreshTokenExp,
         req.headers["user-agent"],
         req.ip,
@@ -108,11 +105,11 @@ const manageUserSession = async (
     );
   } else {
     await connection.execute(
-      "INSERT INTO active_session_user (user_id, refresh_token, access_token, is_active_session, expires_at, created_at, device_info, ip_address) VALUES (?, ?, ?, TRUE, ?, NOW(), ?, ?)",
+      "INSERT INTO active_session_user (user_id, is_active_session, expires_at, created_at, device_info, ip_address) VALUES (?,  TRUE, ?, NOW(), ?, ?)",
       [
         userId,
-        refreshToken,
-        accessToken,
+        // refreshToken,
+        // accessToken,
         refreshTokenExp,
         req.headers["user-agent"],
         req.ip,
@@ -158,22 +155,22 @@ const getActiveSession = async (connection, userId) => {
   const [currentSession] = await connection.execute(
     `SELECT  is_active_session FROM active_session_user 
      WHERE user_id = ? 
-     AND is_active_session = 0
-     ORDER BY created_at DESC LIMIT 1`,
+     LIMIT 1`,
     [userId]
   );
-  return currentSession.length > 0 ? currentSession : null;
+  console.log("sdfsd",currentSession);
+  
+  return currentSession;
 };
 // update session
-const updateSession = async (connection, userId, refreshToken) => {
+const updateSession = async (connection, userId) => {
   await connection.execute(
     `UPDATE active_session_user 
        SET is_active_session = FALSE,
            last_logout_at = NOW(),
            logout_reason = 'user_logout'
-       WHERE user_id = ? 
-       AND refresh_token = ?`,
-    [userId, refreshToken]
+       WHERE user_id = ? `,
+    [userId]
   );
 };
 const logLogout = async (connection, userId, ip, userAgent) => {
@@ -260,11 +257,7 @@ const checkUserExists = async (connection, dataId) => {
 };
 
 const checkEmailExists = async (connection, email, dataId = null) => {
-  // Query that checks if email exists
-
   const queryParams = [email];
-
-  // If dataId is provided, modify the query to exclude the current user
   if (dataId) {
     checkEmailQuery += " AND id != ?";
     queryParams.push(dataId);

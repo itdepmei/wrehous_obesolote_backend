@@ -62,28 +62,23 @@ async function mainConnection(retries = 5, delay = 3000) {
     try {
       const pool = await connect();
       console.log("Database pool is ready.");
-
       connection = await getConnection();
       console.log("Connection is successful.");
-
       // Test query or your logic
       const [rows] = await connection.query("SELECT 1");
       console.log("Test query result:", rows);
-
       // Release connection after use
       connection.release();
       break; // Exit loop if successful
     } catch (error) {
       Logger.error(`Connection error. Retries left: ${retries - 1}`, error);
       console.error(`Connection error. Retries left: ${retries - 1}`, error);
-
       retries -= 1;
       if (retries === 0) {
         Logger.error("All retries failed. Could not connect to the database.");
         console.error("All retries failed. Could not connect to the database.");
         break;
       }
-
       // Wait before retrying
       await new Promise(res => setTimeout(res, delay));
     } finally {
@@ -97,8 +92,6 @@ async function mainConnection(retries = 5, delay = 3000) {
     }
   }
 }
-
 module.exports = { mainConnection, getConnection, connect };
-
 // Uncomment to run when executing the file directly
 // mainConnection().catch(console.error);
