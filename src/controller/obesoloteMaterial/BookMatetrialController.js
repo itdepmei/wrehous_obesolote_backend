@@ -11,7 +11,7 @@ const { getDataBookQuery } = require("../../query/bookedQuery");
 const createLogEntry = require("../../utils/createLog");
 const path = require("path");
 const ProcessorFile = require("../../utils/DeleteFile");
-const { connect, mainCoection } = require("../../config/db");
+const { connect, mainCoection, mainConnection } = require("../../config/db");
 const logger = require("../../middleware/Logger");
 const bookRegister = async (req, res) => {
   const {
@@ -267,6 +267,7 @@ const getDataBook = async (req, res) => {
      LEFT JOIN stagnant_materials ON booking_materials.material_id = stagnant_materials.stagnant_id 
      LEFT JOIN users_management ON booking_materials.user_id = users_management.id 
      LEFT JOIN ministries	 ON users_management.ministres_id  = ministries.id 
+     LEFT JOIN files	 ON users_management.ministres_id  = ministries.id 
      LEFT JOIN entities ON booking_materials.entity_Buy_id = entities.id
      WHERE booking_materials.entity_id = ? AND booking_materials.booked=true AND booking_materials.approved_admin_send_request_book = true 
      ORDER BY booking_materials.id DESC
@@ -965,8 +966,7 @@ const ApproveBooked = async (req, res) => {
     const pool = await connect();
     connection = await pool.getConnection();
     console.log("🔹 Starting Transaction...");
-mainCoection();
-
+    mainConnection();
     await connection.beginTransaction(); // Start a transaction
     // Update booking status to approved (set `booked` to true)
     const getDataRemoveQuery = "SELECT * FROM remove_book";

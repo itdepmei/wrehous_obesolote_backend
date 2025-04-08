@@ -15,7 +15,7 @@ const applicationAuth = async (req, res, next) => {
         getUserByIdQuery,
         [user?._id]
       );
-      console.log("hello ", rows);
+      // console.log("hello ", rows);
 
       // Extract user_id_application__permission_id as an array
       const permissionData = rows.map(row => row.user_id_application__permission_id);

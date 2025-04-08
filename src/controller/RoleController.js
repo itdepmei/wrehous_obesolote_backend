@@ -68,7 +68,6 @@ const getRole = async (req, res) => {
     const connection = await pool.getConnection();
     try {
       const [response] = await connection.execute(selectQueryRole);
-
       if (response.length > 0) {
         return res.status(200).json({ response });
       } else {

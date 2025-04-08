@@ -38,6 +38,7 @@ const {
   checkActiveSession,
   getUserData,
   insertUser,
+  editApplicationPermissions,
 } = require("../model/userModel");
 const {
   validateInput,
@@ -63,7 +64,6 @@ const registerUser = async (req, res) => {
   } = req.body;
   try {
     console.log(req.body);
-
     validateInput(req.body);
     const trimmedPhoneNumber = phone.trim();
     const trimmedUserName = name.trim();
@@ -88,8 +88,6 @@ const registerUser = async (req, res) => {
       const userId = insertUserResponse.insertId;
       await insertRolePermissions(connection, roleId, userId);
       await insertActiveUser(connection, userId);
-      await insertActiveUser(connection, userId);
-
       await insertApplicationPermissions(
         connection,
         userId,
@@ -163,9 +161,8 @@ const login = async (req, res) => {
     const currentSession = await getActiveSession(connection, user.id);
     console.log("currentSession", currentSession);
     console.log(currentSession);
-    if(currentSession.length > 0){
-
-      if (currentSession[0].is_active_session === 1 ) {
+    if (currentSession.length > 0) {
+      if (currentSession[0].is_active_session === 1) {
         // التحقق من null أو undefined
         await connection.rollback();
         logger.error(
@@ -182,16 +179,15 @@ const login = async (req, res) => {
         });
       }
     }
- 
+
     const { accessToken, refreshToken, refreshTokenExp } = generateTokens(user);
     // handel user active session
     await manageUserSession(connection, user.id, refreshTokenExp, req);
-
+    const all_dataUser = await getUserDataById(connection, user.id);
     await logUserAction(connection, user.id, req);
     const getUserByIdQuery = `
       SELECT * FROM user_id_application__permission_id
       WHERE user_id = ?`;
-
     // Set query timeout to 5 seconds
     const [applicationpermissionResponse] = await Promise.race([
       connection.execute(getUserByIdQuery, [user.id]),
@@ -203,7 +199,8 @@ const login = async (req, res) => {
     const userResponse = await getUserDataById(connection, user.id);
     await connection.commit();
     setSecureCookies(res, accessToken, refreshToken, refreshTokenExp);
-
+    const text = `تم تسجيل الدخول بنجاح من قبل ${user.user_name} التابع الى الجهة ${all_dataUser.Entities_name}`;
+    await createLogEntry(connection, 4, user.id, user.entities_id, text, 1);
     return res.header("authorization", `Bearer ${accessToken}`).json({
       user: userResponse,
       accessToken: `Bearer ${accessToken}`,
@@ -329,32 +326,53 @@ const getDataUserManage = async (req, res) => {
     const totalPages = Math.ceil(totalItems / limit);
 
     const getDataUsersQuery = `
-      SELECT 
-        users_management.id AS user_id, 
-        users_management.*, 
-        entities.id AS entity_id, 
-        entities.*, 
-        job_title.job_name,
-        job_title.id AS job_id,
-        governorate.governorate_name,
-        governorate.id AS address_id,
-        ministries.id AS minister_id, 
-        ministries.*, 
-        roles.id AS roles_id, 
-        roles.*,
-        active_user.is_active,
-        active_user.user_id AS active_user_id,
-        active_user.id AS active_id
-      FROM users_management
-      LEFT JOIN entities ON users_management.entities_id = entities.id
-      LEFT JOIN ministries ON users_management.ministres_id = ministries.id
-      LEFT JOIN roles ON users_management.group_id = roles.id
-      LEFT JOIN active_user ON users_management.id = active_user.user_id
-      LEFT JOIN job_title ON users_management.job_title_id = job_title.id
-      LEFT JOIN governorate ON users_management.address_id = governorate.id
-      ORDER BY users_management.id DESC
-      LIMIT ${limit} OFFSET ${offset}
-    `;
+    SELECT 
+      users_management.id AS user_id, 
+      users_management.*, 
+  
+      entities.id AS entity_id, 
+      entities.*, 
+  
+      job_title.job_name,
+      job_title.id AS job_id,
+  
+      governorate.governorate_name,
+      governorate.id AS address_id,
+  
+      ministries.id AS minister_id, 
+      ministries.*, 
+  
+      roles.id AS roles_id, 
+      roles.*,
+  
+      active_user.is_active,
+      active_user.user_id AS active_user_id,
+      active_user.id AS active_id,
+  
+      (
+        SELECT JSON_ARRAYAGG(
+          JSON_OBJECT(
+            'permission_id', uapi.user_id_application__permission_id,
+            'application_id', uapi.id
+          )
+        )
+        FROM user_id_application__permission_id uapi
+        WHERE uapi.user_id = users_management.id
+      ) AS permissions
+  
+    FROM users_management
+  
+    LEFT JOIN entities ON users_management.entities_id = entities.id
+    LEFT JOIN ministries ON users_management.ministres_id = ministries.id
+    LEFT JOIN roles ON users_management.group_id = roles.id
+    LEFT JOIN active_user ON users_management.id = active_user.user_id
+    LEFT JOIN job_title ON users_management.job_title_id = job_title.id
+    LEFT JOIN governorate ON users_management.address_id = governorate.id
+  
+    ORDER BY users_management.id DESC
+    LIMIT ${limit} OFFSET ${offset};
+  `;
+
     const rows = await fetchUserData(connection, getDataUsersQuery);
     if (rows.length === 0) {
       return res.status(404).json({ message: "No users found" });
@@ -514,6 +532,8 @@ const getUserById = async (req, res) => {
 // edit information by company
 const userManagementEdit = async (req, res) => {
   try {
+    console.log("Editing user data...", req.body);
+    const { application_permission } = req.body;
     const validatedData = validateInputEdit(req.body);
     const connection = await getConnection();
     try {
@@ -539,6 +559,11 @@ const userManagementEdit = async (req, res) => {
             connection,
             validatedData.roleId,
             validatedData.dataId
+          );
+          await editApplicationPermissions(
+            connection,
+            validatedData.dataId,
+            application_permission
           );
         }
         return res.status(200).json({ message: "تم التحديث بنجاح", response });

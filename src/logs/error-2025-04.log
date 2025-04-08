@@ -109,3 +109,70 @@
 [2025-04-07 13:13:34] ERROR: Error registering user: الابريد الالكتروني موجود مسسبقا
 [2025-04-07 13:13:35] ERROR: Error registering user: الابريد الالكتروني موجود مسسبقا
 [2025-04-07 13:13:35] ERROR: Error registering user: الابريد الالكتروني موجود مسسبقا
+[2025-04-07 13:27:49] ERROR: Error logging in:User is not active in the active_session_user table[object Object]موضف معمل91lab@ur.com
+[2025-04-08 09:46:46] ERROR: Error updating user management: Cannot read properties of undefined (reading 'trim')
+[2025-04-08 09:48:27] ERROR: Error updating user management: Cannot read properties of undefined (reading 'trim')
+[2025-04-08 09:49:30] ERROR: Error updating user management: Cannot read properties of undefined (reading 'trim')
+[2025-04-08 09:52:01] ERROR: Error updating user management: Missing required fields
+[2025-04-08 10:03:59] ERROR: Error updating user management: Missing required fields
+[2025-04-08 10:10:39] ERROR: Error updating user management: Missing required fields
+[2025-04-08 10:21:32] ERROR: Error updating user management: Missing required fields
+[2025-04-08 10:22:28] ERROR: Error updating user management: Missing required fields
+[2025-04-08 10:23:10] ERROR: Error updating user management: Missing required fields
+[2025-04-08 10:25:01] ERROR: Error updating user management: dataId is not defined
+[2025-04-08 10:26:30] ERROR: Error updating user management: dataId is not defined
+[2025-04-08 10:27:00] ERROR: Error updating user management: User not found
+[2025-04-08 10:28:05] ERROR: Error updating user management: User not found
+[2025-04-08 10:28:19] ERROR: Error updating user management: User not found
+[2025-04-08 10:29:58] ERROR: Error updating user management: Malformed communication packet.
+[2025-04-08 10:31:20] ERROR: Error updating user management: Cannot add or update a child row: a foreign key constraint fails (`stagnant_materials_warhouse_db`.`users_management`, CONSTRAINT `user_ministries_Releation` FOREIGN KEY (`ministres_id`) REFERENCES `ministries` (`id`) ON DELETE SET NULL ON UPDATE CASCADE)
+[2025-04-08 10:33:14] ERROR: Error updating user management: Cannot add or update a child row: a foreign key constraint fails (`stagnant_materials_warhouse_db`.`users_management`, CONSTRAINT `user_ministries_Releation` FOREIGN KEY (`ministres_id`) REFERENCES `ministries` (`id`) ON DELETE SET NULL ON UPDATE CASCADE)
+[2025-04-08 10:33:15] ERROR: Error updating user management: Malformed communication packet.
+[2025-04-08 10:33:54] ERROR: Error updating user management: Cannot add or update a child row: a foreign key constraint fails (`stagnant_materials_warhouse_db`.`users_management`, CONSTRAINT `user_ministries_Releation` FOREIGN KEY (`ministres_id`) REFERENCES `ministries` (`id`) ON DELETE SET NULL ON UPDATE CASCADE)
+[2025-04-08 10:33:54] ERROR: Error updating user management: Malformed communication packet.
+[2025-04-08 10:34:55] ERROR: Error updating user management: Cannot add or update a child row: a foreign key constraint fails (`stagnant_materials_warhouse_db`.`users_management`, CONSTRAINT `user_ministries_Releation` FOREIGN KEY (`ministres_id`) REFERENCES `ministries` (`id`) ON DELETE SET NULL ON UPDATE CASCADE)
+[2025-04-08 10:43:57] ERROR: Error fetching users: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')
+        )
+        FROM user_id_application__permission_id uapi
+        WHERE u' at line 29
+[2025-04-08 10:44:28] ERROR: Error fetching users: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')
+        )
+        FROM user_id_application__permission_id uapi
+        WHERE u' at line 29
+[2025-04-08 10:51:37] ERROR: Error updating user management: Malformed communication packet.
+[2025-04-08 10:51:54] ERROR: Error updating user management: Malformed communication packet.
+[2025-04-08 10:52:04] ERROR: Error updating user management: Malformed communication packet.
+[2025-04-08 10:53:03] ERROR: Error updating user management: Malformed communication packet.
+[2025-04-08 10:53:08] ERROR: Error updating user management: Malformed communication packet.
+[2025-04-08 10:53:37] ERROR: Error updating user management: Malformed communication packet.
+[2025-04-08 10:54:44] ERROR: Error updating user management: Unexpected token 'o', "[object Obj"... is not valid JSON
+[2025-04-08 10:57:42] ERROR: Error updating user management: Bind parameters must not contain undefined. To pass SQL NULL specify JS null
+[2025-04-08 11:03:22] ERROR: Error updating user management: Malformed communication packet.
+[2025-04-08 11:03:49] ERROR: Error updating user management: Malformed communication packet.
+[2025-04-08 11:04:07] ERROR: Error updating user management: Malformed communication packet.
+[2025-04-08 11:06:47] ERROR: Error updating user management: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'AND id != ?' at line 1
+[2025-04-08 11:07:08] ERROR: Error updating user management: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'AND id != ?' at line 1
+[2025-04-08 11:07:37] ERROR: Error updating user management: Bind parameters must not contain undefined. To pass SQL NULL specify JS null
+[2025-04-08 11:18:29] ERROR: Error updating user management: Malformed communication packet.
+[2025-04-08 11:19:39] ERROR: Error updating user management: Bind parameters must not contain undefined. To pass SQL NULL specify JS null
+[2025-04-08 11:21:03] ERROR: Error updating user management: Bind parameters must not contain undefined. To pass SQL NULL specify JS null
+[2025-04-08 11:21:17] ERROR: Error updating user management: Bind parameters must not contain undefined. To pass SQL NULL specify JS null
+[2025-04-08 11:34:54] ERROR: Error during transaction: User data for the booking not found
+[2025-04-08 11:36:25] ERROR: No booking materials found
+[2025-04-08 11:37:07] ERROR: No booking materials found
+[2025-04-08 11:37:29] ERROR: No booking materials found
+[2025-04-08 11:59:43] ERROR: No booking materials found
+[2025-04-08 12:11:58] ERROR: No booking materials found
+[2025-04-08 12:14:43] ERROR: Error fetching logs: Bind parameters must not contain undefined. To pass SQL NULL specify JS null
+[2025-04-08 12:14:44] ERROR: Error fetching logs: Bind parameters must not contain undefined. To pass SQL NULL specify JS null
+[2025-04-08 12:14:44] ERROR: Error fetching logs: Bind parameters must not contain undefined. To pass SQL NULL specify JS null
+[2025-04-08 12:27:13] ERROR: Error fetching logs: Bind parameters must not contain undefined. To pass SQL NULL specify JS null
+[2025-04-08 12:27:21] ERROR: Error fetching logs: Bind parameters must not contain undefined. To pass SQL NULL specify JS null
+[2025-04-08 12:29:06] ERROR: Error fetching logs: Bind parameters must not contain undefined. To pass SQL NULL specify JS null
+[2025-04-08 12:34:15] ERROR: Error fetching logs: applicationPermission is not defined
+[2025-04-08 12:34:57] ERROR: Error fetching logs: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ORDER BY log_information.id DESC
+      LIMIT 10 OFFSET 0' at line 21
+[2025-04-08 12:35:02] ERROR: Error fetching logs: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ORDER BY log_information.id DESC
+      LIMIT 10 OFFSET 0' at line 21
+[2025-04-08 12:48:34] ERROR: Error logging in: Cannot read properties of undefined (reading 'headers')
+[2025-04-08 13:03:56] ERROR: Error deleting main class: Cannot delete or update a parent row: a foreign key constraint fails (`stagnant_materials_warhouse_db`.`store_data`, CONSTRAINT `WARHOUSE_DATA_FK` FOREIGN KEY (`warehouse_id`) REFERENCES `warehouse` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT)

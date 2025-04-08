@@ -268,36 +268,52 @@ const warehouseEdit = async (req, res) => {
       error: error.message,
     });
   }
-};
-const deleteWareHouseById = async (req, res) => {
+};const deleteWareHouseById = async (req, res) => {
   const pool = await connect();
   const connection = await pool.getConnection();
+
   try {
     await connection.beginTransaction();
+
+    const warehouseId = req.params.id;
+
+    // Check if warehouse is used in store_data
+    const checkStoreDataQuery = "SELECT 1 FROM store_data WHERE warehouse_id = ?";
+    const [storeDataResult] = await connection.execute(checkStoreDataQuery, [warehouseId]);
+    if (storeDataResult.length > 0) {
+      await connection.rollback();
+      return res.status(400).json({ message: "لا يمكن حذف المخزن لارتباطه ببيانات في جدول التخزين" });
+    }
+
+    // Check if warehouse is used in inventory
+    const checkInventoryQuery = "SELECT 1 FROM inventory WHERE warehouse_id = ?";
+    const [inventoryResult] = await connection.execute(checkInventoryQuery, [warehouseId]);
+    if (inventoryResult.length > 0) {
+      await connection.rollback();
+      return res.status(400).json({ message: "لا يمكن حذف المخزن لارتباطه ببيانات في جدول الجرد" });
+    }
+
+    // Proceed to delete warehouse if no references found
     const deleteWareHouseQuery = "DELETE FROM warehouse WHERE id = ?";
-    const [response] = await connection.execute(deleteWareHouseQuery, [
-      req.params.id,
-    ]);
-    // Check if the main class was deleted
-    if (response.affectedRows > 0) {
-      // Commit the transaction if everything went fine
+    const [deleteResult] = await connection.execute(deleteWareHouseQuery, [warehouseId]);
+
+    if (deleteResult.affectedRows > 0) {
       await connection.commit();
       return res.status(200).json({ message: "تم الحذف بنجاح" });
     } else {
-      // Rollback if no rows were affected (main class not found)
       await connection.rollback();
-      return res.status(404).json({ message: "Item not found" });
+      return res.status(404).json({ message: "العنصر غير موجود" });
     }
+
   } catch (error) {
-    // Rollback on any general error
     await connection.rollback();
-    logger.error("Error deleting main class:", error);
-    return res.status(500).json({ message: "Internal server error" });
+    logger.error("Error deleting warehouse:", error);
+    return res.status(500).json({ message: "حدث خطأ في الخادم الداخلي" });
   } finally {
-    // Ensure connection is always released
     connection.release();
   }
 };
+
 module.exports = {
   warehouseRegister,
   getWarehouseData,

@@ -1,10 +1,12 @@
 const validateInput = (body) => {
-    const { name, email, phone, jopTitle } =
+    const { name, email, phone, jopTitle , entities_id,ministries_id } =
       body;
     if (
       !name ||
       !email ||
       !phone ||
+      !entities_id ||
+      !ministries_id ||
       !jopTitle 
     ) {
       throw new Error("أدخل البيانات المطلوبة");
@@ -40,6 +42,7 @@ const validateInput = (body) => {
       email,
       dataId,
     } = data;
+  console.log("data", data);
   
     if (!name || !phone || !ministries_id || !entities_id || !address_id || !roleId || !email || !dataId) {
       throw new Error("Missing required fields");

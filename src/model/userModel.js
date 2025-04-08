@@ -1,3 +1,4 @@
+const { log } = require("winston");
 const {
   getDataRoleAndPermissionQuery,
   insertQueryRolePermission,
@@ -8,6 +9,7 @@ const {
 } = require("../query/userMangeController-db");
 const generateToken = require("../utils/genrateToken");
 const bcrypt = require("bcrypt");
+const e = require("connect-timeout");
 let checkEmailQuery = "SELECT * FROM users_management WHERE email = ?";
 const hashPassword = async (password) => {
   console.log("pass", password);
@@ -67,6 +69,21 @@ const insertApplicationPermissions = async (connection, userId, is_active) => {
     const ApplicationPermissionQuery =
       "INSERT INTO user_id_application__permission_id (user_id, user_id_application__permission_id) VALUE(?, ?)";
     await connection.execute(ApplicationPermissionQuery, [userId, element]);
+  }
+};
+const editApplicationPermissions = async (connection, userId, is_active) => {
+  // console.log("sdfhsjdfhds",is_active);
+  const active = JSON.parse(is_active);
+  log("active", active);
+  for (const element of active) {
+    console.log(element.application_id, active.permission_id);
+    
+    const ApplicationPermissionQuery = `
+      UPDATE user_id_application__permission_id 
+      SET user_id_application__permission_id = ? 
+      WHERE id = ?
+    `;
+    await connection.execute(ApplicationPermissionQuery, [element.application_id, active.permission_id]);
   }
 };
 // login section
@@ -250,6 +267,8 @@ const handleFailureResponse = (res) => {
 };
 
 const checkUserExists = async (connection, dataId) => {
+  console.log("dataId", dataId);
+  
   const [existingData] = await connection.execute(getInformation, [dataId]);
   if (existingData.length === 0) {
     throw new Error("User not found");
@@ -259,11 +278,11 @@ const checkUserExists = async (connection, dataId) => {
 const checkEmailExists = async (connection, email, dataId = null) => {
   const queryParams = [email];
   if (dataId) {
-    checkEmailQuery += " AND id != ?";
+     `${checkEmailQuery} AND id != ?`;
     queryParams.push(dataId);
   }
-
   // Execute the query
+  console.log("queryParams", checkEmailQuery);
   const [existingUsers] = await connection.execute(
     checkEmailQuery,
     queryParams
@@ -291,7 +310,7 @@ const updateUserData = async (connection, data) => {
     email,
     dataId,
   } = data;
-
+console.log("data", data);
   const updateQuery = `
       UPDATE users_management 
       SET user_name = ?, phone_number = ?, ministres_id = ?, entities_id = ?, address_id = ?, group_id=? ,
@@ -447,4 +466,5 @@ module.exports = {
   verifyRefreshToken,
   checkActiveSession,
   getUserData,
+  editApplicationPermissions
 };

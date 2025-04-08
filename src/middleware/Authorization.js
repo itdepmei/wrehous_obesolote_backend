@@ -3,7 +3,7 @@ const { getDataPermissionUserIdDataQuery } = require("../query/RoleQuery");
 const authorization = async (req, res, next) => {
   const user = req.user;
   const checkPermissionUser= req.query.checkPermissionUser;
-  console.log("hello p",req.query);
+  // console.log("hello p",req.query);
   
   try {
     // console.log(checkPermissionUser);

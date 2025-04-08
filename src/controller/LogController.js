@@ -1,3 +1,4 @@
+const { log } = require("winston");
 const { connect } = require("../config/db");
 const logger = require("../middleware/Logger");
 const getLog = async (req, res) => {
@@ -23,23 +24,9 @@ const getLog = async (req, res) => {
       SELECT 
         log_information.id AS log_id, 
         log_information.*, 
-        stagnant_materials.stagnant_id AS stagnant_id, 
-        stagnant_materials.name_material,
-        stagnant_materials.Quantity,
-        stagnant_materials.price_material,
-        users_management.id AS user_id,
-        users_management.user_name,
-        users_management.phone_number,
-        ministries.ministries, 
-        entities.Entities_name,
         masterlog.action
       FROM log_information
       LEFT JOIN masterlog ON log_information.master_id = masterlog.id
-      LEFT JOIN stagnant_materials ON log_information.stagnant_id = stagnant_materials.stagnant_id
-      LEFT JOIN users_management ON stagnant_materials.user_id = users_management.id
-      LEFT JOIN ministries ON stagnant_materials.ministry_id = ministries.id
-      LEFT JOIN entities ON stagnant_materials.entities_id = entities.id
-      WHERE log_information.category_id = 1
       ORDER BY log_information.id DESC
       LIMIT ${limit} OFFSET ${offset};
     `;
@@ -76,7 +63,8 @@ const getLogByEntityId = async (req, res) => {
   let connection;
   try {
     // Check if entityId is provided
-    const { entityId, page = 1, limit = 10, category_id } = req.query;
+    const { entityId, page = 1, limit = 10, applicationPermission } = req.query;
+    console, log(req.query);
     if (!entityId) {
       return res.status(400).json({ message: "Entity ID is required" });
     }
@@ -94,7 +82,7 @@ const getLogByEntityId = async (req, res) => {
     const totalCountQuery = `SELECT COUNT(*) AS count FROM log_information WHERE log_information.entities_id = ? AND log_information.category_id = ?`;
     const [totalRows] = await connection.execute(totalCountQuery, [
       entityId,
-      category_id,
+      applicationPermission,
     ]);
     const totalItems = totalRows[0].count;
     const totalPages = Math.ceil(totalItems / limitNumber);
@@ -110,27 +98,17 @@ const getLogByEntityId = async (req, res) => {
       SELECT 
         log_information.id AS log_id, 
         log_information.*, 
-        stagnant_materials.stagnant_id AS stagnant_id, 
-        stagnant_materials.name_material, 
-        stagnant_materials.Quantity, 
-        stagnant_materials.price_material, 
-        users_management.id AS user_id, 
-        users_management.user_name, 
-        users_management.phone_number, 
-        ministries.ministries, 
-        entities.Entities_name, 
         masterlog.action 
       FROM log_information
       LEFT JOIN masterlog ON log_information.master_id = masterlog.id
-      LEFT JOIN stagnant_materials ON log_information.stagnant_id = stagnant_materials.stagnant_id
-      LEFT JOIN users_management ON stagnant_materials.user_id = users_management.id
-      LEFT JOIN ministries ON stagnant_materials.ministry_id = ministries.id
-      LEFT JOIN entities ON stagnant_materials.entities_id = entities.id
-      WHERE log_information.entities_id = ? AND log_information.category_id = 1
+      WHERE log_information.entities_id = ? AND log_information.category_id = ?
       ORDER BY log_information.id DESC
       LIMIT ${limitNumber} OFFSET ${offset};
     `;
-    const [logs] = await connection.execute(selectQueryLog, [entityId]);
+    const [logs] = await connection.execute(selectQueryLog, [
+      entityId,
+      applicationPermission,
+    ]);
     // If no logs are found
     if (logs.length === 0) {
       return res.status(404).json({ message: "No logs found" });
@@ -141,6 +119,7 @@ const getLogByEntityId = async (req, res) => {
       pagination: {
         totalItems,
         totalPages,
+
         currentPage: pageNumber,
         itemsPerPage: limitNumber,
       },
