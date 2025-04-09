@@ -20,6 +20,7 @@ const {
 } = require("../../controller/obesoloteMaterial/ObsoleteMatrialsController.js");
 const upload = require("../../middleware/upload.js");
 const authorization = require("../../middleware/Authorization.js");
+const applicationAuth = require("../../middleware/ApplicationAuth.js");
 const router = Router();
 router.post(
   "/stagnantMartialsRegister",
@@ -51,6 +52,7 @@ router.get(
   "/getDataStagnantMaterialsPa",
   Auth,
   authorization,
+  applicationAuth,
   getDataStagnantMaterialsPa
 );
 router.get(
@@ -72,18 +74,21 @@ router.get(
   "/getDataStagnantMaterialsApproveAdmin",
   Auth,
   authorization,
+  applicationAuth,
   getDataStagnantMaterialsApproveAdmin
 );
 router.get(
   "/getDataStagnantMaterialsByUserId",
   Auth,
   authorization,
+  // applicationAuth,
   getDataStagnantMaterialsByUserId
 );
 router.get(
   "/getDataStagnantMaterialsApproveSuperAdminRoot",
   Auth,
   authorization,
+  applicationAuth,
   getDataStagnantMaterialsApproveSuperAdminRoot
 );
 router.post("/ApproveAdminMaterial", Auth, ApproveAdminMaterial);

@@ -1,0 +1,145 @@
+server
+    ├── .idea
+    │   ├── inspectionProfiles
+    │   │   └── profiles_settings.xml
+    │   ├── .gitignore
+    │   ├── misc.xml
+    │   ├── modules.xml
+    │   ├── server.iml
+    │   ├── vcs.xml
+    │   └── workspace.xml
+    ├── .vscode
+    │   └── settings.json
+    ├── logs
+    │   └── app.log
+    ├── src
+    │   ├── config
+    │   │   └── db.js
+    │   ├── controller
+    │   │   ├── obesoloteMaterial
+    │   │   │   ├── BookMatetrialController.js
+    │   │   │   ├── EntitisController.js
+    │   │   │   ├── getTempletFileController.js
+    │   │   │   ├── governorateController.js
+    │   │   │   ├── jobTitleController.js
+    │   │   │   ├── MainClassAndSubClass.js
+    │   │   │   ├── MainistriesController.js
+    │   │   │   ├── MeasuringUnitController.js
+    │   │   │   ├── ObsoleteMatrialsController.js
+    │   │   │   ├── reportController.js
+    │   │   │   ├── RequestDeniedControoler.js
+    │   │   │   └── StateMatrialController.js
+    │   │   ├── waerhouseController
+    │   │   │   ├── addUserToWarehouse.js
+    │   │   │   ├── FactoriesController.js
+    │   │   │   ├── getTempletFileWarhouseController.js
+    │   │   │   ├── inventoryRegister.js
+    │   │   │   ├── LabController.js
+    │   │   │   ├── reportWarhoseController.js
+    │   │   │   ├── storeDataController.js
+    │   │   │   ├── warehouse.js
+    │   │   │   └── wareHouseNotifction.js
+    │   │   ├── aboutSystemController.js
+    │   │   ├── applictionPrmission.js
+    │   │   ├── BannerController.js
+    │   │   ├── LogController.js
+    │   │   ├── NotifctionController.js
+    │   │   ├── PermassionController.js
+    │   │   ├── RemoveDateController.js
+    │   │   ├── RoleController.js
+    │   │   ├── UserGuid.js
+    │   │   └── UserMnagemantController.js
+    │   ├── cron
+    │   │   ├── cleanOldLogs.js
+    │   │   ├── deleteZeroQuantityItems.js
+    │   │   └── managemantUserSession.js
+    │   ├── image
+    │   │   └── Format2.jpg
+    │   ├── logs
+    │   │   ├── .112631d4c2b4517be48a3aec016636b30226ba14-audit.json
+    │   │   ├── .6e753b51313065b263c54202fa3f0ab67c71121a-audit.json
+    │   │   ├── error-2025-03.log
+    │   │   ├── error-2025-04.log
+    │   │   ├── info-2025-03.log
+    │   │   └── info-2025-04.log
+    │   ├── middleware
+    │   │   ├── ApplicationAuth.js
+    │   │   ├── auth.js
+    │   │   ├── Authorization.js
+    │   │   ├── errorHandel.js
+    │   │   ├── Logger.js
+    │   │   └── upload.js
+    │   ├── model
+    │   │   ├── invevtoryModel
+    │   │   │   └── inventoryModel.js
+    │   │   └── userModel.js
+    │   ├── query
+    │   │   ├── bookedQuery.js
+    │   │   ├── mainClassQuery.js
+    │   │   ├── ObsoleteMatrialsControllerQuery.js
+    │   │   ├── permisionsQuery.js
+    │   │   ├── reportQuery.js
+    │   │   ├── RoleQuery.js
+    │   │   └── userMangeController-db.js
+    │   ├── Rote
+    │   │   ├── ObesoloteMaterialR
+    │   │   │   ├── BookR.js
+    │   │   │   ├── EntitiesR.js
+    │   │   │   ├── getTemplet.js
+    │   │   │   ├── governorateR.js
+    │   │   │   ├── jopTitleR.js
+    │   │   │   ├── mainClassAndSubClassR.js
+    │   │   │   ├── MatrialState.js
+    │   │   │   ├── MessageDeniedR.js
+    │   │   │   ├── MinistriesR.js
+    │   │   │   ├── ObsoleteMartialsR.js
+    │   │   │   ├── RemoveDate.js
+    │   │   │   └── UserGuidR.js
+    │   │   ├── warehouseRot
+    │   │   │   ├── Factories.js
+    │   │   │   ├── inventory.js
+    │   │   │   ├── LabR.js
+    │   │   │   ├── notifctionWarehouse.js
+    │   │   │   ├── reportR.js
+    │   │   │   ├── StoreDataRout.js
+    │   │   │   └── warehouseR.js
+    │   │   ├── AboutR.js
+    │   │   ├── applicationPermission.js
+    │   │   ├── BannerR.js
+    │   │   ├── logR.js
+    │   │   ├── NotificaltionR.js
+    │   │   ├── permission.js
+    │   │   ├── reportR.js
+    │   │   ├── RoleR.js
+    │   │   ├── unitMeasuringR.js
+    │   │   └── UserManagementR.js
+    │   ├── utils
+    │   │   ├── createLog.js
+    │   │   ├── createNotifction.js
+    │   │   ├── createScureToken.js
+    │   │   ├── DeleteFile.js
+    │   │   ├── function.js
+    │   │   ├── genratCode.js
+    │   │   ├── genrateToken.js
+    │   │   ├── handelCookie.js
+    │   │   ├── pagination.js
+    │   │   ├── pusherINfo.js
+    │   │   └── removeCtiveSession.js
+    │   ├── validation
+    │   │   └── userValidtion.js
+    │   └── cronScheduler.js
+    ├── tests
+    │   └── api.test.js
+    ├── .env.production
+    ├── .env.testing
+    ├── .gitignore
+    ├── apiTst.http
+    ├── bash.exe.stackdump
+    ├── index.html
+    ├── package-lock.json
+    ├── package.json
+    ├── README.md
+    ├── server.js
+    ├── style.css
+    ├── test-load.yml
+    └── test.drawio

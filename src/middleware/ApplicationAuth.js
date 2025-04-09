@@ -20,7 +20,6 @@ const applicationAuth = async (req, res, next) => {
       // Extract user_id_application__permission_id as an array
       const permissionData = rows.map(row => row.user_id_application__permission_id);
       console.log("Filtered permissionData: ", permissionData);
-
       if (
         Array.isArray(permissionData) &&
         permissionData.some(permission => String(permission) === applicationPermission)
