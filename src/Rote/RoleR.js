@@ -8,9 +8,11 @@ const {
   getDataRoleIdAndPermission,
   setPermissionAndRole,
 } = require("../controller/RoleController.js");
+const authorization = require("../middleware/Authorization.js");
+const applicationAuth = require("../middleware/ApplicationAuth.js");
 const router = Router();
-router.post("/setRole",Auth, setRole);
-router.get("/getRole",Auth, getRole);
+router.post("/setRole",Auth,authorization, setRole);
+router.get("/getRole",Auth,getRole);
 router.post(
   "/setPermissionAndRoleToEachGroup",
   Auth,

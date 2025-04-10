@@ -1,0 +1,33 @@
+config:
+  target: "http://localhost:5000" # Change to your API URL
+  phases:
+    - duration: 60  # Run for 60 seconds
+      arrivalRate: 50  # 50 requests per second
+  plugins:
+    expect: {}
+    metrics-by-endpoint: {}
+
+scenarios:
+  - flow:
+      - post:
+          url: "api/warehouse/storeDataRegister"
+          headers:
+            Content-Type: "application/json"
+            entity_id: "{{ $randomNumber(1, 10) }}"
+            ministry_id: "{{ $randomNumber(1, 5) }}"
+            user_id: "{{ $randomNumber(1, 50) }}"
+            warehouse_id: "{{ $randomNumber(1, 20) }}"
+            lab_id: "{{ $randomNumber(1, 15) }}"
+            factory_id: "{{ $randomNumber(1, 10) }}"
+          formData:
+            # Form fields
+            name: "Test Material"
+            measuring_id: "{{ $randomNumber(1, 100) }}"
+            measuring_unit: "{{ $randomNumber(1, 100) }}"
+            code: "{{ $randomNumber(1, 100) }}"
+            minimum_stock_level: "{{ $randomNumber(1, 100) }}"
+            origin: "{{ $randomNumber(1, 10) }}"
+            user_id: "{{ $randomNumber(1, 50) }}"
+            typMartials: "{{ ['Type1', 'Type2', 'Type3'] | random }}"
+            specification: "Load test description {{ $randomString(10) }}"
+            # Single file approach

@@ -21,10 +21,11 @@ const {
 } = require("../../controller/obesoloteMaterial/BookMatetrialController.js");
 const upload = require("../../middleware/upload.js");
 const authorization = require("../../middleware/Authorization.js");
+const applicationAuth = require("../../middleware/ApplicationAuth.js");
 const router = Router();
 router.post("/bookRegister", Auth, bookRegister);
-router.get("/getDataBookByEntityId", Auth, getDataBookByEntityId);
-router.get("/getDataBook", Auth, authorization, getDataBook);
+router.get("/getDataBookByEntityId", Auth,authorization,applicationAuth, getDataBookByEntityId);
+router.get("/getDataBook", Auth, authorization,applicationAuth, getDataBook);
 router.get("/deleteBookById/:id", Auth, deleteBookById);
 router.get("/cancelRequest/:id", Auth, cancelRequest);
 router.post("/bookEdit", Auth, bookEdit);
@@ -37,17 +38,22 @@ router.post(
 router.get(
   "/getDataStagnantMaterialsBookedPa",
   Auth,
+  authorization,
+  applicationAuth,
   getDataStagnantMaterialsBookedPa
 );
 router.get(
   "/getDataBookedFalse",
   Auth,
   authorization,
+  applicationAuth,
   getDataBookedFalse
 );
 router.get(
   "/getDataStagnantMaterialsBookedPByEntityBookedOrBuyTheMaterial",
   Auth,
+  authorization,
+  applicationAuth,
   getDataStagnantMaterialsBookedPByEntityBookedOrBuyTheMaterial
 );
 router.post("/ApproveBooked", Auth, ApproveBooked);
@@ -62,6 +68,7 @@ router.post(
 router.get(
   "/getDataBookByEntityIdSendBooking",
   Auth,authorization,
+  applicationAuth,
   getDataBookByEntityIdSendBooking
 );
 router.post(

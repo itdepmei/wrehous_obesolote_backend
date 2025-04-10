@@ -1,6 +1,13 @@
 const { connect } = require("../../config/db");
+const { insertNotification } = require("../../utils/createNotifction");
+const pusher = require("../../utils/pusherINfo");
 const MessageDeniedRegister = async (req, res) => {
-  const { message, book_id } = req.body;
+  const user_id = req.user._id;
+  console.log("userRoleUserData", user_id);
+
+  const { message, book_id, entity_Buy_id, material_id } = req.body;
+  console.log("message", req.body);
+
   if (!message) {
     return res.status(400).json({ message: "يرجا أدخال المعلومات" });
   }
@@ -14,6 +21,28 @@ const MessageDeniedRegister = async (req, res) => {
         message,
         book_id,
       ]);
+      if (response.affectedRows === 0) {
+        return res.status(400).json({ message: "حدث خطأ في الاضافة" });
+      }
+      await insertNotification(
+        user_id,
+        " رفض طلب",
+        message,
+        "reject",
+        `Product-Overview/${material_id}`,
+        entity_Buy_id,
+        null,
+        1
+      );
+      // Trigger Pusher event
+      const eventData = {
+        name: "message_denied",
+        message,
+        user_id,
+        category_id: 1,
+        // entities_id: entities_id,
+      };
+      pusher.trigger("poll", "vote", eventData);
       res.status(201).json({ message: "تم الاضافة بنجاح", response });
     } finally {
       connection.release();
@@ -45,7 +74,7 @@ const getDataMessageById = async (req, res) => {
 };
 
 const editMessageDe = async (req, res) => {
-  const { dataEdit ,dataId } = req.body;
+  const { dataEdit, dataId } = req.body;
   try {
     const pool = await connect();
     const connection = await pool.getConnection();
@@ -75,7 +104,7 @@ const editMessageDe = async (req, res) => {
 const deleteMessageById = async (req, res) => {
   try {
     const pool = await connect();
-    const connection = await pool.getConnection();   
+    const connection = await pool.getConnection();
     try {
       const deleteGovernorateById = "DELETE FROM request_denied WHERE id=?";
       const [response] = await connection.execute(deleteGovernorateById, [
@@ -99,14 +128,13 @@ const deleteRequestById = async (req, res) => {
   try {
     const pool = await connect();
     const connection = await pool.getConnection();
-   
-    
+
     try {
       const deleteGovernorateById = "DELETE FROM request_denied WHERE id=?";
       const [response] = await connection.execute(deleteGovernorateById, [
         req.params.id,
       ]);
-    
+
       if (response.affectedRows > 0) {
         return res.status(200).json({ message: "تم الحذف بنجاح" });
       } else {
@@ -125,5 +153,5 @@ module.exports = {
   getDataMessageById,
   deleteMessageById,
   editMessageDe,
-  deleteRequestById
+  deleteRequestById,
 };

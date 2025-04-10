@@ -1,0 +1,13 @@
+config:
+  target: "http://localhost:5000" # Change to your API URL
+  phases:
+    - duration: 60  # Run for 60 seconds
+      arrivalRate: 100  # 50 requests per second
+  plugins:
+    expect: {}
+    metrics-by-endpoint: {}
+
+scenarios:
+  - flow:
+      - get:
+          url: "/api/getAllDataStagnantMaterials"

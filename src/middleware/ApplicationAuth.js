@@ -1,9 +1,9 @@
 const { connect } = require("../config/db");
 const applicationAuth = async (req, res, next) => {
   const user = req.user;
-  // console.log("vxcbdfh",req.query.applicationPermission);
+  console.log("vxcbdfh",req.query.applicationPermission);
 
-  const applicationPermission = req.query.applicationPermission;
+  const applicationPermission = req.query.applicationPermission||req.body.applicationPermission;
   try {
     const pool = await connect();
     const connection = await pool.getConnection();

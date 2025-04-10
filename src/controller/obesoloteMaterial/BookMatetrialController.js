@@ -104,7 +104,7 @@ const bookRegister = async (req, res) => {
       message: `تم إرسال طلب حجز من قبل ${userAuth.user_name} من ${userAuth.Entities_name}`,
       entity_id: approveSendRequestBoolean ? entityForNotification : null,
       user_id: approveSendRequestBoolean ? null : user.user_id,
-      category_id: 2,
+      category_id: 1,
     };
     // Insert notification
     await insertNotification(
@@ -122,7 +122,7 @@ const bookRegister = async (req, res) => {
     return res.status(201).json({
       message: "تم الحجز بنجاح",
       dataId: insertResult.insertId,
-      category_id: 2,
+      category_id: 1,
     });
   } catch (error) {
     logger.error("Internal server error:", error);
@@ -213,7 +213,7 @@ const UploadBookForEntityBuy = async (req, res) => {
       name: "send_official_document",
       message: `Official document uploaded by ${userAuth.user_name} from ${userAuth.Entities_name}`,
       entity_id: dataBooked.entity_id,
-      category_id: 2,
+      category_id: 1,
     };
     pusher.trigger("poll", "vote", eventData);
 
@@ -490,7 +490,7 @@ const deleteBookById = async (req, res) => {
         name: "delete_request_material",
         message: `تم ألغاء حجز المادة `,
         user_id: bookedMaterial.user_id,
-        category_id: 2,
+        category_id: 1,
       };
       pusher.trigger("poll", "vote", eventData);
       const deleteBookingQuery = "DELETE FROM booking_materials WHERE id = ?";
@@ -1037,7 +1037,7 @@ const ApproveBooked = async (req, res) => {
             name: "approve_Book",
             message: logText,
             user_id: userInformationForEntityBuy.user_id,
-            category_id: 2,
+            category_id: 1,
           };
           pusher.trigger("poll", "vote", eventData);
         }
@@ -1127,7 +1127,7 @@ const Contacted = async (req, res) => {
         name: "approve_Book",
         message: `تم الوافقة على أرسال كتاب  من قبل ${currentUser.Entities_name}`,
         user_id: userBookingInfo.user_id,
-        category_id: 2,
+        category_id: 1,
       };
       pusher.trigger("poll", "vote", eventData);
       await connection.commit(); // Commit the transaction
@@ -1241,7 +1241,7 @@ const approvedAdminSendRequestBook = async (req, res) => {
         name: "send_request_book_to_admin",
         message: `تم إرسال طلب حجز من قبل ${userRoleUserData.user_name} من ${userRoleUserData.Entities_name}`,
         user_id: dataToSendEntity.user_id,
-        category_id: 2,
+        category_id: 1,
       };
       // Trigger event using your Pusher client, e.g., pusher.trigger(...)
       // Trigger Pusher event for the entity
@@ -1265,7 +1265,7 @@ const approvedAdminSendRequestBook = async (req, res) => {
         name: "approve_send_request_book",
         message: `تم الموافقة على أرسال طلب الحجز من ${dataAuth.user_name}`,
         user_id: bookedMaterial.user_id,
-        category_id: 2,
+        category_id: 1,
       };
       // Trigger Pusher event for the user
       pusher.trigger("poll", "vote", eventDataUser);
@@ -1364,7 +1364,7 @@ const approvedAdminToUploadBook = async (req, res) => {
         name: "approve_upload_book",
         message: `تم الموافقة على رفع الكتاب الرسمي لأكمال حجز المادة`,
         user_id: bookedMaterial.user_id,
-        category_id: 2,
+        category_id: 1,
       };
       pusher.trigger("poll", "vote", eventData);
       const text = `تم الموافقة على رفع كتاب المادة  ${dataAuth.user_name} التابع الى ${dataAuth.Entities_name}`;

@@ -177,3 +177,32 @@
 [2025-04-08 12:48:34] ERROR: Error logging in: Cannot read properties of undefined (reading 'headers')
 [2025-04-08 13:03:56] ERROR: Error deleting main class: Cannot delete or update a parent row: a foreign key constraint fails (`stagnant_materials_warhouse_db`.`store_data`, CONSTRAINT `WARHOUSE_DATA_FK` FOREIGN KEY (`warehouse_id`) REFERENCES `warehouse` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT)
 [2025-04-09 13:45:36] ERROR: Error logging in:User is not active in the active_session_user table[object Object]باسم حسين عبد الامير51Bassim@ur.com
+[2025-04-10 08:44:04] ERROR: Error logging in:User is not active in the active_session_user table[object Object]باسم حسين عبد الامير51Bassim@ur.com
+[2025-04-10 10:20:49] ERROR: Error obtaining connection:  connect ECONNREFUSED ::1:3306
+[2025-04-10 10:20:49] ERROR: Connection error. Retries left: 4 connect ECONNREFUSED ::1:3306
+[2025-04-10 10:20:52] ERROR: Error obtaining connection:  connect ECONNREFUSED ::1:3306
+[2025-04-10 10:20:52] ERROR: Connection error. Retries left: 3 connect ECONNREFUSED ::1:3306
+[2025-04-10 10:20:55] ERROR: Error obtaining connection:  connect ECONNREFUSED ::1:3306
+[2025-04-10 10:20:55] ERROR: Connection error. Retries left: 2 connect ECONNREFUSED ::1:3306
+[2025-04-10 10:20:58] ERROR: Error obtaining connection:  connect ECONNREFUSED ::1:3306
+[2025-04-10 10:20:58] ERROR: Connection error. Retries left: 1 connect ECONNREFUSED ::1:3306
+[2025-04-10 10:21:01] ERROR: Error obtaining connection:  connect ECONNREFUSED ::1:3306
+[2025-04-10 10:21:01] ERROR: Connection error. Retries left: 0 connect ECONNREFUSED ::1:3306
+[2025-04-10 10:21:01] ERROR: All retries failed. Could not connect to the database.
+[2025-04-10 10:22:06] ERROR: Error obtaining connection:  connect ECONNREFUSED ::1:3306
+[2025-04-10 10:22:06] ERROR: Connection error. Retries left: 4 connect ECONNREFUSED ::1:3306
+[2025-04-10 11:01:39] ERROR: An error occurred: 
+[2025-04-10 11:04:20] ERROR: An error occurred: 
+[2025-04-10 12:04:40] ERROR: Error registering user: أدخل البيانات المطلوبة
+[2025-04-10 12:05:03] ERROR: Error registering user: أدخل البيانات المطلوبة
+[2025-04-10 12:05:29] ERROR: Error registering user: أدخل البيانات المطلوبة
+[2025-04-10 12:05:53] ERROR: Error registering user: أدخل البيانات المطلوبة
+[2025-04-10 12:10:06] ERROR: No booking materials found
+[2025-04-10 12:16:26] ERROR: Bind parameters must not contain undefined. To pass SQL NULL specify JS null
+[2025-04-10 12:17:11] ERROR: Bind parameters must not contain undefined. To pass SQL NULL specify JS null
+[2025-04-10 12:18:41] ERROR: Bind parameters must not contain undefined. To pass SQL NULL specify JS null
+[2025-04-10 12:20:24] ERROR: Bind parameters must not contain undefined. To pass SQL NULL specify JS null
+[2025-04-10 12:20:24] ERROR: Bind parameters must not contain undefined. To pass SQL NULL specify JS null
+[2025-04-10 12:21:35] ERROR: Bind parameters must not contain undefined. To pass SQL NULL specify JS null
+[2025-04-10 12:27:07] ERROR: Bind parameters must not contain undefined. To pass SQL NULL specify JS null
+[2025-04-10 13:20:36] ERROR: Error logging in:User is not active in the active_session_user table[object Object]المستخم الثاني لنحطة الوسط105admin23@gmail.com

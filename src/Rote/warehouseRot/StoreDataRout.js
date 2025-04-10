@@ -11,7 +11,7 @@ const {
   dataStoreRegisterAsForLoop,
 } = require("../../controller/waerhouseController/storeDataController.js");
 const router = Router();
-router.post("/storeDataRegister", Auth, storeDataRegister);
+router.post("/storeDataRegister", storeDataRegister);
 router.post("/insertMultipleData", Auth, dataStoreRegisterAsForLoop);
 router.get("/getDataStoreData", Auth, GetDataStoreData);
 router.get("/storGetDataById/:id", Auth, storGetDataById);

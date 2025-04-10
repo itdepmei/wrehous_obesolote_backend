@@ -2,9 +2,8 @@ const { connect } = require("../config/db");
 const { getDataPermissionUserIdDataQuery } = require("../query/RoleQuery");
 const authorization = async (req, res, next) => {
   const user = req.user;
-  const checkPermissionUser= req.query.checkPermissionUser;
-  // console.log("hello p",req.query);
-  
+  const checkPermissionUser= req.query.checkPermissionUser || req.body.checkPermissionUser;
+  console.log("hello p",checkPermissionUser);
   try {
     // console.log(checkPermissionUser);
     const pool = await connect();
@@ -15,7 +14,7 @@ const authorization = async (req, res, next) => {
         [user?._id]
       );
       const dataUserPermission = rows[0];
-      // console.log(dataUserPermission.permission_id, checkPermissionUser);
+      console.log(dataUserPermission.permission_id, checkPermissionUser);
       const permissionData = JSON.parse(dataUserPermission.permission_id);
       // console.log(permissionData);
       // Convert checkPermissionUser to string for comparison

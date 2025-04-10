@@ -25,6 +25,8 @@ const router = Router();
 router.post(
   "/stagnantMartialsRegister",
   Auth,
+  authorization,
+  // applicationAuth,
   upload.array("files", 4),
   stagnantMaterialsRegister
 );

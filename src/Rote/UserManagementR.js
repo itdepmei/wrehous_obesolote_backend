@@ -18,7 +18,7 @@ const authorization = require("../middleware/Authorization.js");
 const {Auth, refreshTokenHandler} = require("../middleware/auth.js");
 const applicationAuth = require("../middleware/ApplicationAuth.js");
 const router = Router();
-router.post("/registerUser", registerUser);
+router.post("/registerUser",Auth,authorization, registerUser);
 router.post("/Login", login);
 router.post("/refresh-token", refreshTokenHandler);
 router.get("/getDataUserManage", Auth, authorization,applicationAuth, getDataUserManage);

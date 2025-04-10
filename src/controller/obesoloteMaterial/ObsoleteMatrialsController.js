@@ -33,6 +33,7 @@ const stagnantMaterialsRegister = async (req, res) => {
     description,
     purchaseDate,
   } = req.body;
+  console.log("Request body:", req.body);
   const trimmedFields = {
     trimmedNameMartials: nameMartials?.trim() || "",
     trimmedStatusMartials: status_martials?.trim() || "",
@@ -161,7 +162,7 @@ const stagnantMaterialsRegister = async (req, res) => {
           name: "send_request_material",
           message: `تم أدراج مادة من خلال ${userAuth.user_name} التابع ${userAuth.Entities_name}  بأنتظار الموافقة على الطلب`,
           user_id: user.user_id,
-          category_id: 2,
+          category_id: 1,
           // entities_id: entities_id,
         };
         pusher.trigger("poll", "vote", eventData);
@@ -407,12 +408,13 @@ const getAllDataStagnantMaterials = async (req, res) => {
     connection = await pool.getConnection();
     console.log("Connection established");
     const [rows] = await connection.execute(getAllDataQuery);
+    // console.log(rows);
     if (rows.length === 0) {
       return res.status(404).json({ message: "No data found" });
     }
     res.status(200).json({ response: rows });
   } catch (error) {
-    console.error("An error occurred: ", error.message);
+    console.log("An error occurred: ", error.message);
     res
       .status(500)
       .json({ message: "An error occurred", error: error.message });

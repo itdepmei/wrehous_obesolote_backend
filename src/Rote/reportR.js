@@ -6,6 +6,8 @@ const {
   getDataCountOfEntity,
   getDataINforamaitionReport,
 } = require("../controller/obesoloteMaterial/reportController.js");
+const authorization = require("../middleware/Authorization.js");
+const applicationAuth = require("../middleware/ApplicationAuth.js");
 const router = Router();
 router.get("/getDataCountOfMaterial", getDataCountOfMaterial);
 router.post(
